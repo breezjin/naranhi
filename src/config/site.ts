@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: '나란히 정신건강의학과의원 & 나란히 심리발달센터',
-  description: '심신의 안정과 평화를 위해 나란히 함께 합니다.',
+  name: '나란히 정신건강의학과의원 & 심리발달센터',
+  description: '함께 서있지만 너무 가깝지 않고, 또 너무 멀지도 않게, 나란히.',
   mainNav: [
     { title: '홈', href: '/' },
     { title: '병원소개', href: '/about-hospital' },
