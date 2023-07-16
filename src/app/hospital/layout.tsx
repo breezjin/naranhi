@@ -38,6 +38,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             <div className='flex w-full flex-col'>
+              <SiteHeader />
               <section className=''>{children}</section>
             </div>
             <TailwindIndicator />
