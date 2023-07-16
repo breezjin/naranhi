@@ -40,7 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className='flex w-full flex-col'>
               <section className=''>{children}</section>
             </div>
-            <TailwindIndicator />
+            {/* <TailwindIndicator /> */}
           </ThemeProvider>
         </body>
       </html>
