@@ -1,3 +1,4 @@
+/** @type {import('prettier').Config} */
 module.exports = {
   semi: true,
   trailingComma: 'all',
@@ -6,8 +7,9 @@ module.exports = {
   printWidth: 100,
   useTabs: false,
   tabWidth: 2,
-  arrowParens: 'avoid',
-  endOfLine: 'auto',
+  arrowParens: 'always',
+  endOfLine: 'if',
+  bracketSpacing: false,
   bracketSameL1ine: false,
   importOrder: [
     '^(react/(.*)$)|^(react$)',
@@ -26,6 +28,12 @@ module.exports = {
     '',
     '^[./]',
   ],
+  importOrderSeparation: false,
+  importOrderSortSpecifiers: true,
+  importOrderBuiltinModulesToTop: true,
+  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderMergeDuplicateImports: true,
+  importOrderCombineTypeAndValueImports: true,
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
 };
 

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import ArrowLink from '@/components/links/ArrowLink';
-import UnderlineLink from '@/components/links/UnderlineLink';
 
 export default function Home() {
   return (
@@ -16,8 +15,7 @@ export default function Home() {
       <div className='text-2xl'>& 심리발달센터</div>
       <div className='m-8 text-2xl text'><span className='text-yellow-600 font-semibold'>9월</span>에 오픈 합니다.</div>
       <div className='flex mb-8 gap-4 text-slate-500'>
-        <ArrowLink href='https://blog.naver.com/naranhiclinic'>나란히 개원 이야기</ArrowLink>
-        <ArrowLink href='https://roasted-beard-5ad.notion.site/cbf11c249d4040a09701ea1b4cf75a87?pvs=4'>채용공고</ArrowLink>
+        <ArrowLink href='https://blog.naver.com/naranhiclinic/223157652333'>나란히 개원 이야기</ArrowLink>
       </div>
       <div className=''>서울특별시 동작구 현충로 75, 3층 2-1호</div>
       <div className='text-xs'>원불교100년기념관 및 역사문화기념관</div>
