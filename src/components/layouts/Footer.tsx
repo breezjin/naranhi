@@ -2,45 +2,58 @@ import * as React from 'react';
 
 import UnstyledLink from '@/components/links/UnstyledLink';
 
-interface FooterProps {
-  username: string;
-  userlink: string;
-}
-
-export default function Footer({ username, userlink }: FooterProps) {
+export default function Footer() {
   return (
-    <footer className='fixed bottom-0 z-50 flex h-6 items-center justify-center bg-black'>
-      <div className='ml-2 px-2 text-xs text-gray-400'>
-        Since 2007, Copyright © {new Date().getFullYear()} BREEZ Communications LLC
+    <footer className='w-full flex flex-col items-center justify-center bg-black p-8'>
+      <div className='flex gap-4 mb-6 text-primary-foreground dark:text-primary'>
+        <div>서비스이용약관</div>
+        <div>|</div>
+        <div>개인정보이용방침</div>
       </div>
-      <div className='px-2 text-xs text-gray-400'>|</div>
-      <UnstyledLink href='/terms-of-service'>
-        <div className='flex h-full items-center px-2 text-xs text-white'>Terms Of Service</div>
-      </UnstyledLink>
-      <div className='px-2 text-xs text-gray-400'>|</div>
-      <UnstyledLink href='/privacy-policy'>
-        <div className='flex h-full items-center px-2 text-xs text-white'>Privacy Policy</div>
-      </UnstyledLink>
-      <div className='px-2 text-xs text-gray-400'>|</div>
-      <div className='mr-2 flex h-full items-center px-2 text-xs text-gray-400'>
-        Photo by
-        <span className='mx-2 text-white'>
-          <UnstyledLink
-            href={`${userlink}?utm_source=breezfm&utm_medium=referral`}
-            openNewTab={true}
-          >
-            {`${username}`}
-          </UnstyledLink>
-        </span>
-        on
-        <span className='ml-2 text-white'>
-          <UnstyledLink
-            href={'https://unsplash.com/?utm_source=breezfm&utm_medium=referral'}
-            openNewTab={true}
-          >
-            {'Unsplash'}
-          </UnstyledLink>
-        </span>
+      <div className=''>
+        <div className='flex gap-4 flex-flow'>
+          <div className='flex w-52'>
+            <div className='text-gray-500 text-sm'>상호</div>
+            <div className='text-gray-300 text-sm ml-2'>나란히정신건강의학과</div>
+          </div>
+          <div className='flex'>
+            <div className='text-gray-500 text-sm'>대표</div>
+            <div className='text-gray-300 text-sm ml-2'>김채리</div>
+          </div>
+          <div className='flex'>
+            <div className='text-gray-500 text-sm'>사업자등록번호</div>
+            <div className='text-gray-300 text-sm ml-2'>656-95-01851</div>
+          </div>
+          <div className='flex'>
+            <div className='text-gray-500 text-sm'>전화번호</div>
+            <div className='text-gray-300 text-sm ml-2'>02-6484-8110</div>
+          </div>
+        </div>
+        <div className='flex gap-4'>
+          <div className='flex w-52'>
+            <div className='text-gray-500 text-sm'>상호</div>
+            <div className='text-gray-300 text-sm ml-2'>(부설) 나란히 심리발달센터</div>
+          </div>
+          <div className='flex'>
+            <div className='text-gray-500 text-sm'>대표</div>
+            <div className='text-gray-300 text-sm ml-2'>김채영</div>
+          </div>
+          <div className='flex'>
+            <div className='text-gray-500 text-sm'>사업자등록번호</div>
+            <div className='text-gray-300 text-sm ml-2'>157-31-01236</div>
+          </div>
+          <div className='flex'>
+            <div className='text-gray-500 text-sm'>전화번호</div>
+            <div className='text-gray-300 text-sm ml-2'>02-6484-8111</div>
+          </div>
+        </div>
+        <div className='flex'>
+          <div className='text-gray-500 text-sm'>주소</div>
+          <div className='text-gray-300 text-sm ml-2'>서울특별시 동작구 현충로 75, 3층 2-1호(흑석동, 원불교100년기념관 및 역사문화기념관)</div>
+        </div>
+      </div>
+      <div className='mt-8 px-4 text-xs text-gray-400'>
+        Since 2023, Copyright © {new Date().getFullYear()} Naranhi Mental Health Clinic. All Right Reserved.
       </div>
     </footer>
   );

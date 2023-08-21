@@ -44,7 +44,7 @@ export function SiteHeader() {
                 <span className='sr-only'>GitHub</span>
               </div>
             </Link>
-            <Link href={siteConfig.links.kakao} target='_blank' rel='noreferrer'>
+            {/* <Link href={siteConfig.links.kakao} target='_blank' rel='noreferrer'>
               <div
                 className={buttonVariants({
                   size: 'sm',
@@ -54,7 +54,7 @@ export function SiteHeader() {
                 <Icons.twitter className='h-5 w-5 fill-current' />
                 <span className='sr-only'>Twitter</span>
               </div>
-            </Link>
+            </Link> */}
             <ThemeToggle />
           </nav>
         </div>

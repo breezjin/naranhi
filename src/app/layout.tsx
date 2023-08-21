@@ -2,29 +2,15 @@ import '@/styles/globals.css';
 
 import { Metadata } from 'next';
 
+import Footer from '@/components/layouts/Footer';
 import { TailwindIndicator } from '@/components/layouts/TailwindIndicator';
 import { ThemeProvider } from '@/components/layouts/ThemeProvider';
 import { SiteHeader } from '@/components/siteHeaders/SiteHeader';
-import { siteConfig } from '@/config/site';
-import { fontSans } from '@/lib/fonts';
+import { defaultMetadata } from '@/lib/defaultMetadata';
+import { naranhiFont } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
-  icons: {
-    icon: 'favicon/favicon.ico',
-    shortcut: 'favicon/favicon-16x16.png',
-    apple: 'favicon/apple-touch-icon.png',
-  },
-};
+export const metadata: Metadata = defaultMetadata;
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -35,12 +21,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <html lang='ko' suppressHydrationWarning>
         <head />
-        <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+        <body className={cn('min-h-screen bg-background antialiased', naranhiFont.className)}>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             <div className='flex w-full flex-col'>
-              <section className=''>{children}</section>
+              <SiteHeader />
+              <section className='p-8'>{children}</section>
+              <Footer />
             </div>
-            {/* <TailwindIndicator /> */}
+            <TailwindIndicator />
           </ThemeProvider>
         </body>
       </html>
