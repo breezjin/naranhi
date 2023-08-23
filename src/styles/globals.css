@@ -21,6 +21,8 @@
  
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
+    --naranhi-green: 69 61% 47%;
+    --naranhi-yellow: 41 73% 54%;
  
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -54,6 +56,8 @@
  
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
+    --naranhi-green: 69 61% 47%;
+    --naranhi-yellow: 41 73% 54%;
  
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -74,5 +78,21 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .naranhi-fade-in {
+    opacity: 0;
+    animation: fadeIn ease-in-out 1s forwards;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }

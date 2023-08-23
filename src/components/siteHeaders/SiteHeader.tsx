@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Icons from '@/components/Icons';
-import { ThemeToggle } from '@/components/layouts/ThemeToggle';
+import { ModeToggle } from '@/components/layouts/ThemeToggle';
+// import { ThemeToggle } from '@/components/layouts/ThemeToggle';
 import { MainNav } from '@/components/siteHeaders/MainNav';
 import { buttonVariants } from '@/components/ui/button';
 import {
@@ -16,7 +17,7 @@ export function SiteHeader() {
     <header className='sticky top-0 z-40 w-full border-b bg-background px-8'>
       <div className='flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0'>
         <MainNav items={siteConfig.mainNav} />
-        <div className='px-8'>
+        {/* <div className='px-8'>
           <DropdownMenu>
             <DropdownMenuTrigger>Components</DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -30,7 +31,7 @@ export function SiteHeader() {
               </Link>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </div> */}
         <div className='flex flex-1 items-center justify-end space-x-4'>
           <nav className='flex items-center space-x-1'>
             <Link href={siteConfig.links.naverBlog} target='_blank' rel='noreferrer'>
@@ -55,7 +56,7 @@ export function SiteHeader() {
                 <span className='sr-only'>Twitter</span>
               </div>
             </Link> */}
-            <ThemeToggle />
+            <ModeToggle />
           </nav>
         </div>
       </div>

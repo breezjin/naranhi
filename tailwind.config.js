@@ -12,7 +12,17 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        // "2xl": "1400px",
+        // "2xl": {"max": "1535px"},
+        // // => @media (max-width: 1535px) { ... }
+        // "xl": {"max": "1279px"},
+        // // => @media (max-width: 1279px) { ... }
+        // "lg": {"max": "1023px"},
+        // // => @media (max-width: 1023px) { ... }
+        // "md": {"max": "767px"},
+        // // => @media (max-width: 767px) { ... }
+        // "sm": {"max": "639px"},
+        // // => @media (max-width: 639px) { ... }
       },
     },
     extend: {
@@ -27,6 +37,8 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        naranhiGreen: "hsl(var(--naranhi-green))",
+        naranhiYellow: "hsl(var(--naranhi-yellow))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -75,6 +87,12 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      transitionDelay: {
+        "2000": "2000ms",
+        "3000": "3000ms",
+        "4000": "4000ms",
+        "5000": "5000ms",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -9,7 +9,7 @@ export const siteConfig = {
     { title: '내부시설', href: '/facilities' },
     { title: '병원 프로그램', href: '/hospital-programs' },
     { title: '센터 프로그램', href: '/center-programs' },
-    { title: '찾아오시는 길', href: '/contact-us' },
+    { title: '오시는 길', href: '/contact-us' },
   ],
   links: {
     naverBlog: 'https://blog.naver.com/naranhiclinic',
