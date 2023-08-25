@@ -1,4 +1,6 @@
-import { Loader, LucideProps, Moon, SunMedium, Twitter, Volume2, VolumeX } from 'lucide-react';
+import {
+    Loader, LucideProps, Moon, PhoneCall, SunMedium, Twitter, Volume2, VolumeX
+} from 'lucide-react';
 
 const Icons = {
   sun: SunMedium,
@@ -23,6 +25,7 @@ const Icons = {
   volumeMax: Volume2,
   volumeMin: VolumeX,
   loader: Loader,
+  phoneCall: PhoneCall,
 };
 
 export default Icons;

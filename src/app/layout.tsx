@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 import { AOSInit } from '@/components/layouts/aos';
 import Footer from '@/components/layouts/Footer';
@@ -11,6 +12,7 @@ import { defaultMetadata } from '@/lib/defaultMetadata';
 import { naranhiFont } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 
+const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&libraries=services,clusterer&autoload=false`;
 export const metadata: Metadata = defaultMetadata;
 
 interface RootLayoutProps {
@@ -24,10 +26,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <AOSInit />
         <head />
         <body className={cn('min-h-screen min-w-[360px] bg-background antialiased', naranhiFont.className)}>
+          <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             <div className='flex w-full flex-col'>
               <SiteHeader />
-              <section className='p-8'>{children}</section>
+              <section>{children}</section>
               <Footer />
             </div>
             <TailwindIndicator />

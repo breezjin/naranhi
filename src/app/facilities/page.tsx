@@ -2,8 +2,9 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className='flex w-full min-h-screen flex-col items-center justify-center p-24'>
-      내부시설
+    <main className='pt-52 flex w-full min-h-[calc(100vh-65px)] flex-col items-center' data-aos='fade-zoon-in'>
+      <div>나란히정신건강의학과</div>
+      <div>내부시설이 곧 공개 됩니다.</div>
     </main>
   );
 }
