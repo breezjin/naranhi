@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
-import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
+import ArrowLink from '@/components/links/ArrowLink';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -14,13 +13,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import ArrowLink from '@/components/links/ArrowLink';
+
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
     <main
       className={cn(
-        'p-8 flex gap-8 max-lg:flex-col justify-center max-lg:items-center w-full min-h-[calc(100vh-65px)]'
+        'flex min-h-[calc(100vh-65px)] w-full justify-center gap-8 p-8 max-lg:flex-col max-lg:items-center'
       )}
     >
       <div className='w-[40%] max-lg:w-full'>
@@ -44,7 +45,7 @@ export default function Home() {
             - Fred Rogers, The World According to Mr. Rogers
           </div>
           <div
-            className='mt-16 ml-2 flex gap-1 text-lg'
+            className='ml-2 mt-16 flex gap-1 text-lg'
             data-aos='fade-zoom-in'
             data-aos-delay='1000'
           >
@@ -59,7 +60,7 @@ export default function Home() {
             </div>
           </div>
           <div
-            className='mt-1 ml-2 flex gap-1 text-xl'
+            className='ml-2 mt-1 flex gap-1 text-xl'
             data-aos='fade-zoom-in'
             data-aos-delay='2000'
           >

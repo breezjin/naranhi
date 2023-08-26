@@ -17,8 +17,8 @@ const KakaoMap = () => {
       level={1}
     >
       <CustomOverlayMap position={{ lat: naranhiLatLng.lat, lng: naranhiLatLng.lng }}>
-        <div className='p-4 bg-white rounded-lg shadow-lg' data-aos='fade-up' data-aos-delay='1000'>
-          <div className='relative w-64 h-7'>
+        <div className='rounded-lg bg-white p-4 shadow-lg' data-aos='fade-up' data-aos-delay='1000'>
+          <div className='relative h-7 w-64'>
             <Image src={'/imgs/naranhi-logo-color.png'} fill alt='naranhi-logo' />
           </div>
         </div>

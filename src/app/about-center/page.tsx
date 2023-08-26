@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function Home() {
   return (
     <main
-      className='pt-52 flex w-full min-h-[calc(100vh-65px)] flex-col items-center'
+      className='flex min-h-[calc(100vh-65px)] w-full flex-col items-center pt-52'
       data-aos='fade-zoon-in'
     >
       <div>나란히정신건강의학과</div>
