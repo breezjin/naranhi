@@ -9,11 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
-    <main className='p-16 flex max-lg:flex-col w-full min-h-[calc(100vh-65px)] gap-8 max-lg:gap-16'>
-      <div className='w-[35%] max-lg:w-full max-w-full min-w-[360px]'>
+    <main className={cn('p-8 flex gap-8 max-lg:flex-col justify-center max-lg:items-center w-full min-h-[calc(100vh-65px)]')}>
+      <div className='w-[40%] max-lg:w-full'>
         <div className='flex flex-col' data-aos='fade-zoom-in'>
           <div className='flex flex-wrap'>우리가 오랫동안 가장 귀중히 여기는 선물들은 보통 작고 소박한 것들이다.</div>
           <div className='flex flex-wrap'>가장 중요해 보이는 것들은 어려울 때나 편안할 때 우리 가장 가까이에 있는 사람들에게 우리가</div>
@@ -41,7 +42,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='w-[60%] max-lg:w-full min-w-[360px]'>
+      <div className='w-[60%] max-lg:w-full'>
         <Tabs defaultValue="medical-staff" className="w-full" data-aos='fade-zoom-in'>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="medical-staff">의료진 안내</TabsTrigger>

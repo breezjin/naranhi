@@ -20,9 +20,9 @@ interface MainNavProps {
 
 export function MainNav({ items }: MainNavProps) {
   return (
-    <div className='flex gap-6'>
-      <Link href='/' className='mr-4 flex items-center'>
-        <div className='relative w-64 h-7'>
+    <div className='flex gap-6 max-md:w-full max-md:justify-between'>
+      <Link href='/' className='flex items-center'>
+        <div className='relative w-64 h-7 max-md:w-56 max-md:h-6'>
           <Image src={'/imgs/naranhi-logo-color.png'} fill alt='naranhi-logo' />
         </div>
       </Link>
@@ -47,11 +47,11 @@ export function MainNav({ items }: MainNavProps) {
       ) : null}
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant='outline' className='xl:hidden w-full'>Menu</Button>
+          <Button variant='outline' className='xl:hidden'>Menu</Button>
         </SheetTrigger>
-        <SheetContent className='min-w-[360px]'>
+        <SheetContent className='min-w-[375px]'>
           <SheetHeader>
-            <SheetTitle>Menu</SheetTitle>
+            <SheetTitle className='max-sm:text-sm'>Menu</SheetTitle>
             {/* <SheetDescription>
               Make changes to your profile here. Click save when you're done.
             </SheetDescription> */}

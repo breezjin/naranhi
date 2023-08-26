@@ -1,7 +1,10 @@
 'use client'
 
 import { count } from 'console';
+import Image from 'next/image';
 import { TagCloud } from 'react-tagcloud';
+
+import { cn } from '@/lib/utils';
 
 const randomNumber = () => {
   return Math.random() * 10
@@ -71,10 +74,18 @@ const customRenderer = (adultClinics: any, size: number, color: any) => (
 
 export default function HospitalProgram() {
   return (
-    <main className='pt-52 max-lg:p-16 flex max-lg:flex-col w-full min-h-[calc(100vh-65px)] justify-center max-lg:items-center gap-8 max-lg:gap-32' data-aos='fade-zoom-in'>
-      <div className='pr-28 w-[45%] max-lg:w-full max-w-full min-w-[360px]'>
-        <div className='mb-8 text-2xl text-naranhiGreen font-bold'>성인클리닉</div>
+    <main className={cn(
+      'w-full min-h-[calc(100vh-65px)] p-8',
+      'flex justify-center space-x-16 p-12',
+      'max-lg:flex-col max-lg:space-y-16 max-lg:space-x-0'
+      )}>
+      <div className='max-lg:w-full flex flex-col space-y-4'>
+        <div className='flex space-x-2 max-lg:justify-center'>
+          <Image src={'/imgs/naranhi-person-green.png'} width={22} height={15} alt='나란히 초록사람' />
+          <div className='text-2xl text-naranhiGreen font-bold'>성인클리닉</div>
+        </div>
         <TagCloud
+          className='w-full'
           minSize={3}
           maxSize={7}
           tags={adultClinics}
@@ -87,9 +98,13 @@ export default function HospitalProgram() {
           data-aos-duration='2000'
         />
       </div>
-      <div className='pr-28 w-[45%] max-lg:w-full max-w-full min-w-[360px]'>
-        <div className='mb-8 text-2xl text-naranhiYellow font-bold'>소아청소년클리닉</div>
+      <div className='max-lg:w-full flex flex-col space-y-4'>
+        <div className='flex space-x-2 max-lg:justify-center'>
+          <Image src={'/imgs/naranhi-person-yellow.png'} width={22} height={15} alt='나란히 초록사람' />
+          <div className='text-2xl text-naranhiYellow font-bold'>소아청소년클리닉</div>
+        </div>
         <TagCloud
+          className='w-full'
           minSize={3}
           maxSize={7}
           tags={childrenAdolescentsClinics}

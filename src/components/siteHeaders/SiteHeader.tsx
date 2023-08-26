@@ -9,12 +9,12 @@ import { siteConfig } from '@/config/site';
 
 export function SiteHeader() {
   return (
-    <header className='sticky top-0 z-40 px-8 w-full border-b bg-background'>
-      <div className='flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0'>
+    <header className='sticky top-0 z-40 w-full border-b bg-background px-8 max-md:px-4'>
+      <div className='flex h-16 justify-between items-center'>
         <MainNav items={siteConfig.mainNav} />
-        <div className='flex flex-1 items-center justify-end space-x-4'>
-          <nav className='flex items-center space-x-0 max-xl:hidden'>
-            <div className='flex gap-0'>
+        <div className='flex items-center justify-end'>
+          <nav className='flex items-center max-md:hidden'>
+            <div className='flex'>
               <Link href={siteConfig.links.naverBlog} target='_blank' rel='noreferrer'>
                 <div
                   className={buttonVariants({
