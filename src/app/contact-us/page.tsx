@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,17 +9,20 @@ import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
-    <main className={cn(
-      'w-full min-h-[calc(100vh-65px)]',
-      'flex',
-      'max-lg:flex-col-reverse max-lg:min-h-fit'
-      )}>
+    <main
+      className={cn(
+        'w-full min-h-[calc(100vh-65px)]',
+        'flex',
+        'max-lg:flex-col-reverse max-lg:min-h-fit',
+      )}
+    >
       <div className='w-[75%] max-lg:w-full h-[calc(100vh-65px)] max-lg:h-[400px]'>
         <KakaoMap />
       </div>
-      <div className={cn(
-        'w-[25%] min-w-[560px] h-[calc(100vh-65px)] bg-white dark:bg-slate-600 flex flex-col p-16 gap-12',
-        'max-lg:w-full max-lg:min-w-[360px] max-lg:h-fit max-lg:p-8'
+      <div
+        className={cn(
+          'w-[25%] min-w-[560px] h-[calc(100vh-65px)] bg-white dark:bg-slate-600 flex flex-col p-16 gap-12',
+          'max-lg:w-full max-lg:min-w-[360px] max-lg:h-fit max-lg:p-8',
         )}
         // className='w-[25%] min-w-[560px] max-lg:w-full h-[calc(100vh-65px)] max-lg:h-fit bg-white dark:bg-slate-600 flex flex-col p-16 gap-12'
         data-aos='fade-left'
@@ -48,7 +51,7 @@ export default function Home() {
         <div>
           <div className='text-3xl text-naranhiGreen font-bold'>진료시간</div>
           <div className='mt-4 flex max-sm:flex-col gap-4 max-sm:gap-1 items-start'>
-            <div className='text-lg font-bold w-24'>월, 화, 목, 금</div>
+            <div className='min-w-fit text-lg font-bold w-24'>월, 화, 목, 금</div>
             <div>
               <div className='font-bold'>10:00 ~ 19:00 (오전 10시부터 저녁 7시 까지)</div>
               <div className='text-sm'>점심시간: 13:00 ~ 14:00</div>

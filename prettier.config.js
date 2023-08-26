@@ -8,7 +8,7 @@ module.exports = {
   useTabs: false,
   tabWidth: 2,
   arrowParens: 'always',
-  endOfLine: 'if',
+  endOfLine: 'auto',
   bracketSpacing: false,
   bracketSameL1ine: false,
   importOrder: [
