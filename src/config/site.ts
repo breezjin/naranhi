@@ -5,10 +5,9 @@ export const siteConfig = {
   description: '함께 서있지만 너무 가깝지 않고, 또 너무 멀지도 않게, 나란히.',
   mainNav: [
     { title: '병원소개', href: '/about-hospital' },
-    { title: '심리발달센터', href: '/about-center' },
+    { title: '병원 진료안내', href: '/hospital-programs' },
+    { title: '상담/심리발달센터', href: '/about-center' },
     { title: '내부시설', href: '/facilities' },
-    { title: '병원 프로그램', href: '/hospital-programs' },
-    { title: '센터 프로그램', href: '/center-programs' },
     { title: '공지사항', href: '/notice' },
     { title: '오시는 길', href: '/contact-us' },
   ],

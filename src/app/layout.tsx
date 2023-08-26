@@ -31,7 +31,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           className={cn('min-h-screen min-w-full bg-background antialiased', naranhiFont.className)}
         >
           <Script src={KAKAO_SDK_URL} strategy='beforeInteractive' />
-          <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             <div className='flex w-full flex-col'>
               <SiteHeader />
               <section>{children}</section>

@@ -21,7 +21,8 @@ export default function Home() {
   return (
     <main
       className={cn(
-        'flex min-h-[calc(100vh-65px)] w-full justify-center gap-8 p-8 max-lg:flex-col-reverse max-lg:items-center'
+        'flex min-h-[calc(100vh-65px)] w-full justify-center gap-8 p-8',
+        'max-lg:flex-col-reverse max-lg:items-center'
       )}
     >
       <div className='w-[40%] max-lg:w-full'>
@@ -44,25 +45,16 @@ export default function Home() {
           >
             - Fred Rogers, The World According to Mr. Rogers
           </div>
-          <div
-            className='ml-2 mt-16 flex gap-1 text-lg'
-            data-aos='fade-zoom-in'
-            data-aos-delay='1000'
-          >
+          <div className='ml-2 mt-16 flex gap-1 text-lg' data-aos='fade-zoom-in'>
             <div className=''>나란히</div>
-            <div
-              className=''
-              data-aos='fade-zoom-in'
-              data-aos-delay='1000'
-              data-aos-duration='2000'
-            >
+            <div className='' data-aos='fade-zoom-in' data-aos-delay='500'>
               정신건강의학과의원
             </div>
           </div>
           <div
             className='ml-2 mt-1 flex gap-1 text-xl'
             data-aos='fade-zoom-in'
-            data-aos-delay='2000'
+            data-aos-delay='1000'
           >
             <div className=''>
               당신과 <span className='text-naranhiGreen'>나란히</span>
@@ -70,13 +62,13 @@ export default function Home() {
             <div
               className=''
               data-aos='fade-zoom-in'
-              data-aos-delay='1000'
-              data-aos-duration='2000'
+              data-aos-delay='1500'
+              data-aos-duration='1500'
             >
               걸어 갑니다.
             </div>
           </div>
-          <div className='mt-4 text-naranhiYellow' data-aos='fade-right' data-aos-delay='3000'>
+          <div className='mt-4 text-naranhiYellow' data-aos='fade-right' data-aos-delay='1000'>
             <ArrowLink href='/contact-us' rel='noreferrer'>
               <div
                 className={buttonVariants({
