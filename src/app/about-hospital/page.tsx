@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <main
       className={cn(
-        'flex min-h-[calc(100vh-65px)] w-full justify-center gap-8 p-8 max-lg:flex-col max-lg:items-center'
+        'flex min-h-[calc(100vh-65px)] w-full justify-center gap-8 p-8 max-lg:flex-col-reverse max-lg:items-center'
       )}
     >
       <div className='w-[40%] max-lg:w-full'>

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -76,19 +77,21 @@ export function MainNav({ items }: MainNavProps) {
                 {items?.map(
                   (item, index) =>
                     item.href && (
-                      <ArrowLink key={index} href={item.href} rel='noreferrer'>
-                        <div
-                          className={cn(
-                            buttonVariants({
-                              size: 'sm',
-                              variant: 'ghost',
-                            }),
-                            'text-lg font-bold'
-                          )}
-                        >
-                          {item.title}
-                        </div>
-                      </ArrowLink>
+                      <SheetClose key={index} asChild>
+                        <ArrowLink key={index} href={item.href} rel='noreferrer'>
+                          <div
+                            className={cn(
+                              buttonVariants({
+                                size: 'sm',
+                                variant: 'ghost',
+                              }),
+                              'text-lg font-bold'
+                            )}
+                          >
+                            {item.title}
+                          </div>
+                        </ArrowLink>
+                      </SheetClose>
                     )
                 )}
                 <ModeToggle />

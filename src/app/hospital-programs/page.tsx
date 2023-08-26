@@ -79,10 +79,10 @@ export default function HospitalProgram() {
       className={cn(
         'min-h-[calc(100vh-65px)] w-full p-12',
         'flex justify-center space-x-16',
-        'max-lg:flex-col max-lg:space-x-0 max-lg:space-y-16'
+        'max-lg:flex-col max-lg:space-x-0 max-lg:space-y-24'
       )}
     >
-      <div className='flex flex-col space-y-4 max-lg:w-full'>
+      <div className='flex flex-col space-y-4 max-lg:w-full lg:max-w-[650px]'>
         <div className='flex space-x-2 max-lg:justify-center'>
           <Image
             src={'/imgs/naranhi-person-green.png'}
@@ -94,8 +94,8 @@ export default function HospitalProgram() {
         </div>
         <TagCloud
           className='w-full'
-          minSize={3}
-          maxSize={7}
+          minSize={2}
+          maxSize={5}
           tags={adultClinics}
           renderer={customRenderer}
           // colorOptions={{
@@ -106,7 +106,7 @@ export default function HospitalProgram() {
           data-aos-duration='2000'
         />
       </div>
-      <div className='flex flex-col space-y-4 max-lg:w-full'>
+      <div className='flex flex-col space-y-4 max-lg:w-full lg:max-w-[650px]'>
         <div className='flex space-x-2 max-lg:justify-center'>
           <Image
             src={'/imgs/naranhi-person-yellow.png'}
@@ -118,8 +118,8 @@ export default function HospitalProgram() {
         </div>
         <TagCloud
           className='w-full'
-          minSize={3}
-          maxSize={7}
+          minSize={2}
+          maxSize={5}
           tags={childrenAdolescentsClinics}
           renderer={customRenderer}
           // colorOptions={{
