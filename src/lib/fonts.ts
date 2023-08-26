@@ -13,5 +13,5 @@ export const fontMono = FontMono({
 
 export const naranhiFont = localFont({
   src: './ridibatang.woff2',
-  display: 'swap'
-})
+  display: 'swap',
+});

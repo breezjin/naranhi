@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import {siteConfig} from '@/config/site';
-import {cn} from '@/lib/utils';
-import {Button, buttonVariants} from '@/components/ui/button';
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -11,16 +11,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ArrowLink from '@/components/links/ArrowLink';
 
 export default function Home() {
   return (
     <main
       className={cn(
-        'p-8 flex gap-8 max-lg:flex-col justify-center max-lg:items-center w-full min-h-[calc(100vh-65px)]',
+        'p-8 flex gap-8 max-lg:flex-col justify-center max-lg:items-center w-full min-h-[calc(100vh-65px)]'
       )}
     >
       <div className='w-[40%] max-lg:w-full'>

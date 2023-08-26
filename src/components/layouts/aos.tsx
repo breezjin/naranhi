@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import 'aos/dist/aos.css';
 
@@ -11,7 +11,7 @@ export const AOSInit = () => {
       easing: 'ease-out-quad',
       duration: 1000,
     });
-  }, [])
+  }, []);
 
-  return null
-}
+  return null;
+};

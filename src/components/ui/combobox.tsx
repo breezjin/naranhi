@@ -51,7 +51,7 @@ export function ComboboxDemo() {
           className='w-[200px] justify-between'
         >
           {value
-            ? frameworks.find(framework => framework.value === value)?.label
+            ? frameworks.find((framework) => framework.value === value)?.label
             : 'Select framework...'}
           <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
@@ -61,10 +61,10 @@ export function ComboboxDemo() {
           <CommandInput placeholder='Search framework...' />
           <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
-            {frameworks.map(framework => (
+            {frameworks.map((framework) => (
               <CommandItem
                 key={framework.value}
-                onSelect={currentValue => {
+                onSelect={(currentValue) => {
                   setValue(currentValue === value ? '' : currentValue);
                   setOpen(false);
                 }}
@@ -72,7 +72,7 @@ export function ComboboxDemo() {
                 <Check
                   className={cn(
                     'mr-2 h-4 w-4',
-                    value === framework.value ? 'opacity-100' : 'opacity-0',
+                    value === framework.value ? 'opacity-100' : 'opacity-0'
                   )}
                 />
                 {framework.label}

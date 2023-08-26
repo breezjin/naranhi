@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {cn} from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import Icons from '@/components/Icons';
 import KakaoMap from '@/components/KakaoMap';
 
@@ -13,7 +13,7 @@ export default function Home() {
       className={cn(
         'w-full min-h-[calc(100vh-65px)]',
         'flex',
-        'max-lg:flex-col-reverse max-lg:min-h-fit',
+        'max-lg:flex-col-reverse max-lg:min-h-fit'
       )}
     >
       <div className='w-[75%] max-lg:w-full h-[calc(100vh-65px)] max-lg:h-[400px]'>
@@ -22,7 +22,7 @@ export default function Home() {
       <div
         className={cn(
           'w-[25%] min-w-[560px] h-[calc(100vh-65px)] bg-white dark:bg-slate-600 flex flex-col p-16 gap-12',
-          'max-lg:w-full max-lg:min-w-[360px] max-lg:h-fit max-lg:p-8',
+          'max-lg:w-full max-lg:min-w-[360px] max-lg:h-fit max-lg:p-8'
         )}
         // className='w-[25%] min-w-[560px] max-lg:w-full h-[calc(100vh-65px)] max-lg:h-fit bg-white dark:bg-slate-600 flex flex-col p-16 gap-12'
         data-aos='fade-left'

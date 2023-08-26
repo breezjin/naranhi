@@ -1,16 +1,18 @@
-import '@/styles/globals.css';
-
-import {Metadata} from 'next';
+/* eslint-disable @next/next/no-before-interactive-script-outside-document */
+import { Metadata } from 'next';
 import Script from 'next/script';
 
-import {defaultMetadata} from '@/lib/defaultMetadata';
-import {naranhiFont} from '@/lib/fonts';
-import {cn} from '@/lib/utils';
-import {AOSInit} from '@/components/layouts/aos';
+import '@/styles/globals.css';
+
+import { AOSInit } from '@/components/layouts/aos';
 import Footer from '@/components/layouts/Footer';
-import {TailwindIndicator} from '@/components/layouts/TailwindIndicator';
-import {ThemeProvider} from '@/components/layouts/ThemeProvider';
-import {SiteHeader} from '@/components/siteHeaders/SiteHeader';
+import { TailwindIndicator } from '@/components/layouts/TailwindIndicator';
+import { ThemeProvider } from '@/components/layouts/ThemeProvider';
+import { SiteHeader } from '@/components/siteHeaders/SiteHeader';
+
+import { defaultMetadata } from '@/lib/defaultMetadata';
+import { naranhiFont } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&libraries=services,clusterer&autoload=false`;
 export const metadata: Metadata = defaultMetadata;
@@ -19,7 +21,7 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({children}: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang='ko' suppressHydrationWarning>

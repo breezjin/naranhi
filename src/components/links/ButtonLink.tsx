@@ -62,13 +62,13 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           ],
           //#endregion  //*======== Variants ===========
           'disabled:cursor-not-allowed',
-          className,
+          className
         )}
       >
         {children}
       </UnstyledLink>
     );
-  },
+  }
 );
 
 ButtonLink.displayName = 'ButtonLink';

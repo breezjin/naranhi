@@ -1,5 +1,12 @@
 import {
-    Loader, LucideProps, Moon, PhoneCall, SunMedium, Twitter, Volume2, VolumeX
+  Loader,
+  LucideProps,
+  Moon,
+  PhoneCall,
+  SunMedium,
+  Twitter,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 
 const Icons = {

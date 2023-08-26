@@ -1,13 +1,14 @@
 import Image from 'next/image';
 
-import {cn} from '@/lib/utils';
 import ArrowLink from '@/components/links/ArrowLink';
+
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
     <main
       className={cn(
-        'p-8 flex flex-col lg:justify-center items-center w-full min-h-[calc(100vh-65px)]',
+        'flex min-h-[calc(100vh-65px)] w-full flex-col items-center p-8 lg:justify-center'
       )}
     >
       <div className='flex flex-col' data-aos='fade-zoom-in'>
@@ -24,7 +25,7 @@ export default function Home() {
         <div className='mt-4 font-sans italic text-gray-500 max-lg:text-sm'>{`- 정여민 그림시집, 마음의 온도는 몇 도일까요?`}</div>
       </div>
       <div
-        className='mt-32 max-lg:mt-16 flex justify-center gap-1 text-lg'
+        className='mt-32 flex justify-center gap-1 text-lg max-lg:mt-16'
         data-aos='fade-zoom-in'
         data-aos-delay='1000'
       >

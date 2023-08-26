@@ -1,16 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {siteConfig} from '@/config/site';
-import {buttonVariants} from '@/components/ui/button';
 import Icons from '@/components/Icons';
-import {ModeToggle} from '@/components/layouts/ThemeToggle';
-import {MainNav} from '@/components/siteHeaders/MainNav';
+import { ModeToggle } from '@/components/layouts/ThemeToggle';
+import { MainNav } from '@/components/siteHeaders/MainNav';
+import { buttonVariants } from '@/components/ui/button';
+
+import { siteConfig } from '@/config/site';
 
 export function SiteHeader() {
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background px-8 max-md:px-4'>
-      <div className='flex h-16 justify-between items-center'>
+      <div className='flex h-16 items-center justify-between'>
         <MainNav items={siteConfig.mainNav} />
         <div className='flex items-center justify-end'>
           <nav className='flex items-center max-md:hidden'>
