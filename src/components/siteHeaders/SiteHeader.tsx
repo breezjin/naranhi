@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import {siteConfig} from '@/config/site';
+import {buttonVariants} from '@/components/ui/button';
 import Icons from '@/components/Icons';
-import { ModeToggle } from '@/components/layouts/ThemeToggle';
-import { MainNav } from '@/components/siteHeaders/MainNav';
-import { buttonVariants } from '@/components/ui/button';
-import { siteConfig } from '@/config/site';
+import {ModeToggle} from '@/components/layouts/ThemeToggle';
+import {MainNav} from '@/components/siteHeaders/MainNav';
 
 export function SiteHeader() {
   return (
@@ -22,7 +22,12 @@ export function SiteHeader() {
                     variant: 'ghost',
                   })}
                 >
-                  <Image src={'/icons/naver_btnG_circle.png'} width={24} height={24} alt='네이버아이콘'/>
+                  <Image
+                    src={'/icons/naver_btnG_circle.png'}
+                    width={24}
+                    height={24}
+                    alt='네이버아이콘'
+                  />
                   <span className='sr-only'>GitHub</span>
                 </div>
               </Link>
@@ -33,7 +38,7 @@ export function SiteHeader() {
                     variant: 'ghost',
                   })}
                 >
-                  <Image src={'/icons/kakao.png'} width={24} height={24} alt='카카오아이콘'/>
+                  <Image src={'/icons/kakao.png'} width={24} height={24} alt='카카오아이콘' />
                   <span className='sr-only'>GitHub</span>
                 </div>
               </Link>

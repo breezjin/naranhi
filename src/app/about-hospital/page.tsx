@@ -1,32 +1,79 @@
 import Image from 'next/image';
 
-import ArrowLink from '@/components/links/ArrowLink';
-import { Button, buttonVariants } from '@/components/ui/button';
+import {siteConfig} from '@/config/site';
+import {cn} from '@/lib/utils';
+import {Button, buttonVariants} from '@/components/ui/button';
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
+import {Input} from '@/components/ui/input';
+import {Label} from '@/components/ui/label';
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import ArrowLink from '@/components/links/ArrowLink';
 
 export default function Home() {
   return (
-    <main className={cn('p-8 flex gap-8 max-lg:flex-col justify-center max-lg:items-center w-full min-h-[calc(100vh-65px)]')}>
+    <main
+      className={cn(
+        'p-8 flex gap-8 max-lg:flex-col justify-center max-lg:items-center w-full min-h-[calc(100vh-65px)]',
+      )}
+    >
       <div className='w-[40%] max-lg:w-full'>
         <div className='flex flex-col' data-aos='fade-zoom-in'>
-          <div className='flex flex-wrap'>우리가 오랫동안 가장 귀중히 여기는 선물들은 보통 작고 소박한 것들이다.</div>
-          <div className='flex flex-wrap'>가장 중요해 보이는 것들은 어려울 때나 편안할 때 우리 가장 가까이에 있는 사람들에게 우리가</div>
-          <div className='flex flex-wrap'>그들의 요구, 그들의 즐거움, 그리고 그들의 도전에 귀를 기울이고 있다는 사실을 보여주는 것이다.</div>
-          <div className='mt-4 font-sans italic text-gray-500' data-aos='fade-zoom-in' data-aos-duration='2000'>- Fred Rogers, The World According to Mr. Rogers</div>
-          <div className='mt-16 ml-2 flex gap-1 text-lg' data-aos='fade-zoom-in' data-aos-delay='1000'>
-            <div className=''>나란히</div>
-            <div className='' data-aos='fade-zoom-in' data-aos-delay='1000' data-aos-duration='2000'>정신건강의학과의원</div>
+          <div className='flex flex-wrap'>
+            우리가 오랫동안 가장 귀중히 여기는 선물들은 보통 작고 소박한 것들이다.
           </div>
-          <div className='mt-1 ml-2 flex gap-1 text-xl' data-aos='fade-zoom-in' data-aos-delay='2000'>
-            <div className=''>당신과 <span className='text-naranhiGreen'>나란히</span></div>
-            <div className='' data-aos='fade-zoom-in' data-aos-delay='1000' data-aos-duration='2000'>걸어 갑니다.</div>
+          <div className='flex flex-wrap'>
+            가장 중요해 보이는 것들은 어려울 때나 편안할 때 우리 가장 가까이에 있는 사람들에게
+            우리가
+          </div>
+          <div className='flex flex-wrap'>
+            그들의 요구, 그들의 즐거움, 그리고 그들의 도전에 귀를 기울이고 있다는 사실을 보여주는
+            것이다.
+          </div>
+          <div
+            className='mt-4 font-sans italic text-gray-500'
+            data-aos='fade-zoom-in'
+            data-aos-duration='2000'
+          >
+            - Fred Rogers, The World According to Mr. Rogers
+          </div>
+          <div
+            className='mt-16 ml-2 flex gap-1 text-lg'
+            data-aos='fade-zoom-in'
+            data-aos-delay='1000'
+          >
+            <div className=''>나란히</div>
+            <div
+              className=''
+              data-aos='fade-zoom-in'
+              data-aos-delay='1000'
+              data-aos-duration='2000'
+            >
+              정신건강의학과의원
+            </div>
+          </div>
+          <div
+            className='mt-1 ml-2 flex gap-1 text-xl'
+            data-aos='fade-zoom-in'
+            data-aos-delay='2000'
+          >
+            <div className=''>
+              당신과 <span className='text-naranhiGreen'>나란히</span>
+            </div>
+            <div
+              className=''
+              data-aos='fade-zoom-in'
+              data-aos-delay='1000'
+              data-aos-duration='2000'
+            >
+              걸어 갑니다.
+            </div>
           </div>
           <div className='mt-4 text-naranhiYellow' data-aos='fade-right' data-aos-delay='3000'>
             <ArrowLink href='/contact-us' rel='noreferrer'>
@@ -43,25 +90,25 @@ export default function Home() {
         </div>
       </div>
       <div className='w-[60%] max-lg:w-full'>
-        <Tabs defaultValue="medical-staff" className="w-full" data-aos='fade-zoom-in'>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="medical-staff">의료진 안내</TabsTrigger>
-            <TabsTrigger value="treatment-staff">치료진 안내</TabsTrigger>
+        <Tabs defaultValue='medical-staff' className='w-full' data-aos='fade-zoom-in'>
+          <TabsList className='grid w-full grid-cols-2'>
+            <TabsTrigger value='medical-staff'>의료진 안내</TabsTrigger>
+            <TabsTrigger value='treatment-staff'>치료진 안내</TabsTrigger>
           </TabsList>
-          <TabsContent value="medical-staff" className='space-y-2'>
+          <TabsContent value='medical-staff' className='space-y-2'>
             <Card data-aos='fade-zoom-in'>
               <CardHeader>
-                <CardTitle><span className='mr-2 text-sm text-gray-400'>대표원장</span>김채리</CardTitle>
-                <CardDescription>
-                  정신건강의학과 전문의
-                </CardDescription>
+                <CardTitle>
+                  <span className='mr-2 text-sm text-gray-400'>대표원장</span>김채리
+                </CardTitle>
+                <CardDescription>정신건강의학과 전문의</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>순천향대학교 의과대학 졸업</div>
                 <div>순천향대학교 서울병원 수련의 수료</div>
                 <div>순천향대학교 서울병원 정신건강의학과 전공의 수료</div>
               </CardContent>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>대한신경정신의학회 정회원</div>
                 <div>대한정신건강의학과의사회 정회원</div>
                 <div>미국 정신의학회(APA) 회원</div>
@@ -72,13 +119,13 @@ export default function Home() {
                 <div>대한비만연구의사회 정회원</div>
                 <div>교육부 심리지원단 전문의</div>
               </CardContent>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>{`전) 새샘병원 정신건강의학과 진료부장`}</div>
                 <div>{`전) 금천키다리정신건강의학과 원장`}</div>
               </CardContent>
             </Card>
           </TabsContent>
-          <TabsContent value="treatment-staff" className='space-y-2'>
+          <TabsContent value='treatment-staff' className='space-y-2'>
             {/* <Card data-aos='fade-zoom-in'>
               <CardHeader>
                 <CardTitle><span className='mr-2 text-sm text-gray-400'>언어치료사/센터장</span>김채영</CardTitle>
@@ -225,16 +272,18 @@ export default function Home() {
             </Card> */}
             <Card data-aos='fade-zoom-in'>
               <CardHeader>
-                <CardTitle><span className='mr-2 text-sm text-gray-400'>임상심리사</span>정다희</CardTitle>
+                <CardTitle>
+                  <span className='mr-2 text-sm text-gray-400'>임상심리사</span>정다희
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>가천대 길병원 정신건강의학과 임상심리 수련과정(3년)</div>
               </CardContent>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>정신건강임상심리사 1급 (보건복지부)</div>
                 <div>임상심리전문가 (한국임상심리학회)</div>
               </CardContent>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>{`전) 명지병원 재활의학과 임상심리사`}</div>
                 <div>{`전) 한림병원 정신건강의학과/신경과 임상심리사`}</div>
                 <div>{`전) 강남세브란스병원 소아청소년과 임상심리사`}</div>
@@ -242,12 +291,14 @@ export default function Home() {
             </Card>
             <Card data-aos='fade-zoom-in'>
               <CardHeader>
-                <CardTitle><span className='mr-2 text-sm text-gray-400'>임상심리사</span>이숙영</CardTitle>
+                <CardTitle>
+                  <span className='mr-2 text-sm text-gray-400'>임상심리사</span>이숙영
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>가천대 길병원 정신건강의학과 임상심리 수련과정(3년)</div>
               </CardContent>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>정신건강임상심리사 1급 (보건복지부)</div>
                 <div>임상심리전문가 (한국임상심리학회)</div>
                 <div>놀이심리상담사 1급 (한국놀이치료학회공인)</div>
@@ -255,7 +306,7 @@ export default function Home() {
                 <div>보육교사 1급 (여성가족부)</div>
                 <div>느린학습자 인지학습상담사 1급 ((주)대교)</div>
               </CardContent>
-              <CardContent className="space-y-1 text-sm">
+              <CardContent className='space-y-1 text-sm'>
                 <div>{`전) 구로다나병원 임상심리사`}</div>
               </CardContent>
             </Card>

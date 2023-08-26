@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import {cn} from '@/lib/utils';
 import Icons from '@/components/Icons';
 import KakaoMap from '@/components/KakaoMap';
-import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (

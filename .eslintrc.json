@@ -18,6 +18,7 @@
     "prettier/prettier": [
       "error",
       {
+        // "usePrettierrc": false
         "singleQuote": true,
         "jsxSingleQuote": true,
         "printWidth": 100,
