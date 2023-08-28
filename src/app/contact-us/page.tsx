@@ -54,14 +54,20 @@ export default function Home() {
           <div className='mt-4 flex items-start gap-4 max-sm:flex-col max-sm:gap-1'>
             <div className='w-24 min-w-fit text-lg font-bold'>월, 화, 목, 금</div>
             <div>
-              <div className='font-bold'>10:00 ~ 19:00 (오전 10시부터 저녁 7시 까지)</div>
+              <div className='flex gap-2 font-bold max-sm:flex-col max-sm:gap-0 max-sm:text-sm'>
+                <div>10:00 ~ 19:00</div>
+                <div>(오전 10시부터 저녁 7시 까지)</div>
+              </div>
               <div className='text-sm'>점심시간: 13:00 ~ 14:00</div>
             </div>
           </div>
           <div className='mt-4 flex items-start gap-4 max-sm:flex-col max-sm:gap-1'>
             <div className='w-24 text-lg font-bold'>수, 토</div>
             <div>
-              <div className='font-bold'>10:00 ~ 14:00 (오전 10시부터 오후 2시 까지)</div>
+              <div className='flex gap-2 font-bold max-sm:flex-col max-sm:gap-0 max-sm:text-sm'>
+                <div>10:00 ~ 14:00</div>
+                <div>(오전 10시부터 오후 2시 까지)</div>
+              </div>
               <div className='text-sm'>점심시간: 없음</div>
             </div>
           </div>

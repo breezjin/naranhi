@@ -22,10 +22,10 @@ export default function Home() {
     <main
       className={cn(
         'flex min-h-[calc(100vh-65px)] w-full justify-center gap-8 p-8',
-        'max-lg:flex-col-reverse max-lg:items-center'
+        'max-lg:flex-col-reverse max-lg:items-center max-lg:justify-end'
       )}
     >
-      <div className='w-[40%] max-lg:w-full'>
+      <div className='w-[40%] p-16 max-lg:w-full max-lg:p-8'>
         <div className='flex flex-col' data-aos='fade-zoom-in'>
           <div className='flex flex-wrap'>
             우리가 오랫동안 가장 귀중히 여기는 선물들은 보통 작고 소박한 것들이다.
