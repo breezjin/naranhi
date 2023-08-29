@@ -1,0 +1,87 @@
+{
+  "object": "database",
+  "id": "60aea9d1-a98f-4d06-b595-bd9c566efcfb",
+  "cover": null,
+  "icon": {
+    "type": "emoji",
+    "emoji": "🔔"
+  },
+  "created_time": "2023-08-28T14:22:00.000Z",
+  "created_by": {
+    "object": "user",
+    "id": "82f0816e-0585-42c1-a4c9-5ff74387a93d"
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": "82f0816e-0585-42c1-a4c9-5ff74387a93d"
+  },
+  "last_edited_time": "2023-08-28T14:26:00.000Z",
+  "title": [
+    {
+      "type": "text",
+      "text": {
+        "content": "홈페이지 공지사항",
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": "홈페이지 공지사항",
+      "href": null
+    }
+  ],
+  "description": [
+    {
+      "type": "text",
+      "text": {
+        "content": "⚠️ 아래 내용을 수정하면 홈페이지 공지사항이 변경 됩니다. 신중하게 작성하세요~",
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": "⚠️ 아래 내용을 수정하면 홈페이지 공지사항이 변경 됩니다. 신중하게 작성하세요~",
+      "href": null
+    }
+  ],
+  "is_inline": false,
+  "properties": {
+    "태그": {
+      "id": "%3BZMl",
+      "name": "태그",
+      "type": "multi_select",
+      "multi_select": {
+        "options": []
+      }
+    },
+    "공지일": {
+      "id": "~BsP",
+      "name": "공지일",
+      "type": "date",
+      "date": {}
+    },
+    "공지사항": {
+      "id": "title",
+      "name": "공지사항",
+      "type": "title",
+      "title": {}
+    }
+  },
+  "parent": {
+    "type": "block_id",
+    "block_id": "92bf96f9-8d05-474b-bfb5-32066bf31982"
+  },
+  "url": "https://www.notion.so/60aea9d1a98f4d06b595bd9c566efcfb",
+  "public_url": null,
+  "archived": false
+}

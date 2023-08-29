@@ -82,7 +82,7 @@ export const defaultMetadata: Metadata = {
   },
   openGraph: {
     description: siteConfig.description,
-    images: ['/imgs/meta/large-og.png'],
+    images: ['/imgs/meta/large-og.png', '/imgs/meta/large-og2.png'],
     writers: '',
   },
 };
