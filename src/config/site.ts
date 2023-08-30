@@ -9,7 +9,24 @@ export const siteConfig = {
     { title: '상담/심리발달센터', href: '/about-center' },
     { title: '내부시설', href: '/facilities' },
     { title: '공지사항', href: '/notice' },
-    { title: '오시는 길', href: '/contact-us' },
+    { title: '예약/오시는 길', href: '/contact-us' },
+  ],
+  snsNav: [
+    {
+      title: '네이버 블로그',
+      href: 'https://blog.naver.com/naranhiclinic',
+      image: '/icons/sns-logo-naver-blog.png',
+    },
+    {
+      title: '카카오 채널',
+      href: 'http://pf.kakao.com/_VAAlG',
+      image: '/icons/sns-logo-kakao-channel.png',
+    },
+    {
+      title: '인스타그램',
+      href: 'https://www.instagram.com/naranhi_clinic',
+      image: '/icons/sns-logo-instagram.png',
+    },
   ],
   links: {
     naverBlog: 'https://blog.naver.com/naranhiclinic',

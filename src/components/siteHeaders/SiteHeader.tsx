@@ -12,40 +12,31 @@ export function SiteHeader() {
   return (
     <header className='sticky top-0 z-40 w-full border-b bg-background px-8 max-md:px-4'>
       <div className='flex h-16 items-center justify-between'>
-        <MainNav items={siteConfig.mainNav} />
-        <div className='flex items-center justify-end'>
-          <nav className='flex items-center max-md:hidden'>
+        <MainNav mainItems={siteConfig.mainNav} snsItems={siteConfig.snsNav} />
+        <div className='flex items-center justify-end gap-4'>
+          <nav className='flex items-center gap-4'>
             <div className='flex'>
-              <Link href={siteConfig.links.naverBlog} target='_blank' rel='noreferrer'>
-                <div
-                  className={buttonVariants({
-                    size: 'sm',
-                    variant: 'ghost',
-                  })}
-                >
-                  <Image
-                    src={'/icons/naver_btnG_circle.png'}
-                    width={24}
-                    height={24}
-                    alt='네이버아이콘'
-                  />
-                  <span className='sr-only'>GitHub</span>
-                </div>
-              </Link>
-              <Link href={siteConfig.links.naverBlog} target='_blank' rel='noreferrer'>
-                <div
-                  className={buttonVariants({
-                    size: 'sm',
-                    variant: 'ghost',
-                  })}
-                >
-                  <Image src={'/icons/kakao.png'} width={24} height={24} alt='카카오아이콘' />
-                  <span className='sr-only'>GitHub</span>
-                </div>
-              </Link>
+              {siteConfig.snsNav?.map(
+                (snsItem, index) =>
+                  snsItem.href &&
+                  snsItem.image && (
+                    <>
+                      <Link href={snsItem.href} target='_blank' rel='noreferrer'>
+                        <div
+                          className={buttonVariants({
+                            size: 'sm',
+                            variant: 'ghost',
+                          })}
+                        >
+                          <Image src={snsItem.image} width={32} height={32} alt={snsItem.title} />
+                        </div>
+                      </Link>
+                    </>
+                  )
+              )}
             </div>
-            <ModeToggle />
           </nav>
+          <ModeToggle />
         </div>
       </div>
     </header>
