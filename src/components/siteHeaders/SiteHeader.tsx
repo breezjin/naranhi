@@ -13,7 +13,7 @@ export function SiteHeader() {
     <header className='sticky top-0 z-40 w-full border-b bg-background px-8 max-md:px-4'>
       <div className='flex h-16 items-center justify-between'>
         <MainNav mainItems={siteConfig.mainNav} snsItems={siteConfig.snsNav} />
-        <div className='flex items-center justify-end gap-4'>
+        <div className='flex items-center justify-end gap-4 max-md:hidden'>
           <nav className='flex items-center gap-4'>
             <div className='flex'>
               {siteConfig.snsNav?.map(
@@ -28,15 +28,15 @@ export function SiteHeader() {
                             variant: 'ghost',
                           })}
                         >
-                          <Image src={snsItem.image} width={32} height={32} alt={snsItem.title} />
+                          <Image src={snsItem.image} width={28} height={28} alt={snsItem.title} />
                         </div>
                       </Link>
                     </>
                   )
               )}
             </div>
+            <ModeToggle />
           </nav>
-          <ModeToggle />
         </div>
       </div>
     </header>
