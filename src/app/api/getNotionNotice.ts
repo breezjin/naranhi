@@ -23,7 +23,6 @@ export async function getNotionNoticePageBlocks(pageId: string) {
   const pageItem = await notion.blocks.children.list({
     block_id: pageId,
   });
-  console.log('🚀 ~ file: getNotionNotice.ts:26 ~ getNotionNoticePageBlocks ~ pageItem:', pageItem);
 
   return pageItem;
 }

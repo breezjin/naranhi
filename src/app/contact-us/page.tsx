@@ -12,20 +12,20 @@ export default function Home() {
   return (
     <main
       className={cn(
-        'min-h-[calc(100vh-65px)] w-full',
+        'h-fit min-h-[calc(100vh-65px)] w-full',
+        // 'min-h-[calc(100vh-65px)] w-full',
         'flex',
         'max-lg:min-h-fit max-lg:flex-col-reverse'
       )}
     >
-      <div className='h-[calc(100vh-65px)] w-[75%] max-lg:h-[400px] max-lg:w-full'>
+      <section className='min-h-[calc(100vh-65px)] w-[75%] max-lg:h-[400px] max-lg:w-full'>
         <KakaoMap />
-      </div>
-      <div
+      </section>
+      <section
         className={cn(
-          'flex h-[calc(100vh-65px)] w-[25%] min-w-[560px] flex-col gap-12 bg-white p-16 dark:bg-slate-600',
+          'flex h-fit min-h-[calc(100vh-65px)] w-[25%] min-w-[560px] flex-col gap-12 bg-white p-16 dark:bg-slate-600',
           'max-lg:h-fit max-lg:w-full max-lg:min-w-[360px] max-lg:p-8'
         )}
-        // className='w-[25%] min-w-[560px] max-lg:w-full h-[calc(100vh-65px)] max-lg:h-fit bg-white dark:bg-slate-600 flex flex-col p-16 gap-12'
         data-aos='fade-left'
       >
         <div className='flex flex-col'>
@@ -76,7 +76,7 @@ export default function Home() {
             <div className=''>특정 진료일정에 대한 안내는 공지사항을 확인해 주세요.</div>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
