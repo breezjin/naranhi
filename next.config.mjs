@@ -12,6 +12,7 @@ const nextConfig = {
       'images.unsplash.com',
       'i1.daumcdn.net',
       'k.kakaocdn.net',
+      'scontent.cdninstagram.com',
     ],
   },
 };
