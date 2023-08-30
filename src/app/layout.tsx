@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import { Metadata } from 'next';
 import Script from 'next/script';
+import { Suspense } from 'react';
 
 import '@/styles/globals.css';
 
+import Analytics from '@/components/layouts/Analytics';
 import { AOSInit } from '@/components/layouts/aos';
 import Footer from '@/components/layouts/Footer';
 import { TailwindIndicator } from '@/components/layouts/TailwindIndicator';
@@ -31,6 +33,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           className={cn('min-h-screen min-w-full bg-background antialiased', naranhiFont.className)}
         >
           <Script src={KAKAO_SDK_URL} strategy='beforeInteractive' />
+          <Suspense>
+            <Analytics />
+          </Suspense>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
             <div className='flex w-full flex-col'>
               <SiteHeader />
