@@ -256,7 +256,8 @@ export default function Home() {
             <div>
               “다들 평생을 뭘 가져 보겠다고 고생 고생을 하면서
               <span className='font-semibold'> &apos;나는 어떤 인간이다&apos; </span>라는 걸
-              보여주기 위해서 아등바등 사는데 뭘 갖는 건지도 모르겠고 어떻게 원하는 걸 갖는다고 해도{' '}
+              보여주기 위해서 아등바등 사는데 뭘 갖는 건지도 모르겠고, 어떻게 원하는 걸 갖는다고
+              해도
               <span className='font-semibold'>
                 나를 안전하게 만들어 준다고 생각했던 것들에, 나라고 생각했던 것들
               </span>
