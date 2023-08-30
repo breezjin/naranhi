@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import * as React from 'react';
 
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -30,7 +31,9 @@ export default function Footer() {
               </div>
               <div className='flex'>
                 <div className='min-w-fit text-gray-500'>전화번호</div>
-                <div className='ml-2 min-w-fit text-gray-300'>02) 6484-8110</div>
+                <div className='ml-2 min-w-fit text-gray-300'>
+                  <Link href={'tel:0264848110'}>02) 6484-8110</Link>
+                </div>
               </div>
             </div>
             <div className='flex w-full justify-start space-x-4 max-sm:flex-col max-sm:space-x-0'>
@@ -48,7 +51,9 @@ export default function Footer() {
               </div>
               <div className='flex'>
                 <div className='min-w-fit text-gray-500'>전화번호</div>
-                <div className='ml-2 min-w-fit text-gray-300'>02) 6484-8111</div>
+                <div className='ml-2 min-w-fit text-gray-300'>
+                  <Link href={'tel:0264848111'}>02) 6484-8111</Link>
+                </div>
               </div>
             </div>
           </div>
