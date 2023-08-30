@@ -1,6 +1,5 @@
 'use client';
 
-import { count } from 'console';
 import Image from 'next/image';
 import { TagCloud } from 'react-tagcloud';
 
