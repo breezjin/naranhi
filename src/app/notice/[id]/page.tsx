@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Image from 'next/image';
+
 import ButtonLink from '@/components/links/ButtonLink';
 
 import { getNotionNoticePage, getNotionNoticePageBlocks } from '@/app/api/getNotionNotice';
@@ -8,7 +10,16 @@ export default async function Page({ params }: { params: { id: string } }) {
   const notionPage: any = await getNotionNoticePage(params.id);
   const notionBlockChildren: any[] = (await getNotionNoticePageBlocks(params.id)).results;
   const pageParagraphs = notionBlockChildren.map((children) => {
-    if (children.type === 'paragraph') return children.paragraph.rich_text[0]?.plain_text;
+    if (children.type === 'paragraph')
+      return {
+        type: children.type,
+        data: children.paragraph.rich_text[0]?.plain_text,
+      };
+    if (children.type === 'image')
+      return {
+        type: children.type,
+        data: children.image.file?.url,
+      };
   });
 
   return (
@@ -33,9 +44,21 @@ export default async function Page({ params }: { params: { id: string } }) {
           'max-xl:min-w-full max-xl:max-w-full'
         )}
       >
-        {pageParagraphs.map((content: string, idx) => (
-          <p key={idx}>{content}</p>
-        ))}
+        {pageParagraphs.map((content: any, idx) => {
+          if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
+          if (content.type === 'image')
+            return (
+              <Image
+                src={content.data}
+                width='0'
+                height='0'
+                sizes='(min-width: 500px)'
+                className='h-auto w-full'
+                loading='lazy'
+                alt='notice-image'
+              />
+            );
+        })}
       </section>
       <section
         className={cn(
