@@ -33,7 +33,7 @@ export default function Facilities() {
   const handleMoveNext = () => setIndex(nextIndex);
 
   return (
-    <div className='min-h-[calc(100vh-65px)]'>
+    <div className='min-h-[calc(100vh-65px)]' data-aos='fade-zoon-in'>
       <Gallery images={photos} onClick={handleClick} enableImageSelection={false} rowHeight={400} />
       {!!currentImage && (
         <Lightbox
