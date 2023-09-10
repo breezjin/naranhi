@@ -6,7 +6,7 @@ const facilities = [
     height: 1,
     alt: '방석',
     original: '/facilities/facilities01.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '초기 방문자 선물, 나란히 젓가락',
   },
   {
     index: 2,
@@ -15,7 +15,7 @@ const facilities = [
     height: 1,
     alt: '입구',
     original: '/facilities/facilities02.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '내부시설 공개',
   },
   {
     index: 3,
@@ -24,7 +24,7 @@ const facilities = [
     height: 1,
     alt: '진입',
     original: '/facilities/facilities03.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '내부시설 공개',
   },
   {
     index: 4,
@@ -33,7 +33,7 @@ const facilities = [
     height: 1,
     alt: '대기석1',
     original: '/facilities/facilities04.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '내부시설 공개',
   },
   {
     index: 5,
@@ -42,7 +42,7 @@ const facilities = [
     height: 1,
     alt: '대기석2',
     original: '/facilities/facilities05.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '내부시설 공개',
   },
   {
     index: 6,
@@ -51,16 +51,16 @@ const facilities = [
     height: 1,
     alt: '심리발달센터',
     original: '/facilities/facilities06.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '내부시설 공개',
   },
   {
     index: 7,
     src: '/facilities/facilities07.jpg',
     width: 3,
     height: 2,
-    alt: '심리발달센터',
+    alt: '간판',
     original: '/facilities/facilities07.jpg',
-    caption: '임시 내부시설 공개',
+    caption: '간판',
   },
 ];
 
