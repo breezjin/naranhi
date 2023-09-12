@@ -34,7 +34,19 @@ export default function Facilities() {
 
   return (
     <div className='min-h-[calc(100vh-65px)]' data-aos='fade-zoon-in'>
-      <Gallery images={photos} onClick={handleClick} enableImageSelection={false} rowHeight={400} />
+      {photos.length > 0 && (
+        <Gallery
+          images={photos}
+          onClick={handleClick}
+          enableImageSelection={false}
+          rowHeight={400}
+        />
+      )}
+      {photos.length === 0 && (
+        <div className='flex min-h-[calc(100vh-65px)] w-full items-center justify-center'>
+          나란히 내부시설 안내를 준비 중입니다.
+        </div>
+      )}
       {!!currentImage && (
         <Lightbox
           mainSrc={currentImage.original}
