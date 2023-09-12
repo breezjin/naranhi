@@ -10,12 +10,12 @@ import 'react-image-lightbox/style.css';
 import { photos } from './photos';
 
 interface Photo {
-  original: string;
-  src: string;
-  width: number;
-  height: number;
-  caption: string;
-  alt: string;
+  original?: string;
+  src?: string;
+  width?: number;
+  height?: number;
+  caption?: string;
+  alt?: string;
 }
 
 export default function Facilities() {
@@ -47,7 +47,7 @@ export default function Facilities() {
           나란히 내부시설 안내를 준비 중입니다.
         </div>
       )}
-      {!!currentImage && (
+      {photos.length > 0 && !!currentImage && (
         <Lightbox
           mainSrc={currentImage.original}
           imageTitle={currentImage.caption}

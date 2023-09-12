@@ -1,4 +1,5 @@
-const facilities = [
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const facilities: any[] = [
   // {
   //   index: 1,
   //   src: '/facilities/facilities01.jpg',
@@ -64,7 +65,7 @@ const facilities = [
   // },
 ];
 
-const hospitals = [
+const hospitals: any[] = [
   // {
   //   index: 1,
   //   src: '/hospital/hospital01.jpg',
@@ -175,7 +176,7 @@ const hospitals = [
   // },
 ];
 
-const centers = [
+const centers: any[] = [
   // {
   //   index: 1,
   //   src: '/center/center01.jpg',
