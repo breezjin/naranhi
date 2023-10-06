@@ -294,13 +294,11 @@ export default function Home() {
               <CardContent className='space-y-1 text-sm'>
                 <div>정신건강임상심리사 1급 (보건복지부)</div>
                 <div>임상심리전문가 (한국임상심리학회)</div>
-                <div>놀이심리상담사 1급 (한국놀이치료학회공인)</div>
-                <div>청소년상담사 2급 (여성가족부)</div>
-                <div>보육교사 1급 (여성가족부)</div>
-                <div>느린학습자 인지학습상담사 1급 ((주)대교)</div>
               </CardContent>
               <CardContent className='space-y-1 text-sm'>
                 <div>{`전) 구로다나병원 임상심리사`}</div>
+                <div>{`전) 가천대 길병원 가천의생명융합연구원`}</div>
+                <div>{`전) 가천대학교 산학협력단`}</div>
               </CardContent>
             </Card>
           </TabsContent>
