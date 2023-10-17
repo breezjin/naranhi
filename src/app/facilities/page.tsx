@@ -33,13 +33,14 @@ export default function Facilities() {
   const handleMoveNext = () => setIndex(nextIndex);
 
   return (
-    <div className='min-h-[calc(100vh-65px)]' data-aos='fade-zoon-in'>
+    <div className='min-h-[calc(100vh-65px)] p-4' data-aos='fade-zoon-in'>
       {photos.length > 0 && (
         <Gallery
           images={photos}
           onClick={handleClick}
           enableImageSelection={false}
           rowHeight={400}
+          margin={4}
         />
       )}
       {photos.length === 0 && (
