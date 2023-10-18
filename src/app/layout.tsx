@@ -37,11 +37,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Analytics />
           </Suspense>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            <div className='flex w-full flex-col'>
+            <section className='flex w-full flex-col'>
               <SiteHeader />
               <section>{children}</section>
               <Footer />
-            </div>
+            </section>
             <TailwindIndicator />
           </ThemeProvider>
         </body>

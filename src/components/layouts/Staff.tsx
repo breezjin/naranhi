@@ -9,6 +9,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
+import { cn } from '@/lib/utils';
+
 interface ProfileProps {
   profileImage?: string;
   position: string;
@@ -29,10 +31,26 @@ export default function Staff({
   experiences,
 }: ProfileProps) {
   return (
-    <Card className='flex p-8' data-aos='fade-zoom-in'>
+    <Card className='flex p-8 max-xl:flex-col' data-aos='fade-zoom-in'>
       {profileImage && (
-        <div className='relative mb-4 h-96 w-96' data-aos='fade-right'>
-          <Image src={profileImage} layout='fill' alt={name} />
+        // <div className='relative mb-4 h-full w-full max-w-[500px]' data-aos='fade-right'>
+        <div
+          key={name}
+          className={cn(
+            'flex w-[50%] min-w-[200px] max-w-[500px]',
+            'max-xl:mb-4 max-xl:w-full max-xl:max-w-[500px] max-xl:flex-col'
+          )}
+          data-aos='fade-right'
+        >
+          <Image
+            src={profileImage}
+            width='0'
+            height='0'
+            sizes='(min-width: 200px)'
+            className='h-fit w-full'
+            loading='lazy'
+            alt={name}
+          />
         </div>
       )}
 

@@ -1,22 +1,9 @@
-import Image from 'next/image';
-
 import Staff from '@/components/layouts/Staff';
 import ArrowLink from '@/components/links/ArrowLink';
 import { Button, buttonVariants } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { medicalStaffs, treatmentStaffs } from '@/app/about-hospital/staffs';
-import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
@@ -94,7 +81,7 @@ export default function Home() {
             {medicalStaffs &&
               medicalStaffs.map((staff, idx) => (
                 <Staff
-                  key={idx}
+                  key={`${staff.name}+${idx}`}
                   profileImage={staff.profileImage}
                   position={staff.position}
                   name={staff.name}
@@ -109,7 +96,7 @@ export default function Home() {
             {treatmentStaffs &&
               treatmentStaffs.map((staff, idx) => (
                 <Staff
-                  key={idx}
+                  key={`${staff.name}+${idx}`}
                   // profileImage={staff.profileImage}
                   position={staff.position}
                   name={staff.name}
