@@ -44,21 +44,23 @@ export default async function Page({ params }: { params: { id: string } }) {
           'max-xl:min-w-full max-xl:max-w-full'
         )}
       >
-        {pageParagraphs.map((content: any, idx) => {
-          if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
-          if (content.type === 'image')
-            return (
-              <Image
-                src={content.data}
-                width='0'
-                height='0'
-                sizes='(min-width: 500px)'
-                className='h-auto w-full'
-                loading='lazy'
-                alt='notice-image'
-              />
-            );
-        })}
+        {pageParagraphs &&
+          pageParagraphs.map((content: any, idx) => {
+            if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
+            if (content.type === 'image')
+              return (
+                <Image
+                  key={idx}
+                  src={content.data}
+                  width='0'
+                  height='0'
+                  sizes='(min-width: 500px)'
+                  className='h-auto w-full'
+                  loading='lazy'
+                  alt='notice-image'
+                />
+              );
+          })}
       </section>
       <section
         className={cn(
