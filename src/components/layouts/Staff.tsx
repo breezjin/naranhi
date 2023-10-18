@@ -31,7 +31,7 @@ export default function Staff({
   experiences,
 }: ProfileProps) {
   return (
-    <Card className='flex p-8 max-xl:flex-col' data-aos='fade-zoom-in'>
+    <Card className={cn('flex p-8', 'max-xl:flex-col max-xl:p-4')} data-aos='fade-zoom-in'>
       {profileImage && (
         // <div className='relative mb-4 h-full w-full max-w-[500px]' data-aos='fade-right'>
         <div
@@ -46,7 +46,7 @@ export default function Staff({
             src={profileImage}
             width='0'
             height='0'
-            sizes='(min-width: 200px)'
+            sizes='(min-width: 100px)'
             className='h-fit w-full'
             loading='lazy'
             alt={name}
@@ -54,7 +54,7 @@ export default function Staff({
         </div>
       )}
 
-      <div data-aos='fade-left'>
+      <div className='w-full' data-aos='fade-left'>
         <CardHeader className='pt-1'>
           <CardTitle>
             <span className='mr-2 text-sm text-gray-400'>{position}</span>

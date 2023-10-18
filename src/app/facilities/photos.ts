@@ -51,16 +51,6 @@ const hospitals: any[] = [
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_156%2F1695350528819zH1sw_JPEG%2F%25C0%25C7%25BF%25F8%25BB%25E7%25C1%25F8_%25287%2529.jpg',
     caption: '복도',
   },
-  {
-    index: 4,
-    src: 'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_82%2F1695350346463S3HzV_JPEG%2FKakaoTalk_20230922_112907718.jpg',
-    width: 2,
-    height: 3,
-    alt: '상담검사실',
-    original:
-      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_82%2F1695350346463S3HzV_JPEG%2FKakaoTalk_20230922_112907718.jpg',
-    caption: '상담, 검사실',
-  },
   // {
   //   index: 5,
   //   src: 'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_71%2F1695350535500jmksz_JPEG%2F%25C0%25C7%25BF%25F8%25BB%25E7%25C1%25F8_%25288%2529.jpg',
@@ -90,6 +80,16 @@ const hospitals: any[] = [
     original:
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_151%2F16953503464227Au6p_JPEG%2FKakaoTalk_20230922_112907718_02.jpg',
     caption: '대기실',
+  },
+  {
+    index: 4,
+    src: 'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_82%2F1695350346463S3HzV_JPEG%2FKakaoTalk_20230922_112907718.jpg',
+    width: 2,
+    height: 3,
+    alt: '상담검사실',
+    original:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230922_82%2F1695350346463S3HzV_JPEG%2FKakaoTalk_20230922_112907718.jpg',
+    caption: '상담, 검사실',
   },
   {
     index: 6,
