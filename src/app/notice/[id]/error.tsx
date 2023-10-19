@@ -1,10 +1,17 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import ButtonLink from '@/components/links/ButtonLink';
 
 import { cn } from '@/lib/utils';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error(error);
+  }, [error]);
+
   return (
     <main
       className='flex min-h-[calc(100vh-65px)] w-full flex-col items-center gap-8 p-8 pt-16 max-xl:pt-8'

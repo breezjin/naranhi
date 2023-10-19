@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import ButtonLink from '@/components/links/ButtonLink';
@@ -38,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           {notionPage.properties['공지사항']?.title[0].plain_text}
         </div>
       </section>
-      <section
+      {/* <section
         className={cn(
           'flex min-w-[500px] max-w-[40%] flex-col gap-4',
           'max-xl:min-w-full max-xl:max-w-full'
@@ -61,6 +62,14 @@ export default async function Page({ params }: { params: { id: string } }) {
                 />
               );
           })}
+      </section> */}
+      <section
+        className={cn(
+          'flex min-w-[500px] max-w-[40%] flex-col gap-4',
+          'max-xl:min-w-full max-xl:max-w-full'
+        )}
+      >
+        공지사항 내용을 정비 중입니다.
       </section>
       <section
         className={cn(
