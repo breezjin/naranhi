@@ -9,7 +9,9 @@ import { cn } from '@/lib/utils';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const notionPage: any = await getNotionNoticePage(params.id);
+  console.log('🚀 ~ file: page.tsx:12 ~ Page ~ notionPage:', notionPage);
   const notionBlockChildren: any[] = (await getNotionNoticePageBlocks(params.id)).results;
+  console.log('🚀 ~ file: page.tsx:14 ~ Page ~ notionBlockChildren:', notionBlockChildren);
   const pageParagraphs = notionBlockChildren.map((children) => {
     if (children.type === 'paragraph')
       return {
@@ -22,6 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         data: children.image.file?.url,
       };
   });
+  console.log('🚀 ~ file: page.tsx:27 ~ pageParagraphs ~ pageParagraphs:', pageParagraphs);
 
   return (
     <main
@@ -39,7 +42,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           {notionPage.properties['공지사항']?.title[0].plain_text}
         </div>
       </section>
-      {/* <section
+      <section
         className={cn(
           'flex min-w-[500px] max-w-[40%] flex-col gap-4',
           'max-xl:min-w-full max-xl:max-w-full'
@@ -62,15 +65,15 @@ export default async function Page({ params }: { params: { id: string } }) {
                 />
               );
           })}
-      </section> */}
-      <section
+      </section>
+      {/* <section
         className={cn(
           'flex min-w-[500px] max-w-[40%] flex-col gap-4',
           'max-xl:min-w-full max-xl:max-w-full'
         )}
       >
         공지사항 내용을 정비 중입니다.
-      </section>
+      </section> */}
       <section
         className={cn(
           'flex min-w-[500px] max-w-[40%] flex-col gap-4',

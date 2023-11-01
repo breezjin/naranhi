@@ -1,6 +1,5 @@
-import Image from 'next/image';
-
 import ArrowLink from '@/components/links/ArrowLink';
+import { buttonVariants } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
 
@@ -34,8 +33,23 @@ export default function Home() {
           정신건강의학과의원
         </div>
       </div>
-      <div className='mt-4 flex gap-1 text-xl'>
-        <div
+      <div
+        className='mt-4 flex gap-1 text-xl text-naranhiYellow'
+        data-aos-duration='1500'
+        data-aos-delay='1800'
+        data-aos='fade-right'
+      >
+        <ArrowLink href='/contact-us' rel='noreferrer'>
+          <div
+            className={buttonVariants({
+              size: 'sm',
+              variant: 'ghost',
+            })}
+          >
+            예약 및 진료시간 안내
+          </div>
+        </ArrowLink>
+        {/* <div
           className='text-naranhiYellow'
           data-aos='fade-zoom-in'
           data-aos-duration='1500'
@@ -45,7 +59,7 @@ export default function Home() {
         </div>
         <div className='' data-aos='fade-zoom-in' data-aos-duration='3000' data-aos-delay='2500'>
           진료를 시작 합니다.
-        </div>
+        </div> */}
       </div>
     </main>
   );
