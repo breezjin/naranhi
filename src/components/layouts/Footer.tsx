@@ -7,12 +7,12 @@ import { cn } from '@/lib/utils';
 export default function Footer() {
   return (
     <footer className='flex w-full flex-col items-center justify-center bg-black p-8 max-md:px-4'>
-      <div className='mb-6 flex gap-4 text-sm text-slate-500'>
+      <section className='mb-6 flex gap-4 text-sm text-slate-500'>
         <div>서비스이용약관</div>
         <div>|</div>
         <div>개인정보이용방침</div>
-      </div>
-      <div className={cn('flex w-full flex-col items-center justify-end text-xs')}>
+      </section>
+      <section className={cn('flex w-full flex-col items-center justify-end text-xs')}>
         <div className='w-fit flex-col items-center justify-center'>
           <div className='gap-4 max-sm:flex max-sm:w-full'>
             <div className='flex w-full justify-start space-x-4 max-sm:flex-col max-sm:space-x-0'>
@@ -68,8 +68,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
-      <div className='mt-8 px-4 text-xs text-gray-400'>
+      </section>
+      <section className='mt-8 px-4 text-xs text-gray-400'>
         <div className='flex justify-center gap-2 max-sm:flex-col max-sm:gap-0'>
           <div className='max-sm:flex max-sm:w-full max-sm:justify-center'>
             Since 2023, Copyright ©{new Date().getFullYear()}
@@ -78,7 +78,7 @@ export default function Footer() {
             Naranhi Mental Health Clinic. All Right Reserved.
           </div>
         </div>
-      </div>
+      </section>
     </footer>
   );
 }

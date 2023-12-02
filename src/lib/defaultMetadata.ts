@@ -85,10 +85,10 @@ export const defaultMetadata: Metadata = {
     '우울 양육',
     '우울 육아종합지원센터',
   ],
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  // themeColor: [
+  //   { media: '(prefers-color-scheme: light)', color: 'white' },
+  //   { media: '(prefers-color-scheme: dark)', color: 'black' },
+  // ],
   icons: {
     icon: 'favicon/favicon.ico',
     shortcut: 'favicon/favicon-16x16.png',

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 import ButtonLink from '@/components/links/ButtonLink';
 
@@ -48,23 +49,25 @@ export default async function Page({ params }: { params: { id: string } }) {
           'max-xl:min-w-full max-xl:max-w-full'
         )}
       >
-        {pageParagraphs &&
-          pageParagraphs.map((content: any, idx) => {
-            if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
-            if (content.type === 'image')
-              return (
-                <Image
-                  key={idx}
-                  src={content.data}
-                  width='0'
-                  height='0'
-                  sizes='(min-width: 500px)'
-                  className='h-auto w-full'
-                  loading='lazy'
-                  alt='notice-image'
-                />
-              );
-          })}
+        <Suspense fallback={<p>Loading notice...</p>}>
+          {pageParagraphs &&
+            pageParagraphs.map((content: any, idx) => {
+              if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
+              if (content.type === 'image')
+                return (
+                  <Image
+                    key={idx}
+                    src={content.data}
+                    width='0'
+                    height='0'
+                    sizes='(min-width: 500px)'
+                    className='h-auto w-full'
+                    loading='lazy'
+                    alt='notice-image'
+                  />
+                );
+            })}
+        </Suspense>
       </section>
       {/* <section
         className={cn(

@@ -20,18 +20,17 @@ export function SiteHeader() {
                 (snsItem, index) =>
                   snsItem.href &&
                   snsItem.image && (
-                    <>
-                      <Link href={snsItem.href} target='_blank' rel='noreferrer'>
-                        <div
-                          className={buttonVariants({
-                            size: 'sm',
-                            variant: 'ghost',
-                          })}
-                        >
-                          <Image src={snsItem.image} width={28} height={28} alt={snsItem.title} />
-                        </div>
-                      </Link>
-                    </>
+                    <Link key={index} href={snsItem.href} target='_blank' rel='noreferrer'>
+                      <div
+                        key={`d-${index}`}
+                        className={buttonVariants({
+                          size: 'sm',
+                          variant: 'ghost',
+                        })}
+                      >
+                        <Image src={snsItem.image} width={28} height={28} alt={snsItem.title} />
+                      </div>
+                    </Link>
                   )
               )}
             </div>
