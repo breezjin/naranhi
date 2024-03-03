@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import Image from 'next/image';
 import React from 'react';
 import { Gallery } from 'react-grid-gallery';
 import Lightbox from 'react-image-lightbox';
@@ -9,17 +9,7 @@ import 'react-image-lightbox/style.css';
 
 import { cn } from '@/lib/utils';
 
-import { photos } from './photos';
-
-interface Photo {
-  photoIndex: number;
-  original?: string;
-  src?: string;
-  width?: number;
-  height?: number;
-  caption?: string;
-  alt?: string;
-}
+import photos from './photos';
 
 export default function Facilities() {
   const [index, setIndex] = React.useState(-1);
@@ -32,7 +22,7 @@ export default function Facilities() {
   const prevIndex = (index + allPhotos.length - 1) % allPhotos.length;
   const prevImage = allPhotos[prevIndex] || currentImage;
 
-  const handleClick = (index: number, item: Photo) => setIndex(item.photoIndex);
+  const handleClick = (index: number) => setIndex(index);
   const handleClose = () => setIndex(-1);
   const handleMovePrev = () => setIndex(prevIndex);
   const handleMoveNext = () => setIndex(nextIndex);
@@ -48,8 +38,8 @@ export default function Facilities() {
         </div>
         {photos.hospitalPhotos.length > 0 && (
           <Gallery
-            images={photos.hospitalPhotos}
-            onClick={handleClick}
+            images={photos.hospitalPhotos as any}
+            onClick={(index, _item, _event) => handleClick(index)}
             enableImageSelection={false}
             rowHeight={400}
             margin={4}
@@ -63,8 +53,8 @@ export default function Facilities() {
         <div className='text-naranhiYellow dark:text-naranhiGreen my-4 text-2xl'>센터 시설</div>
         {photos.centerPhotos.length > 0 && (
           <Gallery
-            images={photos.centerPhotos}
-            onClick={handleClick}
+            images={photos.centerPhotos as any}
+            onClick={(index, _item, _event) => handleClick(index)}
             enableImageSelection={false}
             rowHeight={400}
             margin={4}
@@ -73,9 +63,9 @@ export default function Facilities() {
       </div>
       {allPhotos.length > 0 && !!currentImage && (
         <Lightbox
-          mainSrc={currentImage.original}
+          mainSrc={currentImage.original || ''}
           imageTitle={currentImage.caption}
-          mainSrcThumbnail={currentImage.src}
+          mainSrcThumbnail={currentImage.src || ''}
           nextSrc={nextImage.original}
           nextSrcThumbnail={nextImage.src}
           prevSrc={prevImage.original}

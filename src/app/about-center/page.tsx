@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 import UnstyledLink from '@/components/links/UnstyledLink';
 import {
   Card,

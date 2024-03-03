@@ -1,5 +1,4 @@
-import Image from 'next/image';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import UnderlineLink from '@/components/links/UnderlineLink';
 
 import { getNotionNotice } from '@/app/api/getNotionNotice';

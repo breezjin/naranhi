@@ -1,4 +1,19 @@
-export const photos = {
+type Photo = {
+  photoIndex: number;
+  original?: string;
+  src?: string;
+  width?: number;
+  height?: number;
+  caption?: string;
+  alt?: string;
+};
+
+type Photos = {
+  hospitalPhotos: Photo[];
+  centerPhotos: Photo[];
+};
+
+const photos: Photos = {
   hospitalPhotos: [
     {
       photoIndex: 1,
@@ -148,3 +163,5 @@ export const photos = {
     },
   ],
 };
+
+export default photos;

@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import Link, { LinkProps } from 'next/link';
 import * as React from 'react';
 

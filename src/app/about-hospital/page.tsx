@@ -1,6 +1,6 @@
 import Staff from '@/components/layouts/Staff';
 import ArrowLink from '@/components/links/ArrowLink';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { medicalStaffs, treatmentStaffs } from '@/app/about-hospital/staffs';
