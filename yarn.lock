@@ -4252,6 +4252,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-custom-rules@npm:^0.0.0":
+  version: 0.0.0
+  resolution: "eslint-plugin-custom-rules@npm:0.0.0"
+  dependencies:
+    jsx-ast-utils: "npm:^1.3.5"
+    lodash: "npm:^4.17.4"
+    object-assign: "npm:^4.1.0"
+    requireindex: "npm:~1.1.0"
+  checksum: 0ef7f5d55bde1760c098a79a248f6546b5d9e1e03a16f26004cb920e9096aab8bdd156f6eec2c79760d6eb66854a15ca4546896038adc08fd24bc3edcb199058
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-import@npm:^2.28.1":
   version: 2.28.1
   resolution: "eslint-plugin-import@npm:2.28.1"
@@ -4366,6 +4378,18 @@ __metadata:
   peerDependencies:
     eslint: ">=5.0.0"
   checksum: 462187d3c137ba0986586a4759fe57c1c3fc1850750cb785f335b9b235346a1d96ebfcfb558847fc1a3b319718f2736178a66a61a0c184c86d48b21c1e0df26b
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-tailwindcss@npm:^3.14.3":
+  version: 3.14.3
+  resolution: "eslint-plugin-tailwindcss@npm:3.14.3"
+  dependencies:
+    fast-glob: "npm:^3.2.5"
+    postcss: "npm:^8.4.4"
+  peerDependencies:
+    tailwindcss: ^3.4.0
+  checksum: f2fcd403c1e5c31bb7d4f9d87c94fd729e1ae2e808b9a92d25f85c52ccdccd26d046bfc2a92cbaf9d848777ad25588b326518e8e185e76aee9ada753430fa753
   languageName: node
   linkType: hard
 
@@ -4592,6 +4616,19 @@ __metadata:
     merge2: "npm:^1.3.0"
     micromatch: "npm:^4.0.4"
   checksum: 51bcd15472879dfe51d4b01c5b70bbc7652724d39cdd082ba11276dbd7d84db0f6b33757e1938af8b2768a4bf485d9be0c89153beae24ee8331d6dcc7550379f
+  languageName: node
+  linkType: hard
+
+"fast-glob@npm:^3.2.5":
+  version: 3.3.2
+  resolution: "fast-glob@npm:3.3.2"
+  dependencies:
+    "@nodelib/fs.stat": "npm:^2.0.2"
+    "@nodelib/fs.walk": "npm:^1.2.3"
+    glob-parent: "npm:^5.1.2"
+    merge2: "npm:^1.3.0"
+    micromatch: "npm:^4.0.4"
+  checksum: 222512e9315a0efca1276af9adb2127f02105d7288fa746145bf45e2716383fb79eb983c89601a72a399a56b7c18d38ce70457c5466218c5f13fad957cee16df
   languageName: node
   linkType: hard
 
@@ -5965,6 +6002,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsx-ast-utils@npm:^1.3.5":
+  version: 1.4.1
+  resolution: "jsx-ast-utils@npm:1.4.1"
+  checksum: 7682d3165fef499aed99f0162cdca3801d3eb2939c1097f7d6db41d5bfc9131966689bd9ef05568955e500a57594a00b967dd9e5e16fb36459e83879c17d2de4
+  languageName: node
+  linkType: hard
+
 "jsx-ast-utils@npm:^2.4.1 || ^3.0.0, jsx-ast-utils@npm:^3.3.3":
   version: 3.3.5
   resolution: "jsx-ast-utils@npm:3.3.5"
@@ -6142,7 +6186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.4":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
@@ -6543,9 +6587,11 @@ __metadata:
     eslint-config-next: "npm:14.0.4"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-import-resolver-typescript: "npm:^3.6.1"
+    eslint-plugin-custom-rules: "npm:^0.0.0"
     eslint-plugin-prettier: "npm:^5.1.2"
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-simple-import-sort: "npm:^10.0.0"
+    eslint-plugin-tailwindcss: "npm:^3.14.3"
     eslint-plugin-unused-imports: "npm:^3.0.0"
     framer-motion: "npm:^11.0.8"
     husky: "npm:^8.0.3"
@@ -6789,7 +6835,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-assign@npm:^4.0.1, object-assign@npm:^4.1.1":
+"object-assign@npm:^4.0.1, object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: fcc6e4ea8c7fe48abfbb552578b1c53e0d194086e2e6bbbf59e0a536381a292f39943c6e9628af05b5528aa5e3318bb30d6b2e53cadaf5b8fe9e12c4b69af23f
@@ -7245,6 +7291,17 @@ __metadata:
     picocolors: "npm:^1.0.0"
     source-map-js: "npm:^1.0.2"
   checksum: 28084864122f29148e1f632261c408444f5ead0e0b9ea9bd9729d0468818ebe73fe5dc0075acd50c1365dbe639b46a79cba27d355ec857723a24bc9af0f18525
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.4":
+  version: 8.4.35
+  resolution: "postcss@npm:8.4.35"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.0.0"
+    source-map-js: "npm:^1.0.2"
+  checksum: 93a7ce50cd6188f5f486a9ca98950ad27c19dfed996c45c414fa242944497e4d084a8760d3537f078630226f2bd3c6ab84b813b488740f4432e7c7039cd73a20
   languageName: node
   linkType: hard
 
@@ -7765,6 +7822,13 @@ __metadata:
     tunnel-agent: "npm:^0.6.0"
     uuid: "npm:^3.3.2"
   checksum: 005b8b237b56f1571cfd4ecc09772adaa2e82dcb884fc14ea2bb25e23dbf7c2009f9929e0b6d3fd5802e33ed8ee705a3b594c8f9467c1458cd973872bf89db8e
+  languageName: node
+  linkType: hard
+
+"requireindex@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "requireindex@npm:1.1.0"
+  checksum: 97c6f7a8a5981f3ae38ca36ec998c0e8ff33a15a5769ce18ca9db5df2ffb6558ddc7d9983777e20c07af83094b2923a02a0019aeded90b6f73619f99bf52ede0
   languageName: node
   linkType: hard
 
