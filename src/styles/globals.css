@@ -103,3 +103,18 @@
 @keyframes blinker {
   50% { opacity: 0.0; }
 }
+
+.swiper {
+  width: auto !important;
+  /* @apply w-full flex justify-center */
+}
+
+.swiper-wrapper,
+.swiper-slide {
+  width: fit-content !important;
+  width: auto !important;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  @apply flex justify-center
+}

@@ -5,6 +5,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'search.pstatic.net',
+      },
+      {
+        protocol: 'https',
         hostname: 'plus.unsplash.com',
       },
       {

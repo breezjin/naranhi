@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { TagCloud } from 'react-tagcloud';
+// import { TagCloud } from 'react-tagcloud';
+const { TagCloud } = require('react-tagcloud');
 
 import { cn } from '@/lib/utils';
 
@@ -9,7 +10,14 @@ const randomNumber = () => {
   return Math.random() * 10;
 };
 
-const adultClinics = [
+type Clinic = {
+  value: string;
+  count: number;
+};
+
+type Clinics = Clinic[];
+
+const adultClinics: Clinics = [
   { value: '불안', count: randomNumber() },
   { value: '공황장애', count: randomNumber() },
   { value: '강박증', count: randomNumber() },
@@ -35,7 +43,7 @@ const adultClinics = [
   { value: '인지행동치료', count: randomNumber() },
 ];
 
-const childrenAdolescentsClinics = [
+const childrenAdolescentsClinics: Clinics = [
   { value: 'ADHD', count: randomNumber() },
   { value: '학습문제', count: randomNumber() },
   { value: '틱', count: randomNumber() },
@@ -53,8 +61,7 @@ const childrenAdolescentsClinics = [
   { value: '인지행동치료', count: randomNumber() },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const customRenderer = (adultClinics: any, size: number, color: any) => (
+const customRenderer = (adultClinics: Clinic, size: number, color: any) => (
   <span
     key={adultClinics.value}
     style={{
