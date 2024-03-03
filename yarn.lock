@@ -4369,18 +4369,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:^3.13.1":
-  version: 3.13.1
-  resolution: "eslint-plugin-tailwindcss@npm:3.13.1"
-  dependencies:
-    fast-glob: "npm:^3.2.5"
-    postcss: "npm:^8.4.4"
-  peerDependencies:
-    tailwindcss: ^3.3.2
-  checksum: 40795b60044fa857c348c22a284e48b6f8dfd36d353e3930fcae09631557d2dd5caa01a522c91834003edee3553ac73699edd4e97296a3a07ba55d3b57585756
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-unused-imports@npm:^3.0.0":
   version: 3.0.0
   resolution: "eslint-plugin-unused-imports@npm:3.0.0"
@@ -4594,7 +4582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.5, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.1":
+"fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.1":
   version: 3.3.1
   resolution: "fast-glob@npm:3.3.1"
   dependencies:
@@ -6558,7 +6546,6 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.1.2"
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-simple-import-sort: "npm:^10.0.0"
-    eslint-plugin-tailwindcss: "npm:^3.13.1"
     eslint-plugin-unused-imports: "npm:^3.0.0"
     framer-motion: "npm:^11.0.8"
     husky: "npm:^8.0.3"
@@ -7239,7 +7226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.4":
+"postcss@npm:^8.4.23":
   version: 8.4.28
   resolution: "postcss@npm:8.4.28"
   dependencies:

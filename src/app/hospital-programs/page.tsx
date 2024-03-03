@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-// import { TagCloud } from 'react-tagcloud';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { TagCloud } = require('react-tagcloud');
 
 import { cn } from '@/lib/utils';
@@ -61,7 +61,7 @@ const childrenAdolescentsClinics: Clinics = [
   { value: '인지행동치료', count: randomNumber() },
 ];
 
-const customRenderer = (adultClinics: Clinic, size: number, color: any) => (
+const customRenderer = (adultClinics: Clinic, size: number, color: string | undefined) => (
   <span
     key={adultClinics.value}
     style={{
@@ -96,7 +96,7 @@ export default function HospitalProgram() {
             height={15}
             alt='나란히 초록사람'
           />
-          <div className='text-2xl font-bold text-naranhiGreen'>성인클리닉</div>
+          <div className={cn('text-naranhiGreen text-2xl font-bold')}>성인클리닉</div>
         </div>
         <TagCloud
           className='w-full'
@@ -120,7 +120,7 @@ export default function HospitalProgram() {
             height={15}
             alt='나란히 초록사람'
           />
-          <div className='text-2xl font-bold text-naranhiYellow'>소아청소년클리닉</div>
+          <div className='text-naranhiYellow text-2xl font-bold'>소아청소년클리닉</div>
         </div>
         <TagCloud
           className='w-full'

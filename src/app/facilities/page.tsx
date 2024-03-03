@@ -7,8 +7,9 @@ import Lightbox from 'react-image-lightbox';
 
 import 'react-image-lightbox/style.css';
 
-import { photos } from './photos';
 import { cn } from '@/lib/utils';
+
+import { photos } from './photos';
 
 interface Photo {
   photoIndex: number;
@@ -42,7 +43,9 @@ export default function Facilities() {
         className={cn('min-h-[calc(100vh-65px)] w-1/2 p-4', 'max-md:w-full')}
         data-aos='fade-zoon-in'
       >
-        <div className='text-naranhiYellow dark:text-naranhiGreen my-4 text-2xl'>병원 시설</div>
+        <div className={cn('text-naranhiYellow dark:text-naranhiGreen my-4 text-2xl')}>
+          병원 시설
+        </div>
         {photos.hospitalPhotos.length > 0 && (
           <Gallery
             images={photos.hospitalPhotos}

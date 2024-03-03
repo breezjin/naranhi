@@ -1,15 +1,3 @@
-const facilities: any[] = [
-  // {
-  //   photoIndex: 1,
-  //   src: '/facilities/facilities01.jpg',
-  //   width: 1,
-  //   height: 1,
-  //   alt: '방석',
-  //   original: '/facilities/facilities01.jpg',
-  //   caption: '초기 방문자 선물, 나란히 젓가락',
-  // },
-];
-
 export const photos = {
   hospitalPhotos: [
     {
