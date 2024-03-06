@@ -3,7 +3,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { siteConfig } from '@/config/site';
 
 export const defaultMetadata: Metadata = {
-  metadataBase: new URL('https://naranhi.com'),
+  metadataBase: new URL('https://www.naranhi.com'),
   title: siteConfig.name,
   description: siteConfig.description,
   keywords: [
@@ -95,6 +95,7 @@ export const defaultMetadata: Metadata = {
     apple: 'favicon/apple-touch-icon.png',
   },
   openGraph: {
+    url: siteConfig.url,
     description: siteConfig.description,
     images: ['/imgs/meta/large-og.png', '/imgs/meta/large-og2.png'],
     writers: '',

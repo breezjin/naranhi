@@ -1,6 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
+  url: 'https://www.naranhi.com',
   name: '나란히정신건강의학과의원',
   description: '함께 서있지만 너무 가깝지 않고, 또 너무 멀지도 않게, 나란히.',
   mainNav: [
