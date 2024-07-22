@@ -30,7 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <AOSInit />
         <head />
         <body
-          className={cn('bg-background min-h-screen min-w-full antialiased', naranhiFont.className)}
+          className={cn('min-h-screen min-w-full bg-background antialiased', naranhiFont.className)}
         >
           <Script src={KAKAO_SDK_URL} strategy='beforeInteractive' />
           <Suspense>
