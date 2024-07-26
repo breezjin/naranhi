@@ -33,7 +33,7 @@ export default function Facilities() {
         className={cn('min-h-[calc(100vh-65px)] w-1/2 p-4', 'max-md:w-full')}
         data-aos='fade-zoon-in'
       >
-        <div className={cn('text-naranhiYellow dark:text-naranhiGreen my-4 text-2xl')}>
+        <div className={cn('my-4 text-2xl text-naranhiYellow dark:text-naranhiGreen')}>
           병원 시설
         </div>
         {photos.hospitalPhotos.length > 0 && (
@@ -50,7 +50,7 @@ export default function Facilities() {
         className={cn('min-h-[calc(100vh-65px)] w-1/2 p-4', 'max-md:w-full')}
         data-aos='fade-zoon-in'
       >
-        <div className='text-naranhiYellow dark:text-naranhiGreen my-4 text-2xl'>센터 시설</div>
+        <div className='my-4 text-2xl text-naranhiYellow dark:text-naranhiGreen'>센터 시설</div>
         {photos.centerPhotos.length > 0 && (
           <Gallery
             images={photos.centerPhotos as any}
