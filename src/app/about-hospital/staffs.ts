@@ -182,7 +182,10 @@ export const treatmentStaffs = [
     // profileImage: '/imgs/staffs/staff-choeune.png',
     position: '심리상담사',
     name: '조은애',
-    educations: ['이화여자대학교 기독교학과/심리학과 학사', '이화여자대학교 심리학 석사'],
+    educations: [
+      '이화여자대학교 기독교학과/심리학과 학사',
+      '이화여자대학교 일반대학원 심리학과(상담심리전공) 석사',
+    ],
     works: ['[한국상담심리학회] 상담심리사 1급'],
     experiences: [
       `전) 이화여자대학교 학생상담센터 인턴 과정 수료`,
