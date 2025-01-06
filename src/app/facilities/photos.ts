@@ -157,7 +157,7 @@ const photos: Photos = {
       caption: '놀이치료실',
     },
     {
-      photoIndex: 15,
+      photoIndex: 16,
       src: '/center/center05.jpg',
       width: 3,
       height: 2,
