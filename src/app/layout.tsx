@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
+import { Analytics as NextAnalytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
@@ -44,6 +46,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </section>
             <TailwindIndicator />
           </ThemeProvider>
+          <NextAnalytics />
+          <SpeedInsights />
         </body>
       </html>
     </>
