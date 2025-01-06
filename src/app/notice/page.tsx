@@ -17,7 +17,7 @@ export default async function Notice() {
       className='flex min-h-[calc(100vh-65px)] w-full flex-col items-center gap-8 p-8 pt-16 max-xl:pt-8'
       data-aos='fade-zoon-in'
     >
-      <div className='text-naranhiYellow dark:text-naranhiGreen text-2xl'>공지사항</div>
+      <div className='text-2xl text-naranhiYellow dark:text-naranhiGreen'>공지사항</div>
       <div
         className={cn(
           'flex min-w-[500px] max-w-[40%] flex-col gap-4',

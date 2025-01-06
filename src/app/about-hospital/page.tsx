@@ -14,7 +14,7 @@ export default function Home() {
         'max-lg:flex-col-reverse max-lg:items-center max-lg:justify-end'
       )}
     >
-      <div className='w-[40%] p-16 max-lg:w-full max-lg:p-8'>
+      <div className='w-2/5 p-16 max-lg:w-full max-lg:p-8'>
         <div className='flex flex-col' data-aos='fade-zoom-in'>
           <div className='flex flex-wrap'>
             우리가 오랫동안 가장 귀중히 여기는 선물들은 보통 작고 소박한 것들이다.
@@ -71,7 +71,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='w-[60%] max-lg:w-full'>
+      <div className='w-3/5 max-lg:w-full'>
         <Tabs defaultValue='medical-staff' className='w-full' data-aos='fade-zoom-in'>
           <TabsList className='grid w-full grid-cols-2'>
             <TabsTrigger value='medical-staff'>의료진 안내</TabsTrigger>

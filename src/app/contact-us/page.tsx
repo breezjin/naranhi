@@ -18,12 +18,12 @@ export default function Home() {
         'max-lg:min-h-fit max-lg:flex-col-reverse'
       )}
     >
-      <section className='min-h-[calc(100vh-65px)] w-[75%] max-lg:h-[400px] max-lg:w-full'>
+      <section className='min-h-[calc(100vh-65px)] w-3/4 max-lg:h-[400px] max-lg:w-full'>
         <KakaoMap />
       </section>
       <section
         className={cn(
-          'flex h-fit min-h-[calc(100vh-65px)] w-[25%] min-w-[560px] flex-col gap-12 bg-white p-16 dark:bg-slate-600',
+          'flex h-fit min-h-[calc(100vh-65px)] w-1/4 min-w-[560px] flex-col gap-12 bg-white p-16 dark:bg-slate-600',
           'max-lg:h-fit max-lg:w-full max-lg:min-w-[360px] max-lg:p-8'
         )}
         data-aos='fade-left'

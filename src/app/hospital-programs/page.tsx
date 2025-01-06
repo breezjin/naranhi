@@ -96,7 +96,7 @@ export default function HospitalProgram() {
             height={15}
             alt='나란히 초록사람'
           />
-          <div className={cn('text-naranhiGreen text-2xl font-bold')}>성인클리닉</div>
+          <div className={cn('text-2xl font-bold text-naranhiGreen')}>성인클리닉</div>
         </div>
         <TagCloud
           className='w-full'
@@ -120,7 +120,7 @@ export default function HospitalProgram() {
             height={15}
             alt='나란히 초록사람'
           />
-          <div className='text-naranhiYellow text-2xl font-bold'>소아청소년클리닉</div>
+          <div className='text-2xl font-bold text-naranhiYellow'>소아청소년클리닉</div>
         </div>
         <TagCloud
           className='w-full'
