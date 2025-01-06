@@ -158,11 +158,11 @@ const photos: Photos = {
     },
     {
       photoIndex: 15,
-      src: 'https://storage.cloud.google.com/naranhi_images/center/center05.jpg',
+      src: '/center/center05.jpg',
       width: 3,
       height: 2,
       alt: '놀이치료실 관찰',
-      original: 'https://storage.cloud.google.com/naranhi_images/center/center05.jpg',
+      original: '/center/center05.jpg',
       caption: '놀이치료실 관찰',
     },
   ],
