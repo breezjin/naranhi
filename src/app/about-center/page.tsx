@@ -28,7 +28,7 @@ export default function Programs() {
   );
 }
 
-const DummyContent = () => {
+const _DummyContent = () => {
   return (
     <Image
       src="/linear.webp"

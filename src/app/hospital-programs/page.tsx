@@ -1,10 +1,29 @@
 'use client';
 
 import Image from 'next/image';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { TagCloud } = require('react-tagcloud');
+import dynamic from 'next/dynamic';
 
 import { cn } from '@/lib/utils';
+
+interface TagCloudProps {
+  className?: string;
+  minSize: number;
+  maxSize: number;
+  tags: Clinics;
+  renderer: (
+    tag: Clinic,
+    size: number,
+    color: string | undefined
+  ) => JSX.Element;
+  'data-aos'?: string;
+  'data-aos-duration'?: string;
+}
+
+// TagCloud를 동적으로 불러오기
+const TagCloud = dynamic<TagCloudProps>(
+  () => import('react-tagcloud').then((mod) => mod.TagCloud) as never,
+  { ssr: false }
+);
 
 const randomNumber = () => {
   return Math.random() * 10;

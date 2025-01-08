@@ -1,14 +1,3 @@
-import { treatments } from './../about-center/items';
-interface Profile {
-  profileImage?: string;
-  position: string;
-  name: string;
-  specialty?: string;
-  educations?: string[];
-  works?: string[];
-  experiences?: string[];
-}
-
 export const medicalStaffs = [
   {
     profileImage: '/imgs/staffs/staff-kimchaeri.png',
@@ -90,7 +79,7 @@ export const treatmentStaffs = [
     educations: [
       `동국대학교 국어국문학과 학사졸업`,
       `연세대학교 언어병리학협동과정 석사졸업`,
-      `이화여자대학교 특수교육학과 자폐성장애 전공 박사과정`,
+      `이화여자대학교 특특수교육학과 자폐성장애 전공 박사과정`,
     ],
     works: ['[보건복지부] 언어재활사 1급'],
     experiences: [
@@ -171,7 +160,7 @@ export const treatmentStaffs = [
     works: [
       '[한국상담심리학회] 상담심리사 2급 ',
       '[한국상담학회] 전문상담사 2급',
-      '[한국모래놀이치료학회] 모래놀이치료사 1급',
+      '[한국모래놀이치료료학회] 모래놀이치료사 1급',
       '[여성가족부] 청소년상담사 3급',
       '[여성가족부] 가정폭력상담원',
       '[여성가족부] 성폭력상담원',
