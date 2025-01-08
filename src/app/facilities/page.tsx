@@ -31,9 +31,13 @@ export default function Facilities() {
     <div className={cn('flex w-full', 'max-md:flex-col')}>
       <div
         className={cn('min-h-[calc(100vh-65px)] w-1/2 p-4', 'max-md:w-full')}
-        data-aos='fade-zoon-in'
+        data-aos="fade-zoon-in"
       >
-        <div className={cn('my-4 text-2xl text-naranhiYellow dark:text-naranhiGreen')}>
+        <div
+          className={cn(
+            'my-4 text-2xl text-naranhiYellow dark:text-naranhiGreen'
+          )}
+        >
           병원 시설
         </div>
         {photos.hospitalPhotos.length > 0 && (
@@ -48,9 +52,11 @@ export default function Facilities() {
       </div>
       <div
         className={cn('min-h-[calc(100vh-65px)] w-1/2 p-4', 'max-md:w-full')}
-        data-aos='fade-zoon-in'
+        data-aos="fade-zoon-in"
       >
-        <div className='my-4 text-2xl text-naranhiYellow dark:text-naranhiGreen'>센터 시설</div>
+        <div className="my-4 text-2xl text-naranhiYellow dark:text-naranhiGreen">
+          센터 시설
+        </div>
         {photos.centerPhotos.length > 0 && (
           <Gallery
             images={photos.centerPhotos as any}
@@ -76,7 +82,7 @@ export default function Facilities() {
         />
       )}
       {allPhotos.length === 0 && (
-        <div className='flex min-h-[calc(100vh-65px)] w-full items-center justify-center'>
+        <div className="flex min-h-[calc(100vh-65px)] w-full items-center justify-center">
           나란히 내부시설 안내를 준비 중입니다.
         </div>
       )}

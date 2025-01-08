@@ -5,7 +5,10 @@
     created_time: '2023-08-28T14:22:00.000Z',
     last_edited_time: '2023-08-28T14:24:00.000Z',
     created_by: { object: 'user', id: '82f0816e-0585-42c1-a4c9-5ff74387a93d' },
-    last_edited_by: { object: 'user', id: '82f0816e-0585-42c1-a4c9-5ff74387a93d' },
+    last_edited_by: {
+      object: 'user',
+      id: '82f0816e-0585-42c1-a4c9-5ff74387a93d',
+    },
     cover: null,
     icon: null,
     parent: {
@@ -23,7 +26,10 @@
     created_time: '2023-08-28T14:22:00.000Z',
     last_edited_time: '2023-08-28T14:24:00.000Z',
     created_by: { object: 'user', id: '82f0816e-0585-42c1-a4c9-5ff74387a93d' },
-    last_edited_by: { object: 'user', id: '82f0816e-0585-42c1-a4c9-5ff74387a93d' },
+    last_edited_by: {
+      object: 'user',
+      id: '82f0816e-0585-42c1-a4c9-5ff74387a93d',
+    },
     cover: null,
     icon: null,
     parent: {

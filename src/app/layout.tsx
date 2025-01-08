@@ -28,18 +28,21 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang='ko' suppressHydrationWarning>
+      <html lang="ko" suppressHydrationWarning>
         <AOSInit />
         <head />
         <body
-          className={cn('min-h-screen min-w-full bg-background antialiased', naranhiFont.className)}
+          className={cn(
+            'min-h-screen min-w-full bg-background antialiased',
+            naranhiFont.className
+          )}
         >
-          <Script src={KAKAO_SDK_URL} strategy='beforeInteractive' />
+          <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
           <Suspense>
             <Analytics />
           </Suspense>
-          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            <section className='flex w-full flex-col'>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <section className="flex w-full flex-col">
               <SiteHeader />
               <section>{children}</section>
               <Footer />

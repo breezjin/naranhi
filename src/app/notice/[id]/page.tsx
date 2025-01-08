@@ -5,14 +5,22 @@ import { Suspense } from 'react';
 
 import ButtonLink from '@/components/links/ButtonLink';
 
-import { getNotionNoticePage, getNotionNoticePageBlocks } from '@/app/api/getNotionNotice';
+import {
+  getNotionNoticePage,
+  getNotionNoticePageBlocks,
+} from '@/app/api/getNotionNotice';
 import { cn } from '@/lib/utils';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const notionPage: any = await getNotionNoticePage(params.id);
   console.log('🚀 ~ file: page.tsx:12 ~ Page ~ notionPage:', notionPage);
-  const notionBlockChildren: any[] = (await getNotionNoticePageBlocks(params.id)).results;
-  console.log('🚀 ~ file: page.tsx:14 ~ Page ~ notionBlockChildren:', notionBlockChildren);
+  const notionBlockChildren: any[] = (
+    await getNotionNoticePageBlocks(params.id)
+  ).results;
+  console.log(
+    '🚀 ~ file: page.tsx:14 ~ Page ~ notionBlockChildren:',
+    notionBlockChildren
+  );
   const pageParagraphs = notionBlockChildren.map((children) => {
     if (children.type === 'paragraph')
       return {
@@ -25,12 +33,15 @@ export default async function Page({ params }: { params: { id: string } }) {
         data: children.image.file?.url,
       };
   });
-  console.log('🚀 ~ file: page.tsx:27 ~ pageParagraphs ~ pageParagraphs:', pageParagraphs);
+  console.log(
+    '🚀 ~ file: page.tsx:27 ~ pageParagraphs ~ pageParagraphs:',
+    pageParagraphs
+  );
 
   return (
     <main
-      className='flex min-h-[calc(100vh-65px)] w-full flex-col items-center gap-8 p-8 pt-16 max-xl:pt-8'
-      data-aos='fade-zoon-in'
+      className="flex min-h-[calc(100vh-65px)] w-full flex-col items-center gap-8 p-8 pt-16 max-xl:pt-8"
+      data-aos="fade-zoon-in"
     >
       <section
         className={cn(
@@ -39,7 +50,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         )}
       >
         <div>{notionPage.properties['공지일']?.date.start}</div>
-        <div className='text-2xl text-naranhiYellow dark:text-naranhiGreen'>
+        <div className="text-2xl text-naranhiYellow dark:text-naranhiGreen">
           {notionPage.properties['공지사항']?.title[0].plain_text}
         </div>
       </section>
@@ -52,18 +63,19 @@ export default async function Page({ params }: { params: { id: string } }) {
         <Suspense fallback={<p>Loading notice...</p>}>
           {pageParagraphs &&
             pageParagraphs.map((content: any, idx) => {
-              if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
+              if (content.type === 'paragraph')
+                return <p key={idx}>{content.data}</p>;
               if (content.type === 'image')
                 return (
                   <Image
                     key={idx}
                     src={content.data}
-                    width='0'
-                    height='0'
-                    sizes='(min-width: 500px)'
-                    className='h-auto w-full'
-                    loading='lazy'
-                    alt='notice-image'
+                    width="0"
+                    height="0"
+                    sizes="(min-width: 500px)"
+                    className="h-auto w-full"
+                    loading="lazy"
+                    alt="notice-image"
                   />
                 );
             })}
@@ -83,8 +95,8 @@ export default async function Page({ params }: { params: { id: string } }) {
           'max-xl:min-w-full max-xl:max-w-full'
         )}
       >
-        <div className='flex items-center justify-center text-sm text-gray-500'>
-          <ButtonLink href='/notice' variant='outline'>
+        <div className="flex items-center justify-center text-sm text-gray-500">
+          <ButtonLink href="/notice" variant="outline">
             공지사항 목록으로 &gt;
           </ButtonLink>
         </div>
