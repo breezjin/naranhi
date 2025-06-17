@@ -1,7 +1,7 @@
 import Staff from '@/components/layouts/Staff';
 import ArrowLink from '@/components/links/ArrowLink';
 import { buttonVariants } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs } from '@/components/ui/tabs';
 
 import { medicalStaffs, treatmentStaffs } from '@/app/about-hospital/staffs';
 import { cn } from '@/lib/utils';
@@ -81,45 +81,54 @@ export default function Home() {
       </div>
       <div className="w-3/5 max-lg:w-full">
         <Tabs
+          tabs={[
+            {
+              title: '의료진 안내',
+              value: 'medical-staff',
+              content: (
+                <div className="space-y-2">
+                  {medicalStaffs &&
+                    medicalStaffs.map((staff, idx) => (
+                      <Staff
+                        key={`${staff.name}+${idx}`}
+                        profileImage={staff.profileImage}
+                        position={staff.position}
+                        name={staff.name}
+                        specialty={staff.specialty}
+                        educations={staff.educations}
+                        works={staff.works}
+                        experiences={staff.experiences}
+                      />
+                    ))}
+                </div>
+              ),
+            },
+            {
+              title: '치료진 안내',
+              value: 'treatment-staff',
+              content: (
+                <div className="space-y-2">
+                  {treatmentStaffs &&
+                    treatmentStaffs.map((staff, idx) => (
+                      <Staff
+                        key={`${staff.name}+${idx}`}
+                        // profileImage={staff.profileImage}
+                        position={staff.position}
+                        name={staff.name}
+                        specialty={staff.specialty}
+                        educations={staff.educations}
+                        works={staff.works}
+                        experiences={staff.experiences}
+                      />
+                    ))}
+                </div>
+              ),
+            },
+          ]}
           defaultValue="medical-staff"
           className="w-full"
           data-aos="fade-zoom-in"
-        >
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="medical-staff">의료진 안내</TabsTrigger>
-            <TabsTrigger value="treatment-staff">치료진 안내</TabsTrigger>
-          </TabsList>
-          <TabsContent value="medical-staff" className="space-y-2">
-            {medicalStaffs &&
-              medicalStaffs.map((staff, idx) => (
-                <Staff
-                  key={`${staff.name}+${idx}`}
-                  profileImage={staff.profileImage}
-                  position={staff.position}
-                  name={staff.name}
-                  specialty={staff.specialty}
-                  educations={staff.educations}
-                  works={staff.works}
-                  experiences={staff.experiences}
-                />
-              ))}
-          </TabsContent>
-          <TabsContent value="treatment-staff" className="space-y-2">
-            {treatmentStaffs &&
-              treatmentStaffs.map((staff, idx) => (
-                <Staff
-                  key={`${staff.name}+${idx}`}
-                  // profileImage={staff.profileImage}
-                  position={staff.position}
-                  name={staff.name}
-                  specialty={staff.specialty}
-                  educations={staff.educations}
-                  works={staff.works}
-                  experiences={staff.experiences}
-                />
-              ))}
-          </TabsContent>
-        </Tabs>
+        />
       </div>
     </main>
   );
