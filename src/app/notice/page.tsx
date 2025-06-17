@@ -1,28 +1,16 @@
-'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react';
 import UnderlineLink from '@/components/links/UnderlineLink';
+
+import { getNotionNotice } from '@/app/api/getNotionNotice';
 import { cn } from '@/lib/utils';
 
-export default function Notice() {
-  const [noticeList, setNoticeList] = useState<any[]>([]);
+export default async function Notice() {
+  const noticeList = (await getNotionNotice()).sort((a: any, b: any) => {
+    const aa = parseInt(a.properties['공지일'].date.start.replaceAll('-', ''));
+    const bb = parseInt(b.properties['공지일'].date.start.replaceAll('-', ''));
 
-  useEffect(() => {
-    fetch('/api/notice')
-      .then((res) => res.json())
-      .then((data) => {
-        const sorted = data.sort((a: any, b: any) => {
-          const aa = parseInt(
-            a.properties['공지일'].date.start.replaceAll('-', '')
-          );
-          const bb = parseInt(
-            b.properties['공지일'].date.start.replaceAll('-', '')
-          );
-          return bb - aa;
-        });
-        setNoticeList(sorted);
-      });
-  }, []);
+    return bb - aa;
+  });
 
   return (
     <main
@@ -39,7 +27,7 @@ export default function Notice() {
         )}
       >
         {noticeList.map((notice: any) => {
-          if (notice.archived) return null;
+          if (notice.archived) return;
 
           return (
             <div
