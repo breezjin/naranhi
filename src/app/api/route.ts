@@ -1,4 +1,11 @@
-export async function GET(request: Request) {}
+import { getNotionNotice } from './getNotionNotice';
+
+export async function GET(request: Request) {
+  const noticeList = await getNotionNotice();
+  return new Response(JSON.stringify(noticeList), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
 
 export async function HEAD(request: Request) {}
 
