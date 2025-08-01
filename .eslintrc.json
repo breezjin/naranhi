@@ -102,16 +102,7 @@
         "useTabs": false
       }
     ],
-    "indent": [
-      "error",
-      2,
-      {
-        "ignoredNodes": ["CallExpression > FunctionExpression.callee > BlockStatement.body"],
-        "SwitchCase": 1,
-        "VariableDeclarator": 2,
-        "offsetTernaryExpressions": true
-      }
-    ]
+    "indent": "off"
   },
   "overrides": [
     {

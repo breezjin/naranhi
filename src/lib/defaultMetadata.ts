@@ -90,9 +90,9 @@ export const defaultMetadata: Metadata = {
   //   { media: '(prefers-color-scheme: dark)', color: 'black' },
   // ],
   icons: {
-    icon: 'favicon/favicon.ico',
-    shortcut: 'favicon/favicon-16x16.png',
-    apple: 'favicon/apple-touch-icon.png',
+    icon: '/imgs/meta/favicon-96x96.png',
+    shortcut: '/imgs/meta/favicon-16x16.png',
+    apple: '/imgs/meta/apple-icon.png',
   },
   openGraph: {
     url: siteConfig.url,
@@ -122,8 +122,8 @@ export const defaultMetadata: Metadata = {
 // };
 
 type Props = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata(
@@ -131,7 +131,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const id = params.id;
+  const { id } = await params;
 
   // fetch data
   const product = await fetch(`https://.../${id}`).then((res) => res.json());

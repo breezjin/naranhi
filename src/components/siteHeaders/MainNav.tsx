@@ -32,23 +32,24 @@ interface MainNavProps {
 
 export function MainNav({ mainItems, snsItems }: MainNavProps) {
   return (
-    <div className="flex gap-6 max-md:w-full max-md:justify-between">
-      <Link href="/" className="flex items-center">
-        <div className="relative h-7 w-64 max-md:h-6 max-md:w-56">
+    <div className='flex gap-6 max-md:w-full max-md:justify-between'>
+      <Link href='/' className='flex items-center'>
+        <div className='relative h-7 w-64 max-md:h-6 max-md:w-56'>
           <Image
             src={'/imgs/naranhi-logo-color.png'}
             fill
             priority
-            alt="naranhi-logo"
+            alt='naranhi-logo'
+            sizes='(max-width: 768px) 224px, 256px'
           />
         </div>
       </Link>
       {mainItems?.length ? (
-        <nav className="flex items-center gap-4 max-xl:hidden">
+        <nav className='flex items-center gap-4 max-xl:hidden'>
           {mainItems?.map(
             (mainItem, index) =>
               mainItem.href && (
-                <Link key={index} href={mainItem.href} rel="noreferrer">
+                <Link key={index} href={mainItem.href} rel='noreferrer'>
                   <div
                     className={cn(
                       buttonVariants({
@@ -67,29 +68,25 @@ export function MainNav({ mainItems, snsItems }: MainNavProps) {
       ) : null}
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" className="xl:hidden">
+          <Button variant='outline' className='xl:hidden'>
             Menu
           </Button>
         </SheetTrigger>
-        <SheetContent className="min-w-[375px]">
+        <SheetContent className='min-w-[375px]'>
           <SheetHeader>
-            <SheetTitle className="max-sm:text-sm">Menu</SheetTitle>
+            <SheetTitle className='max-sm:text-sm'>Menu</SheetTitle>
             {/* <SheetDescription>
                 Make changes to your profile here. Click save when you're done.
               </SheetDescription> */}
           </SheetHeader>
-          <div className="space-y-8 py-12">
+          <div className='space-y-8 py-12'>
             {mainItems?.length ? (
-              <nav className="flex flex-col gap-4 text-2xl font-bold">
+              <nav className='flex flex-col gap-4 text-2xl font-bold'>
                 {mainItems?.map(
                   (mainItem, index) =>
                     mainItem.href && (
                       <SheetClose key={index} asChild>
-                        <ArrowLink
-                          key={index}
-                          href={mainItem.href}
-                          rel="noreferrer"
-                        >
+                        <ArrowLink href={mainItem.href} rel='noreferrer'>
                           <div
                             className={cn(
                               buttonVariants({
@@ -107,42 +104,33 @@ export function MainNav({ mainItems, snsItems }: MainNavProps) {
                 )}
               </nav>
             ) : null}
-            <nav className="flex justify-between text-2xl">
-              <div className="flex">
+            <nav className='flex justify-between text-2xl'>
+              <div className='flex'>
                 {snsItems?.map(
                   (snsItem, index) =>
                     snsItem.href &&
                     snsItem.image && (
-                      <>
-                        <Link
-                          href={snsItem.href}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
+                      <React.Fragment key={index}>
+                        <Link href={snsItem.href} target='_blank' rel='noreferrer'>
                           <div
                             className={buttonVariants({
                               size: 'sm',
                               variant: 'ghost',
                             })}
                           >
-                            <Image
-                              src={snsItem.image}
-                              width={32}
-                              height={32}
-                              alt={snsItem.title}
-                            />
+                            <Image src={snsItem.image} width={32} height={32} alt={snsItem.title} />
                           </div>
                         </Link>
-                      </>
+                      </React.Fragment>
                     )
                 )}
               </div>
               <ModeToggle />
             </nav>
           </div>
-          <SheetFooter className="w-full p-4">
+          <SheetFooter className='w-full p-4'>
             <SheetClose asChild>
-              <Button type="submit" className="w-full">
+              <Button type='submit' className='w-full'>
                 닫기
               </Button>
             </SheetClose>
