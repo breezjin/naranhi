@@ -24,7 +24,7 @@ const programList = [
             언어치료
           </CardTitle>
           <CardDescription>
-            <span>"그늘의 나무도 때가 오면 꽃이 핀다."</span>
+            <span>&ldquo;그늘의 나무도 때가 오면 꽃이 핀다.&rdquo;</span>
             <br />
             <span>언어 발달의 지연, 조음 장애, 질적인 의사소통 문제, 말더듬 등</span>
             <br />
@@ -97,7 +97,7 @@ const programList = [
           </CardTitle>
           <CardDescription>
             <span>
-              "새는 날아다니고, 물고기는 헤엄치며, 아동은 놀이를 한다."
+              &ldquo;새는 날아다니고, 물고기는 헤엄치며, 아동은 놀이를 한다.&rdquo;
               <span className='font-sans italic text-gray-500'> - Garry Landreth</span>
             </span>
             <br />
@@ -197,7 +197,7 @@ const programList = [
           </CardTitle>
           <CardDescription>
             <span>
-              "방법을 가르치지 말고 방향을 가리켜라."
+              &ldquo;방법을 가르치지 말고 방향을 가리켜라.&rdquo;
               <span className='font-sans italic text-gray-500'> - Dave Burgess</span>
             </span>
             <br />
@@ -271,9 +271,9 @@ const programList = [
           </CardTitle>
           <CardDescription>
             <span>
-              "내 속엔 여러가지 앤이 들어있나봐. 가끔씩은 난 왜 이렇게 골치 아픈 존재인가 하는
+              &ldquo;내 속엔 여러가지 앤이 들어있나봐. 가끔씩은 난 왜 이렇게 골치 아픈 존재인가 하는
               생각이 들기도 해. 내가 한결 같은 앤이라면 훨씬 더 편하겠지만 재미는 지금의 절반밖에
-              되지 않을거야."
+              되지 않을거야.&rdquo;
               <span className='font-sans italic text-gray-500'> - 빨강머리 앤</span>
             </span>
             <br />
@@ -332,13 +332,13 @@ const programList = [
           </CardTitle>
           <CardDescription>
             <span>
-              "다들 평생을 뭘 가져 보겠다고 고생 고생을 하면서
+              &ldquo;다들 평생을 뭘 가져 보겠다고 고생 고생을 하면서
               <span className='font-semibold'> &apos;나는 어떤 인간이다&apos;</span> 라는 걸 위해서
               아등바등 사는데 뭘 갖는 건지도 모르겠고, 어떻게 원하는 걸 갖는다고 해도{` `}
               <span className='font-semibold'>
                 나를 안전하게 만들어 준다고 생각했던 것들에, 나라고 생각했던 것들
               </span>
-              에 금이 가기 시작하면 못견디고 무너지고..."
+              에 금이 가기 시작하면 못견디고 무너지고...&rdquo;
               <span className='font-sans italic text-gray-500'> - 나의 아저씨</span>
             </span>
             <br />
