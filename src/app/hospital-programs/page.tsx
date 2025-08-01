@@ -1,29 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
+import { TagCloud } from 'react-tagcloud';
 
 import { cn } from '@/lib/utils';
-
-interface TagCloudProps {
-  className?: string;
-  minSize: number;
-  maxSize: number;
-  tags: Clinics;
-  renderer: (
-    tag: Clinic,
-    size: number,
-    color: string | undefined
-  ) => JSX.Element;
-  'data-aos'?: string;
-  'data-aos-duration'?: string;
-}
-
-// TagCloud를 동적으로 불러오기
-const TagCloud = dynamic<TagCloudProps>(
-  () => import('react-tagcloud').then((mod) => mod.TagCloud) as never,
-  { ssr: false }
-);
 
 const randomNumber = () => {
   return Math.random() * 10;
@@ -80,11 +60,7 @@ const childrenAdolescentsClinics: Clinics = [
   { value: '인지행동치료', count: randomNumber() },
 ];
 
-const customRenderer = (
-  adultClinics: Clinic,
-  size: number,
-  color: string | undefined
-) => (
+const customRenderer = (adultClinics: Clinic, size: number, color: string | undefined) => (
   <span
     key={adultClinics.value}
     style={{
@@ -111,20 +87,18 @@ export default function HospitalProgram() {
         'max-lg:flex-col max-lg:space-x-0 max-lg:space-y-24'
       )}
     >
-      <div className="flex flex-col space-y-4 max-lg:w-full lg:max-w-[650px]">
-        <div className="flex space-x-2 max-lg:justify-center">
+      <div className='flex flex-col space-y-4 max-lg:w-full lg:max-w-[650px]'>
+        <div className='flex space-x-2 max-lg:justify-center'>
           <Image
             src={'/imgs/naranhi-person-green.png'}
             width={22}
             height={15}
-            alt="나란히 초록사람"
+            alt='나란히 초록사람'
           />
-          <div className={cn('text-2xl font-bold text-naranhiGreen')}>
-            성인클리닉
-          </div>
+          <div className={cn('text-2xl font-bold text-naranhiGreen')}>성인클리닉</div>
         </div>
         <TagCloud
-          className="w-full"
+          className='w-full'
           minSize={2}
           maxSize={5}
           tags={adultClinics}
@@ -133,24 +107,22 @@ export default function HospitalProgram() {
           //   luminosity: 'random',
           //   hue: 'random'
           // }}
-          data-aos="fade-zoom-in"
-          data-aos-duration="2000"
+          data-aos='fade-zoom-in'
+          data-aos-duration='2000'
         />
       </div>
-      <div className="flex flex-col space-y-4 max-lg:w-full lg:max-w-[650px]">
-        <div className="flex space-x-2 max-lg:justify-center">
+      <div className='flex flex-col space-y-4 max-lg:w-full lg:max-w-[650px]'>
+        <div className='flex space-x-2 max-lg:justify-center'>
           <Image
             src={'/imgs/naranhi-person-yellow.png'}
             width={22}
             height={15}
-            alt="나란히 초록사람"
+            alt='나란히 초록사람'
           />
-          <div className="text-2xl font-bold text-naranhiYellow">
-            소아청소년클리닉
-          </div>
+          <div className='text-2xl font-bold text-naranhiYellow'>소아청소년클리닉</div>
         </div>
         <TagCloud
-          className="w-full"
+          className='w-full'
           minSize={2}
           maxSize={5}
           tags={childrenAdolescentsClinics}
@@ -159,8 +131,8 @@ export default function HospitalProgram() {
           //   luminosity: 'random',
           //   hue: 'random'
           // }}
-          data-aos="fade-zoom-in"
-          data-aos-duration="2000"
+          data-aos='fade-zoom-in'
+          data-aos-duration='2000'
         />
       </div>
     </main>

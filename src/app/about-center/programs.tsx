@@ -24,15 +24,14 @@ const programList = [
             언어치료
           </CardTitle>
           <CardDescription>
-            <div>“그늘의 나무도 때가 오면 꽃이 핀다.”</div>
+            <span>"그늘의 나무도 때가 오면 꽃이 핀다."</span>
             <br />
-            <div>
-              언어 발달의 지연, 조음 장애, 질적인 의사소통 문제, 말더듬 등
-            </div>
-            <div>
-              전반적인 의사소통에 어려움을 겪는 아동이 의사소통을 원활하게 할 수
-              있도록 돕는 치료프로그램입니다.
-            </div>
+            <span>언어 발달의 지연, 조음 장애, 질적인 의사소통 문제, 말더듬 등</span>
+            <br />
+            <span>
+              전반적인 의사소통에 어려움을 겪는 아동이 의사소통을 원활하게 할 수 있도록 돕는
+              치료프로그램입니다.
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
@@ -97,18 +96,15 @@ const programList = [
             놀이치료
           </CardTitle>
           <CardDescription>
-            <div>
-              “새는 날아다니고, 물고기는 헤엄치며, 아동은 놀이를 한다.”
-              <span className="font-sans italic text-gray-500">
-                {' '}
-                - Garry Landreth
-              </span>
-            </div>
+            <span>
+              "새는 날아다니고, 물고기는 헤엄치며, 아동은 놀이를 한다."
+              <span className='font-sans italic text-gray-500'> - Garry Landreth</span>
+            </span>
             <br />
-            <div>
-              아동에게 가장 친숙한 활동인 놀이를 통해 정서적 문제를 해결하고
-              성장과 발달을 촉진시키기 위해 활용되는 상담치료기법입니다.
-            </div>
+            <span>
+              아동에게 가장 친숙한 활동인 놀이를 통해 정서적 문제를 해결하고 성장과 발달을
+              촉진시키기 위해 활용되는 상담치료기법입니다.
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
@@ -200,19 +196,15 @@ const programList = [
             인지치료
           </CardTitle>
           <CardDescription>
-            <div>
-              “방법을 가르치지 말고 방향을 가리켜라.”
-              <span className="font-sans italic text-gray-500">
-                {' '}
-                - Dave Burgess
-              </span>
-            </div>
+            <span>
+              "방법을 가르치지 말고 방향을 가리켜라."
+              <span className='font-sans italic text-gray-500'> - Dave Burgess</span>
+            </span>
             <br />
-            <div>
-              아동의 지적 수준과 주의력 등의 학습에 저해를 주는 인지적인
-              요인들을 인지학습치료적 접근 방법을 통하여 아동의 인지 발달을
-              촉진시키는 치료입니다.
-            </div>
+            <span>
+              아동의 지적 수준과 주의력 등의 학습에 저해를 주는 인지적인 요인들을 인지학습치료적
+              접근 방법을 통하여 아동의 인지 발달을 촉진시키는 치료입니다.
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
@@ -278,22 +270,18 @@ const programList = [
             청소년 상담
           </CardTitle>
           <CardDescription>
-            <div>
-              “내 속엔 여러가지 앤이 들어있나봐. 가끔씩은 난 왜 이렇게 골치 아픈
-              존재인가 하는 생각이 들기도 해. 내가 한결 같은 앤이라면 훨씬 더
-              편하겠지만 재미는 지금의 절반밖에 되지 않을거야.“
-              <span className="font-sans italic text-gray-500">
-                {' '}
-                - 빨강머리 앤
-              </span>
-            </div>
+            <span>
+              "내 속엔 여러가지 앤이 들어있나봐. 가끔씩은 난 왜 이렇게 골치 아픈 존재인가 하는
+              생각이 들기도 해. 내가 한결 같은 앤이라면 훨씬 더 편하겠지만 재미는 지금의 절반밖에
+              되지 않을거야."
+              <span className='font-sans italic text-gray-500'> - 빨강머리 앤</span>
+            </span>
             <br />
-            <div>
-              청소년기는 가치관, 정체성을 세워나가는 시기로, 신체적, 정신적으로
-              급격히 성장하는 과정을 겪으며 어려움을 겪기 쉽습니다. 상담을 통해
-              어려움을 함께 겪어 나가고 더불어 성장의 기회로 삼는 것을 목표로
-              합니다.
-            </div>
+            <span>
+              청소년기는 가치관, 정체성을 세워나가는 시기로, 신체적, 정신적으로 급격히 성장하는
+              과정을 겪으며 어려움을 겪기 쉽습니다. 상담을 통해 어려움을 함께 겪어 나가고 더불어
+              성장의 기회로 삼는 것을 목표로 합니다.
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
@@ -343,31 +331,22 @@ const programList = [
             성인 상담
           </CardTitle>
           <CardDescription>
-            <div>
-              “다들 평생을 뭘 가져 보겠다고 고생 고생을 하면서
-              <span className="font-semibold">
-                {' '}
-                &apos;나는 어떤 인간이다&apos;
-              </span>{' '}
-              라는 걸 위해서 아등바등 사는데 뭘 갖는 건지도 모르겠고, 어떻게
-              원하는 걸 갖는다고 해도{` `}
-              <span className="font-semibold">
-                나를 안전하게 만들어 준다고 생각했던 것들에, 나라고 생각했던
-                것들
+            <span>
+              "다들 평생을 뭘 가져 보겠다고 고생 고생을 하면서
+              <span className='font-semibold'> &apos;나는 어떤 인간이다&apos;</span> 라는 걸 위해서
+              아등바등 사는데 뭘 갖는 건지도 모르겠고, 어떻게 원하는 걸 갖는다고 해도{` `}
+              <span className='font-semibold'>
+                나를 안전하게 만들어 준다고 생각했던 것들에, 나라고 생각했던 것들
               </span>
-              에 금이 가기 시작하면 못견디고 무너지고...”
-              <span className="font-sans italic text-gray-500">
-                {' '}
-                - 나의 아저씨
-              </span>
-            </div>
+              에 금이 가기 시작하면 못견디고 무너지고..."
+              <span className='font-sans italic text-gray-500'> - 나의 아저씨</span>
+            </span>
             <br />
-            <div>
-              현대 사회에서 성인이 된 우리는 수많은 역할과 책임을 가지게 됩니다.
-              그 속에서 갈등과 스트레스, 어려움을 겪을 수 있습니다. 상담을
-              통하여 어려움을 나누고 자기 돌봄과 성장의 기회가 되는 것을 목표로
-              삼습니다.
-            </div>
+            <span>
+              현대 사회에서 성인이 된 우리는 수많은 역할과 책임을 가지게 됩니다. 그 속에서 갈등과
+              스트레스, 어려움을 겪을 수 있습니다. 상담을 통하여 어려움을 나누고 자기 돌봄과 성장의
+              기회가 되는 것을 목표로 삼습니다.
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
@@ -399,9 +378,7 @@ const programList = [
             검사 프로그램
           </CardTitle>
           <CardDescription>
-            <div>
-              각 개인의 어려움과 상황에 맞는 다양한 평가 및 검사를 진행합니다.
-            </div>
+            <span>각 개인의 어려움과 상황에 맞는 다양한 평가 및 검사를 진행합니다.</span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
