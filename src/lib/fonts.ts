@@ -1,4 +1,7 @@
-import { Inter as FontSans, JetBrains_Mono as FontMono } from 'next/font/google';
+import {
+  Inter as FontSans,
+  JetBrains_Mono as FontMono,
+} from 'next/font/google';
 import localFont from 'next/font/local';
 
 export const fontSans = FontSans({

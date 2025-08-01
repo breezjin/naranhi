@@ -1,14 +1,3 @@
-import { treatments } from './../about-center/items';
-interface Profile {
-  profileImage?: string;
-  position: string;
-  name: string;
-  specialty?: string;
-  educations?: string[];
-  works?: string[];
-  experiences?: string[];
-}
-
 export const medicalStaffs = [
   {
     profileImage: '/imgs/staffs/staff-kimchaeri.png',
@@ -31,7 +20,10 @@ export const medicalStaffs = [
       '대한비만연구의사회 정회원',
       '교육부 심리지원단 전문의',
     ],
-    experiences: [`전) 새샘병원 정신건강의학과 진료부장`, `전) 금천키다리정신건강의학과 원장`],
+    experiences: [
+      `전) 새샘병원 정신건강의학과 진료부장`,
+      `전) 금천키다리정신건강의학과 원장`,
+    ],
   },
 ];
 
@@ -87,7 +79,7 @@ export const treatmentStaffs = [
     educations: [
       `동국대학교 국어국문학과 학사졸업`,
       `연세대학교 언어병리학협동과정 석사졸업`,
-      `이화여자대학교 특수교육학과 자폐성장애 전공 박사과정`,
+      `이화여자대학교 특특수교육학과 자폐성장애 전공 박사과정`,
     ],
     works: ['[보건복지부] 언어재활사 1급'],
     experiences: [
@@ -100,7 +92,10 @@ export const treatmentStaffs = [
     // profileImage: '/imgs/staffs/staff-kimboram.png',
     position: '인지치료사/심리상담사',
     name: '김보람',
-    educations: ['중앙대학교 심리학 학사', '중앙대학교 임상 및 상담심리학 석사'],
+    educations: [
+      '중앙대학교 심리학 학사',
+      '중앙대학교 임상 및 상담심리학 석사',
+    ],
     works: [
       '[한국심리학회] 일반심리사',
       '[여성가족부] 청소년상담사 2급',
@@ -139,7 +134,10 @@ export const treatmentStaffs = [
     position: '놀이치료사',
     name: '김빛나',
     educations: ['숙명여자대학교 놀이치료전공 석사'],
-    works: ['[여성가족부] 청소년상담사 2급', '[한국놀이치료학회] 놀이심리상담사 2급'],
+    works: [
+      '[여성가족부] 청소년상담사 2급',
+      '[한국놀이치료학회] 놀이심리상담사 2급',
+    ],
     experiences: [
       `전) 숙명여자대학교 놀이치료실 놀이치료사`,
       `전) 한신플러스케어 놀이치료사`,
@@ -162,7 +160,7 @@ export const treatmentStaffs = [
     works: [
       '[한국상담심리학회] 상담심리사 2급 ',
       '[한국상담학회] 전문상담사 2급',
-      '[한국모래놀이치료학회] 모래놀이치료사 1급',
+      '[한국모래놀이치료료학회] 모래놀이치료사 1급',
       '[여성가족부] 청소년상담사 3급',
       '[여성가족부] 가정폭력상담원',
       '[여성가족부] 성폭력상담원',
@@ -235,7 +233,10 @@ export const treatmentStaffs = [
       `서울대학교 생물심리학 석사 수료`,
       `서울불교대학원대학교 상담심리학 박사 졸업`,
     ],
-    works: [`[보건복지부] 정신보건임상심리사 1급 232호`, `[한국심리학회] 임상심리전문가 181호`],
+    works: [
+      `[보건복지부] 정신보건임상심리사 1급 232호`,
+      `[한국심리학회] 임상심리전문가 181호`,
+    ],
     experiences: [
       `전) 국립법무병원 임상심리전문가`,
       `전) 한국마사회 유캔센터 임상심리전문가`,
@@ -251,7 +252,10 @@ export const treatmentStaffs = [
     position: '임상심리사',
     name: '이숙영',
     educations: ['가톨릭대학교 심리학 석사'],
-    works: ['[보건복지부] 정신건강임상심리사 1급', '[한국심리학회] 임상심리전문가'],
+    works: [
+      '[보건복지부] 정신건강임상심리사 1급',
+      '[한국심리학회] 임상심리전문가',
+    ],
     experiences: [
       `전) 가천대 길병원 정신건강의학과 임상심리 수련`,
       `전) 가천대학교 산학협력단 연구원`,
@@ -265,7 +269,10 @@ export const treatmentStaffs = [
   {
     position: '임상심리사',
     name: '박초롱',
-    educations: ['가톨릭대학교 아동학과 심리학과 학사', '가톨릭대학교 일반대학원 임상심리 석사'],
+    educations: [
+      '가톨릭대학교 아동학과 심리학과 학사',
+      '가톨릭대학교 일반대학원 임상심리 석사',
+    ],
     works: [
       '[보건복지부] 정신건강임상심리사 1급',
       '[여성가족부] 청소년상담사 2급',

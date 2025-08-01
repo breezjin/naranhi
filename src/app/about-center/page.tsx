@@ -28,14 +28,14 @@ export default function Programs() {
   );
 }
 
-const DummyContent = () => {
+const _DummyContent = () => {
   return (
     <Image
-      src='/linear.webp'
-      alt='dummy image'
-      width='1000'
-      height='1000'
-      className='absolute inset-x-0 -bottom-10  mx-auto h-3/5 w-[90%] rounded-xl object-cover object-left-top md:h-[90%]'
+      src="/linear.webp"
+      alt="dummy image"
+      width="1000"
+      height="1000"
+      className="absolute inset-x-0 -bottom-10 mx-auto h-3/5 w-[90%] rounded-xl object-cover object-left-top md:h-[90%]"
     />
   );
 };

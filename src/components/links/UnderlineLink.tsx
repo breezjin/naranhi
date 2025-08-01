@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import UnstyledLink, { UnstyledLinkProps } from '@/components/links/UnstyledLink';
+import UnstyledLink, {
+  UnstyledLinkProps,
+} from '@/components/links/UnstyledLink';
 
 import { cn } from '@/lib/utils';
 
