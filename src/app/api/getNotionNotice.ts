@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 
-const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_SECRET_KEY });
-const dbId = process.env.NEXT_PUBLIC_NOTION_NOTICE_DB_ID ?? '';
+const notion = new Client({ auth: process.env.NOTION_SECRET_KEY });
+const dbId = process.env.NOTION_NOTICE_DB_ID ?? '';
 
 export async function getNotionNotice() {
   const dbQuery = await notion.databases.query({

@@ -1,92 +1,177 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import dynamic from 'next/dynamic';
+'use client';
+
 import Image from 'next/image';
-import { Suspense } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import ButtonLink from '@/components/links/ButtonLink';
+import NoticeError from '@/components/notice/NoticeError';
+import NoticeLoading from '@/components/notice/NoticeLoading';
+import { NoticeDetailResponse } from '@/types/notionTypes';
+import { NOTICE_CONSTANTS, formatNoticeDate, fetchWithRetry } from '@/lib/noticeUtils';
 
-import { getNotionNoticePage, getNotionNoticePageBlocks } from '@/app/api/getNotionNotice';
-import { cn } from '@/lib/utils';
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const notionPage: any = await getNotionNoticePage(id);
-  const notionBlockChildren: any[] = (await getNotionNoticePageBlocks(id)).results;
-  const pageParagraphs = notionBlockChildren.map((children) => {
-    if (children.type === 'paragraph')
-      return {
-        type: children.type,
-        data: children.paragraph.rich_text[0]?.plain_text,
-      };
-    if (children.type === 'image')
-      return {
-        type: children.type,
-        data: children.image.file?.url,
-      };
-  });
+interface NoticeDetailProps {
+  params: Promise<{ id: string }>;
+}
+
+export default function NoticeDetailPage({ params }: NoticeDetailProps) {
+  const [noticeData, setNoticeData] = useState<NoticeDetailResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>(null);
+
+  // params를 해결하여 id 추출
+  useEffect(() => {
+    params.then(({ id: paramId }) => {
+      setId(paramId);
+    });
+  }, [params]);
+
+  const fetchNoticeDetail = useCallback(async (noticeId: string) => {
+    try {
+      setError(null);
+      setLoading(true);
+      
+      const response = await fetchWithRetry(`/api/notice/${noticeId}`);
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      setNoticeData(data);
+    } catch (error) {
+      console.error('Failed to fetch notice detail:', error);
+      const errorMessage = error instanceof Error && error.message.includes('404') 
+        ? NOTICE_CONSTANTS.MESSAGES.ERROR_NOT_FOUND
+        : NOTICE_CONSTANTS.MESSAGES.ERROR_FETCH;
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const handleRetry = useCallback(() => {
+    if (id) {
+      fetchNoticeDetail(id);
+    }
+  }, [id, fetchNoticeDetail]);
+
+  // id가 설정되면 데이터 페칭
+  useEffect(() => {
+    if (!id) return;
+    fetchNoticeDetail(id);
+  }, [id, fetchNoticeDetail]);
+
+  if (loading) {
+    return <NoticeLoading />;
+  }
+
+  if (error) {
+    return (
+      <NoticeError 
+        message={error}
+        showRetry={true}
+        onRetry={handleRetry}
+        showBackButton={true}
+      />
+    );
+  }
+
+  if (!noticeData) {
+    return (
+      <NoticeError 
+        message={NOTICE_CONSTANTS.MESSAGES.ERROR_NOT_FOUND}
+        showRetry={false}
+        showBackButton={true}
+      />
+    );
+  }
+
+  const { page, content } = noticeData;
+  const title = page.properties['공지사항']?.title[0]?.plain_text || '제목 없음';
+  const dateString = page.properties['공지일']?.date.start;
+  const formattedDate = dateString ? formatNoticeDate(dateString) : '';
 
   return (
     <main
-      className='flex min-h-[calc(100vh-65px)] w-full flex-col items-center gap-8 p-8 pt-16 max-xl:pt-8'
-      data-aos='fade-zoon-in'
+      className={NOTICE_CONSTANTS.STYLES.MAIN_CONTAINER}
+      data-aos="fade-zoon-in"
     >
-      <section
-        className={cn(
-          'flex min-w-[500px] max-w-[40%] flex-col gap-0',
-          'max-xl:min-w-full max-xl:max-w-full'
+      {/* 공지사항 헤더 */}
+      <header className={NOTICE_CONSTANTS.STYLES.TITLE_HEADER}>
+        {formattedDate && (
+          <time 
+            className="text-sm text-gray-600 dark:text-gray-400 mb-2"
+            dateTime={dateString}
+          >
+            {formattedDate}
+          </time>
         )}
+        <h1 className={NOTICE_CONSTANTS.STYLES.TITLE_COLOR}>
+          {title}
+        </h1>
+      </header>
+
+      {/* 공지사항 내용 */}
+      <article 
+        className={NOTICE_CONSTANTS.STYLES.CONTENT_CONTAINER}
+        role="article"
+        aria-labelledby="notice-title"
       >
-        <div>{notionPage.properties['공지일']?.date.start}</div>
-        <div className='text-2xl text-naranhiYellow dark:text-naranhiGreen'>
-          {notionPage.properties['공지사항']?.title[0].plain_text}
-        </div>
-      </section>
-      <section
-        className={cn(
-          'flex min-w-[500px] max-w-[40%] flex-col gap-4',
-          'max-xl:min-w-full max-xl:max-w-full'
-        )}
-      >
-        <Suspense fallback={<p>Loading notice...</p>}>
-          {pageParagraphs &&
-            pageParagraphs.map((content: any, idx) => {
-              if (content.type === 'paragraph') return <p key={idx}>{content.data}</p>;
-              if (content.type === 'image')
+        {content && content.length > 0 ? (
+          <div className="prose dark:prose-invert max-w-none">
+            {content.map((item, idx) => {
+              if (item.type === 'paragraph' && item.data.trim()) {
                 return (
-                  <Image
-                    key={idx}
-                    src={content.data}
-                    width='0'
-                    height='0'
-                    sizes='(min-width: 500px)'
-                    className='h-auto w-full'
-                    loading='lazy'
-                    alt='notice-image'
-                  />
+                  <p 
+                    key={idx} 
+                    className="mb-4 leading-relaxed text-gray-800 dark:text-gray-200"
+                  >
+                    {item.data}
+                  </p>
                 );
+              }
+              if (item.type === 'image' && item.data) {
+                return (
+                  <div key={idx} className="my-6">
+                    <Image
+                      src={item.data}
+                      width="0"
+                      height="0"
+                      sizes="(max-width: 500px) 100vw, 500px"
+                      className="h-auto w-full rounded-lg shadow-sm"
+                      loading="lazy"
+                      alt={`공지사항 이미지 ${idx + 1}`}
+                    />
+                  </div>
+                );
+              }
+              return null;
             })}
-        </Suspense>
-      </section>
-      {/* <section
-        className={cn(
-          'flex min-w-[500px] max-w-[40%] flex-col gap-4',
-          'max-xl:min-w-full max-xl:max-w-full'
+          </div>
+        ) : (
+          <div 
+            className="text-gray-500 text-center py-8"
+            role="status"
+          >
+            내용이 없습니다.
+          </div>
         )}
-      >
-        공지사항 내용을 정비 중입니다.
-      </section> */}
-      <section
-        className={cn(
-          'flex min-w-[500px] max-w-[40%] flex-col gap-4',
-          'max-xl:min-w-full max-xl:max-w-full'
-        )}
-      >
-        <div className='flex items-center justify-center text-sm text-gray-500'>
-          <ButtonLink href='/notice' variant='outline'>
-            공지사항 목록으로 &gt;
+      </article>
+
+      {/* 네비게이션 */}
+      <nav className={NOTICE_CONSTANTS.STYLES.CONTENT_CONTAINER}>
+        <div className="flex items-center justify-center pt-8 border-t border-gray-200 dark:border-gray-700">
+          <ButtonLink 
+            href="/notice" 
+            variant="outline"
+            aria-label="공지사항 목록으로 돌아가기"
+          >
+            {NOTICE_CONSTANTS.MESSAGES.BACK_TO_LIST_SHORT}
           </ButtonLink>
         </div>
-      </section>
+      </nav>
     </main>
   );
 }

@@ -1,120 +1,124 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import NoticeError from '@/components/notice/NoticeError';
+import NoticeLoading from '@/components/notice/NoticeLoading';
 import UnderlineLink from '@/components/links/UnderlineLink';
+import { NoticeListItem } from '@/types/notionTypes';
+import { NOTICE_CONSTANTS, sortNoticesByDate, formatNoticeDate, fetchWithRetry } from '@/lib/noticeUtils';
 
 import { cn } from '@/lib/utils';
 
 export default function Notice() {
-  const [noticeList, setNoticeList] = useState<any[]>([]);
+  const [noticeList, setNoticeList] = useState<NoticeListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let isMounted = true;
-    
-    const fetchNotices = async () => {
-      console.log('Fetching notices...');
+  const fetchNotices = useCallback(async () => {
+    try {
+      setError(null);
+      setLoading(true);
       
-      try {
-        setError(null);
-        const response = await fetch('/api/notice');
-        const notices = await response.json();
-        
-        console.log('Received notices:', notices);
-        
-        if (!isMounted) return; // 컴포넌트가 언마운트된 경우 상태 업데이트하지 않음
-        
-        if (notices.length > 0) {
-          const sortedNotices = notices.sort((a: any, b: any) => {
-            const aa = parseInt(a.properties['공지일'].date.start.replaceAll('-', ''));
-            const bb = parseInt(b.properties['공지일'].date.start.replaceAll('-', ''));
-            return bb - aa;
-          });
-          setNoticeList(sortedNotices);
-          console.log('Set notice list:', sortedNotices);
-        } else {
-          setNoticeList([]);
-          console.log('Set empty notice list');
-        }
-      } catch (error) {
-        console.error('Failed to fetch notices:', error);
-        if (isMounted) {
-          setError('공지사항을 불러오는데 실패했습니다.');
-          setNoticeList([]);
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-          console.log('Loading complete');
-        }
+      const response = await fetchWithRetry('/api/notice');
+      const notices = await response.json();
+      
+      if (Array.isArray(notices) && notices.length > 0) {
+        const sortedNotices = sortNoticesByDate(notices);
+        setNoticeList(sortedNotices);
+      } else {
+        setNoticeList([]);
       }
-    };
-
-    fetchNotices();
-    
-    return () => {
-      isMounted = false;
-    };
+    } catch (error) {
+      console.error('Failed to fetch notices:', error);
+      setError(NOTICE_CONSTANTS.MESSAGES.ERROR_FETCH);
+      setNoticeList([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
+  const handleRetry = useCallback(() => {
+    fetchNotices();
+  }, [fetchNotices]);
+
+  useEffect(() => {
+    fetchNotices();
+  }, [fetchNotices]);
+
   if (loading) {
-    return (
-      <main className="flex min-h-[calc(100vh-65px)] w-full flex-col items-center justify-center">
-        <div>로딩 중...</div>
-      </main>
-    );
+    return <NoticeLoading />;
   }
 
   if (error) {
     return (
-      <main className="flex min-h-[calc(100vh-65px)] w-full flex-col items-center justify-center">
-        <div className="text-red-500">{error}</div>
-      </main>
+      <NoticeError 
+        message={error}
+        showRetry={true}
+        onRetry={handleRetry}
+        showBackButton={false}
+      />
     );
   }
 
   return (
     <main
-      className="flex min-h-[calc(100vh-65px)] w-full flex-col items-center gap-8 p-8 pt-16 max-xl:pt-8"
+      className={NOTICE_CONSTANTS.STYLES.MAIN_CONTAINER}
       data-aos="fade-zoon-in"
     >
-      <div className="text-2xl text-naranhiYellow dark:text-naranhiGreen">
+      <h1 className={NOTICE_CONSTANTS.STYLES.TITLE_COLOR}>
         공지사항
-      </div>
-      <div
-        className={cn(
-          'flex min-w-[500px] max-w-[40%] flex-col gap-4',
-          'max-xl:min-w-full max-xl:max-w-full'
-        )}
+      </h1>
+      <section
+        className={NOTICE_CONSTANTS.STYLES.CONTENT_CONTAINER}
+        role="main"
+        aria-label="공지사항 목록"
       >
         {noticeList.length > 0 ? (
-          noticeList.map((notice: any) => {
-            if (notice.archived) return null;
+          <ul className="flex flex-col gap-4">
+            {noticeList.map((notice) => {
+              if (notice.archived) return null;
 
-            return (
-              <div
-                key={notice.id}
-                className={cn('flex h-fit gap-2 max-xl:w-full max-xl:flex-col')}
-              >
-                <div className={cn('w-32 max-xl:w-24')}>
-                  {notice.properties['공지일'].date.start}
-                </div>
-                <div className="w-full text-base">
-                  <UnderlineLink href={`/notice/${notice.id}`}>
-                    {notice.properties['공지사항'].title[0].plain_text}
-                  </UnderlineLink>
-                </div>
-              </div>
-            );
-          })
+              const formattedDate = formatNoticeDate(notice.properties['공지일'].date.start);
+              const title = notice.properties['공지사항'].title[0]?.plain_text || '제목 없음';
+
+              return (
+                <li
+                  key={notice.id}
+                  className={cn(
+                    'flex h-fit gap-2 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors',
+                    'max-xl:w-full max-xl:flex-col'
+                  )}
+                >
+                  <time 
+                    className={cn('w-32 text-sm text-gray-600 dark:text-gray-400 flex-shrink-0', 'max-xl:w-24')}
+                    dateTime={notice.properties['공지일'].date.start}
+                  >
+                    {formattedDate}
+                  </time>
+                  <div className="w-full text-base">
+                    <UnderlineLink 
+                      href={`/notice/${notice.id}`}
+                      className="line-clamp-2"
+                      aria-label={`공지사항: ${title}`}
+                    >
+                      {title}
+                    </UnderlineLink>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         ) : (
-          <div className="flex h-32 w-full items-center justify-center text-gray-500">
-            현재 등록된 공지사항이 없습니다.
+          <div 
+            className="flex h-32 w-full items-center justify-center text-gray-500"
+            role="status"
+            aria-live="polite"
+          >
+            {NOTICE_CONSTANTS.MESSAGES.EMPTY_LIST}
           </div>
         )}
-      </div>
+      </section>
     </main>
   );
 }
