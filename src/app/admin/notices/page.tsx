@@ -282,7 +282,7 @@ export default function NoticesPage() {
       // Refresh data
       fetchData()
     } catch (error: unknown) {
-      logError('Error deleting notice', error, { component: 'NoticesPage', action: 'handleDelete', noticeId })
+      logError('Error deleting notice', error, { component: 'NoticesPage', action: 'handleDelete', noticeId: notice.id })
       toast({
         title: '삭제 실패',
         description: '공지사항 삭제 중 오류가 발생했습니다.',

@@ -54,12 +54,13 @@ type FormData = {
   display_order: number
 }
 
-export default function EditFacilityPage({ params }: { params: { id: string } }) {
+export default function EditFacilityPage({ params }: { params: Promise<{ id: string }> }) {
   const [photo, setPhoto] = useState<FacilityPhoto | null>(null)
   const [categories, setCategories] = useState<FacilityCategory[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [id, setId] = useState<string>('')
   const [formData, setFormData] = useState<FormData>({
     title: '',
     alt_text: '',
@@ -73,8 +74,18 @@ export default function EditFacilityPage({ params }: { params: { id: string } })
   const { toast } = useToast()
 
   useEffect(() => {
-    fetchData()
-  }, [params.id])
+    const initializeParams = async () => {
+      const resolvedParams = await params
+      setId(resolvedParams.id)
+    }
+    initializeParams()
+  }, [params])
+
+  useEffect(() => {
+    if (id) {
+      fetchData()
+    }
+  }, [id])
 
   const fetchData = async () => {
     try {
@@ -82,7 +93,7 @@ export default function EditFacilityPage({ params }: { params: { id: string } })
       
       // Fetch photo and categories in parallel
       const [photoResponse, categoriesResponse] = await Promise.all([
-        fetch(`/api/admin/facilities/${params.id}`),
+        fetch(`/api/admin/facilities/${id}`),
         fetch('/api/admin/facility-categories')
       ])
 
@@ -155,7 +166,7 @@ export default function EditFacilityPage({ params }: { params: { id: string } })
     try {
       setSaving(true)
 
-      const response = await fetch(`/api/admin/facilities/${params.id}`, {
+      const response = await fetch(`/api/admin/facilities/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

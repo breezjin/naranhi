@@ -5,9 +5,10 @@ import { cookies } from 'next/headers'
 // GET /api/admin/staff/[id] - Fetch single staff member
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createRouteHandlerClient({ cookies })
 
     const { data, error } = await supabase
@@ -16,7 +17,7 @@ export async function GET(
         *,
         category:staff_categories(name, display_name)
       `)
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (error) {
@@ -40,9 +41,10 @@ export async function GET(
 // PUT /api/admin/staff/[id] - Update staff member
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createRouteHandlerClient({ cookies })
     const body = await request.json()
 
@@ -67,7 +69,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from('staff_members')
       .update(cleanData)
-      .eq('id', params.id)
+      .eq('id', id)
       .select(`
         *,
         category:staff_categories(name, display_name)
@@ -95,16 +97,17 @@ export async function PUT(
 // DELETE /api/admin/staff/[id] - Delete staff member
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createRouteHandlerClient({ cookies })
 
     // Check if staff member exists
     const { data: existingStaff, error: fetchError } = await supabase
       .from('staff_members')
       .select('name')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (fetchError || !existingStaff) {
@@ -117,7 +120,7 @@ export async function DELETE(
     const { error } = await supabase
       .from('staff_members')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
 
     if (error) {
       console.error('Error deleting staff member:', error)

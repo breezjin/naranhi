@@ -94,7 +94,7 @@ export default function CreateNoticePage() {
       setCategories(fallbackCategories)
       setSelectedCategoryId(fallbackCategories[0].id)
       
-      setError(`카테고리를 불러오는 중 오류가 발생했지만 기본 카테고리를 사용합니다: ${error.message}`)
+      setError(`카테고리를 불러오는 중 오류가 발생했지만 기본 카테고리를 사용합니다: ${error instanceof Error ? error.message : '알 수 없는 오류'}`)
     } finally {
       setCategoriesLoading(false)
     }
@@ -104,8 +104,8 @@ export default function CreateNoticePage() {
     fetchCategories()
   }, [fetchCategories])
 
-  const handleContentChange: QuillChangeHandler = (content: QuillDelta, delta: QuillDelta, source: QuillSource, editor: QuillEditorType) => {
-    setContent(content)
+  const handleContentChange = (content: any, delta: any, source: any, editor: any) => {
+    setContent(JSON.stringify(content))
   }
 
   const addTag = (e: React.KeyboardEvent) => {
@@ -129,7 +129,7 @@ export default function CreateNoticePage() {
       return
     }
 
-    if (!content || (content.ops && content.ops.length === 0)) {
+    if (!content || content.trim() === '' || content === '{"ops":[{"insert":"\\n"}]}') {
       toast({
         title: '입력 오류',
         description: '내용을 입력해주세요.',
@@ -186,7 +186,7 @@ export default function CreateNoticePage() {
       logError('Error creating notice', error, { component: 'CreateNoticePage', action: 'handleSubmit' })
       toast({
         title: '오류',
-        description: error.message || '공지사항 생성 중 오류가 발생했습니다.',
+        description: error instanceof Error ? error.message : '공지사항 생성 중 오류가 발생했습니다.',
         variant: 'destructive'
       })
     } finally {

@@ -165,7 +165,7 @@ export default function EditNoticePage() {
       
     } catch (error: unknown) {
       logError('Critical error in fetchData', error, { component: 'EditNoticePage', action: 'fetchData', noticeId })
-      setError(error.message || '데이터를 불러오는 중 예상치 못한 오류가 발생했습니다.')
+      setError(error instanceof Error ? error.message : '데이터를 불러오는 중 예상치 못한 오류가 발생했습니다.')
     } finally {
       setInitialLoading(false)
     }
@@ -177,8 +177,8 @@ export default function EditNoticePage() {
     }
   }, [noticeId, fetchData])
 
-  const handleContentChange: QuillChangeHandler = (content: QuillDelta, delta: QuillDelta, source: QuillSource, editor: QuillEditorType) => {
-    setContent(content)
+  const handleContentChange = (content: any, delta: any, source: any, editor: any) => {
+    setContent(JSON.stringify(content))
   }
 
   const addTag = (e: React.KeyboardEvent) => {
@@ -202,7 +202,7 @@ export default function EditNoticePage() {
       return
     }
 
-    if (!content || (content.ops && content.ops.length === 0)) {
+    if (!content || content.trim() === '' || content === '{"ops":[{"insert":"\\n"}]}') {
       toast({
         title: '입력 오류',
         description: '내용을 입력해주세요.',
@@ -258,7 +258,7 @@ export default function EditNoticePage() {
       logError('Error updating notice', error, { component: 'EditNoticePage', action: 'handleSubmit', noticeId })
       toast({
         title: '오류',
-        description: error.message || '공지사항 수정 중 오류가 발생했습니다.',
+        description: error instanceof Error ? error.message : '공지사항 수정 중 오류가 발생했습니다.',
         variant: 'destructive'
       })
     } finally {

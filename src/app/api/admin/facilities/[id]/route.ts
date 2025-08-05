@@ -5,9 +5,10 @@ import { cookies } from 'next/headers'
 // GET /api/admin/facilities/[id] - Fetch single facility photo
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createRouteHandlerClient({ cookies })
 
     const { data, error } = await supabase
@@ -16,7 +17,7 @@ export async function GET(
         *,
         category:facility_categories(name, display_name)
       `)
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (error) {
@@ -40,9 +41,10 @@ export async function GET(
 // PUT /api/admin/facilities/[id] - Update facility photo
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createRouteHandlerClient({ cookies })
     const body = await request.json()
 
@@ -62,7 +64,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from('facility_photos')
       .update(updateData)
-      .eq('id', params.id)
+      .eq('id', id)
       .select(`
         *,
         category:facility_categories(name, display_name)
@@ -90,16 +92,17 @@ export async function PUT(
 // DELETE /api/admin/facilities/[id] - Delete facility photo
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createRouteHandlerClient({ cookies })
 
     // Check if facility photo exists
     const { data: existingPhoto, error: fetchError } = await supabase
       .from('facility_photos')
       .select('title')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (fetchError || !existingPhoto) {
@@ -112,7 +115,7 @@ export async function DELETE(
     const { error } = await supabase
       .from('facility_photos')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
 
     if (error) {
       console.error('Error deleting facility photo:', error)

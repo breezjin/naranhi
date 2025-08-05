@@ -202,7 +202,7 @@ const QuillEditor = memo(forwardRef<QuillEditorRef, QuillEditorProps>(({
         const nonKoreanWords = text
           .replace(/[가-힣]/g, '')  // Remove Korean characters
           .split(/\s+/)  // Split by whitespace
-          .filter(word => word.length > 0).length
+          .filter((word: string) => word.length > 0).length
         
         return koreanChars + nonKoreanWords
       }
@@ -225,7 +225,7 @@ const QuillEditor = memo(forwardRef<QuillEditorRef, QuillEditorProps>(({
         container: koreanOptimizedToolbar,
         handlers: {
           image: imageHandler,
-          table: function() {
+          table: function(this: any) {
             if (quillTable) {
               const table = this.quill.getModule('table')
               table.insertTable(3, 3)
@@ -481,15 +481,13 @@ const QuillEditor = memo(forwardRef<QuillEditorRef, QuillEditorProps>(({
       `}</style>
       
       <ReactQuill
-        ref={quillRef}
         theme={theme}
-        value={value}
+        value={typeof value === 'string' ? value : ''}
         onChange={handleChange}
         modules={modules}
         formats={formats}
         placeholder={placeholder}
         readOnly={readOnly}
-        onReady={handleQuillReady}
       />
     </div>
   )

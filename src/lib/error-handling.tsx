@@ -1,4 +1,6 @@
 
+import React from 'react'
+
 // Enhanced error handling for admin pages
 export const handleSupabaseError = (error: any, context: string) => {
   console.error(`[${context}] Supabase Error:`, error);

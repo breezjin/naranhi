@@ -162,11 +162,11 @@ function convertDeltaToHTML(delta: any): string {
 // GET /api/admin/notices/[id] - Get single notice
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createRouteHandlerClient({ cookies })
-    const { id } = params
+    const { id } = await params
 
     const { data, error } = await supabase
       .from('notices')
@@ -198,11 +198,11 @@ export async function GET(
 // PUT /api/admin/notices/[id] - Update notice
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createRouteHandlerClient({ cookies })
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
 
     // Enhanced validation with detailed error messages
@@ -315,11 +315,11 @@ export async function PUT(
 // DELETE /api/admin/notices/[id] - Delete notice
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createRouteHandlerClient({ cookies })
-    const { id } = params
+    const { id } = await params
 
     // Check if notice exists
     const { data: existing } = await supabase
@@ -364,11 +364,11 @@ export async function DELETE(
 // PATCH /api/admin/notices/[id] - Increment view count
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createRouteHandlerClient({ cookies })
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
 
     if (body.action === 'increment_views') {
