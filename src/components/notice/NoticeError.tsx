@@ -17,12 +17,12 @@ export default function NoticeError({
   return (
     <main className={NOTICE_CONSTANTS.STYLES.CENTER_LAYOUT}>
       <div className="flex flex-col items-center gap-4 text-center">
-        <div className="text-red-500 text-lg font-medium">{message}</div>
+        <div className="text-lg font-medium text-red-500">{message}</div>
         <div className="flex gap-2">
           {showRetry && onRetry && (
             <button
               onClick={onRetry}
-              className="px-4 py-2 bg-naranhiGreen text-white rounded-md hover:bg-naranhiGreen/90 transition-colors"
+              className="rounded-md bg-naranhiGreen px-4 py-2 text-white transition-colors hover:bg-naranhiGreen/90"
             >
               {NOTICE_CONSTANTS.MESSAGES.RETRY}
             </button>

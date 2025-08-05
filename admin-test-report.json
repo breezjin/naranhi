@@ -1,0 +1,158 @@
+{
+  "timestamp": "2025-08-02T07:25:44.906Z",
+  "summary": {
+    "passed": 28,
+    "failed": 0,
+    "warnings": 0,
+    "total": 28
+  },
+  "details": [
+    {
+      "name": "Admin Layout Structure",
+      "status": "PASS",
+      "message": "Layout includes sidebar and topbar"
+    },
+    {
+      "name": "AdminSidebar Component",
+      "status": "PASS",
+      "message": "Component file exists"
+    },
+    {
+      "name": "AdminTopBar Component",
+      "status": "PASS",
+      "message": "Component file exists"
+    },
+    {
+      "name": "Dashboard - Client Component",
+      "status": "PASS",
+      "message": "Properly declared"
+    },
+    {
+      "name": "Dashboard - Error Handling",
+      "status": "PASS",
+      "message": "Has error handling"
+    },
+    {
+      "name": "Dashboard - Loading States",
+      "status": "PASS",
+      "message": "Has loading indicators"
+    },
+    {
+      "name": "Staff Management - Client Component",
+      "status": "PASS",
+      "message": "Properly declared"
+    },
+    {
+      "name": "Staff Management - Error Handling",
+      "status": "PASS",
+      "message": "Has error handling"
+    },
+    {
+      "name": "Staff Management - Loading States",
+      "status": "PASS",
+      "message": "Has loading indicators"
+    },
+    {
+      "name": "Notices Management - Client Component",
+      "status": "PASS",
+      "message": "Properly declared"
+    },
+    {
+      "name": "Notices Management - Error Handling",
+      "status": "PASS",
+      "message": "Has error handling"
+    },
+    {
+      "name": "Notices Management - Loading States",
+      "status": "PASS",
+      "message": "Has loading indicators"
+    },
+    {
+      "name": "Dashboard Schema - Notices Status",
+      "status": "PASS",
+      "message": "Uses correct status field"
+    },
+    {
+      "name": "Table Reference - staff_members",
+      "status": "PASS",
+      "message": "Referenced correctly"
+    },
+    {
+      "name": "Table Reference - facility_photos",
+      "status": "PASS",
+      "message": "Referenced correctly"
+    },
+    {
+      "name": "Table Reference - notices",
+      "status": "PASS",
+      "message": "Referenced correctly"
+    },
+    {
+      "name": "API Schema - Notices Status",
+      "status": "PASS",
+      "message": "API uses status field correctly"
+    },
+    {
+      "name": "page.tsx - React Hooks Import",
+      "status": "PASS",
+      "message": "React imported correctly"
+    },
+    {
+      "name": "page.tsx - Hydration Safety",
+      "status": "PASS",
+      "message": "Client component with proper hooks"
+    },
+    {
+      "name": "page.tsx - React Hooks Import",
+      "status": "PASS",
+      "message": "React imported correctly"
+    },
+    {
+      "name": "page.tsx - Hydration Safety",
+      "status": "PASS",
+      "message": "Client component with proper hooks"
+    },
+    {
+      "name": "page.tsx - React Hooks Import",
+      "status": "PASS",
+      "message": "React imported correctly"
+    },
+    {
+      "name": "page.tsx - Hydration Safety",
+      "status": "PASS",
+      "message": "Client component with proper hooks"
+    },
+    {
+      "name": "AdminSidebar.tsx - React Hooks Import",
+      "status": "PASS",
+      "message": "React imported correctly"
+    },
+    {
+      "name": "AdminSidebar.tsx - Hydration Safety",
+      "status": "PASS",
+      "message": "Client component with proper hooks"
+    },
+    {
+      "name": "AdminTopBar.tsx - React Hooks Import",
+      "status": "PASS",
+      "message": "React imported correctly"
+    },
+    {
+      "name": "AdminTopBar.tsx - Hydration Safety",
+      "status": "PASS",
+      "message": "Client component with proper hooks"
+    },
+    {
+      "name": "Error Handler Creation",
+      "status": "PASS",
+      "message": "Enhanced error handling utilities created"
+    }
+  ],
+  "recommendations": [
+    "Ensure all database tables are created before testing",
+    "Add proper error boundaries to admin components",
+    "Implement graceful fallbacks for missing data",
+    "Test with actual Supabase connection",
+    "Add loading states for all async operations"
+  ]
+}

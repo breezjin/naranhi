@@ -1,0 +1,330 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Plus, Search, Edit, Trash2, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { toast } from '@/components/ui/use-toast'
+
+type StaffMember = {
+  id: string
+  name: string
+  position: string
+  specialty: string | null
+  profile_image_url: string | null
+  category: {
+    name: string
+    display_name: string
+  }
+  educations: string[]
+  certifications: string[]
+  experiences: string[]
+  display_order: number
+  created_at: string
+}
+
+type StaffCategory = {
+  id: string
+  name: string
+  display_name: string
+}
+
+export default function StaffManagementPage() {
+  const [staffMembers, setStaffMembers] = useState<StaffMember[]>([])
+  const [categories, setCategories] = useState<StaffCategory[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const router = useRouter()
+  const supabase = createClientComponentClient()
+
+  useEffect(() => {
+    fetchStaffData()
+    fetchCategories()
+  }, [])
+
+  const fetchStaffData = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('staff_members')
+        .select(`
+          *,
+          category:staff_categories!category_id(name, display_name)
+        `)
+        .order('display_order', { ascending: true })
+
+      if (error) {
+        console.error('Staff data fetch error:', error)
+        throw error
+      }
+
+      setStaffMembers(data || [])
+    } catch (error) {
+      console.error('Error fetching staff:', error)
+      toast({
+        title: "오류 발생",
+        description: "직원 데이터를 불러오는데 실패했습니다.",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const fetchCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('staff_categories')
+        .select('*')
+        .order('name', { ascending: true })
+
+      if (error) {
+        console.error('Categories fetch error:', error)
+        // 카테고리 테이블이 없으면 기본값 사용
+        if (error.code === '42P01' || error.message.includes('does not exist')) {
+          console.warn('staff_categories table does not exist, using default categories')
+          setCategories([
+            { id: '1', name: 'medical', display_name: '의료진' },
+            { id: '2', name: 'treatment', display_name: '치료진' }
+          ])
+          return
+        }
+        throw error
+      }
+
+      setCategories(data || [])
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+      // 폴백으로 기본 카테고리 설정
+      setCategories([
+        { id: '1', name: 'medical', display_name: '의료진' },
+        { id: '2', name: 'treatment', display_name: '치료진' }
+      ])
+    }
+  }
+
+  const handleDeleteStaff = async (id: string, name: string) => {
+    if (!confirm(`${name} 직원을 삭제하시겠습니까?`)) return
+
+    try {
+      const { error } = await supabase
+        .from('staff_members')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+
+      setStaffMembers(prev => prev.filter(staff => staff.id !== id))
+      toast({
+        title: "삭제 완료",
+        description: `${name} 직원이 삭제되었습니다.`,
+      })
+    } catch (error) {
+      console.error('Error deleting staff:', error)
+      toast({
+        title: "삭제 실패",
+        description: "직원 삭제 중 오류가 발생했습니다.",
+        variant: "destructive",
+      })
+    }
+  }
+
+  const filteredStaff = staffMembers.filter(staff => {
+    const matchesSearch = staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          staff.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (staff.specialty && staff.specialty.toLowerCase().includes(searchTerm.toLowerCase()))
+    
+    const matchesCategory = selectedCategory === 'all' || 
+      (staff.category && staff.category.name === selectedCategory)
+
+    return matchesSearch && matchesCategory
+  })
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
+          <p className="text-muted-foreground">직원 데이터를 불러오는 중...</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">직원 관리</h1>
+          <p className="mt-2 text-muted-foreground">
+            의료진 및 치료진 정보를 관리합니다
+          </p>
+        </div>
+        <Button onClick={() => router.push('/admin/staff/new')} className="gap-2">
+          <Plus className="h-4 w-4" />
+          새 직원 추가
+        </Button>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">전체 직원</CardTitle>
+            <User className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{staffMembers.length}명</div>
+          </CardContent>
+        </Card>
+        
+        {categories.map(category => {
+          const count = staffMembers.filter(staff => 
+            staff.category && staff.category.name === category.name
+          ).length
+          return (
+            <Card key={category.id}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">{category.display_name}</CardTitle>
+                <User className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{count}명</div>
+              </CardContent>
+            </Card>
+          )
+        })}
+      </div>
+
+      {/* Filters */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="이름, 직책, 전문분야로 검색..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+            </div>
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-full sm:w-[200px]">
+                <SelectValue placeholder="카테고리 선택" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">전체 카테고리</SelectItem>
+                {categories.map(category => (
+                  <SelectItem key={category.id} value={category.name}>
+                    {category.display_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Staff List */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {filteredStaff.map((staff) => (
+          <Card key={staff.id} className="transition-shadow hover:shadow-md">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-4">
+                {/* Profile Image */}
+                <div className="shrink-0">
+                  {staff.profile_image_url ? (
+                    <img
+                      src={staff.profile_image_url}
+                      alt={staff.name}
+                      className="h-16 w-16 rounded-full border-2 border-gray-200 object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200">
+                      <User className="h-8 w-8 text-gray-400" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Staff Info */}
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex items-start justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold">{staff.name}</h3>
+                      <p className="text-sm text-muted-foreground">{staff.position}</p>
+                      {staff.specialty && (
+                        <p className="mt-1 text-sm text-blue-600">{staff.specialty}</p>
+                      )}
+                    </div>
+                    <Badge variant={staff.category?.name === 'medical' ? 'default' : 'secondary'}>
+                      {staff.category?.display_name || '미분류'}
+                    </Badge>
+                  </div>
+
+                  {/* Quick Info */}
+                  <div className="space-y-1 text-sm text-muted-foreground">
+                    <div>학력: {staff.educations.length}개</div>
+                    <div>자격증: {staff.certifications.length}개</div>
+                    <div>경력: {staff.experiences.length}개</div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="mt-4 flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => router.push(`/admin/staff/${staff.id}/edit`)}
+                      className="gap-1"
+                    >
+                      <Edit className="h-3 w-3" />
+                      수정
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDeleteStaff(staff.id, staff.name)}
+                      className="gap-1 text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                      삭제
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {filteredStaff.length === 0 && !loading && (
+        <Card>
+          <CardContent className="pt-6">
+            <div className="py-12 text-center">
+              <User className="mx-auto mb-4 h-12 w-12 text-gray-400" />
+              <h3 className="mb-2 text-lg font-medium">검색 결과가 없습니다</h3>
+              <p className="mb-4 text-muted-foreground">
+                다른 검색어나 필터를 시도해보세요
+              </p>
+              <Button onClick={() => {
+                setSearchTerm('')
+                setSelectedCategory('all')
+              }}>
+                필터 초기화
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  )
+}

@@ -102,7 +102,7 @@ export default function NoticeDetailPage({ params }: NoticeDetailProps) {
       <header className={NOTICE_CONSTANTS.STYLES.TITLE_HEADER}>
         {formattedDate && (
           <time 
-            className="text-sm text-gray-600 dark:text-gray-400 mb-2"
+            className="mb-2 text-sm text-gray-600 dark:text-gray-400"
             dateTime={dateString}
           >
             {formattedDate}
@@ -152,7 +152,7 @@ export default function NoticeDetailPage({ params }: NoticeDetailProps) {
           </div>
         ) : (
           <div 
-            className="text-gray-500 text-center py-8"
+            className="py-8 text-center text-gray-500"
             role="status"
           >
             내용이 없습니다.
@@ -162,7 +162,7 @@ export default function NoticeDetailPage({ params }: NoticeDetailProps) {
 
       {/* 네비게이션 */}
       <nav className={NOTICE_CONSTANTS.STYLES.CONTENT_CONTAINER}>
-        <div className="flex items-center justify-center pt-8 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-center border-t border-gray-200 pt-8 dark:border-gray-700">
           <ButtonLink 
             href="/notice" 
             variant="outline"

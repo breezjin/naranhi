@@ -67,7 +67,7 @@ export default function Facilities() {
       )}>
         {title}
       </div>
-      <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
         {photos.map((photo) => (
           <div
             key={photo.photoIndex}
@@ -86,7 +86,7 @@ export default function Facilities() {
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, (max-width: 1280px) 50vw, 33vw"
             />
             {photo.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-1.5 sm:p-2 text-white text-xs sm:text-sm font-medium">
+              <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-1.5 text-xs font-medium text-white sm:p-2 sm:text-sm">
                 {photo.caption}
               </div>
             )}
@@ -114,10 +114,10 @@ export default function Facilities() {
       {/* Enhanced Responsive Lightbox Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-2 sm:p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-2 sm:p-4"
           onClick={handleClose}
         >
-          <div className="relative w-full max-w-7xl max-h-full flex items-center justify-center">
+          <div className="relative flex max-h-full w-full max-w-7xl items-center justify-center">
             {/* Close Button */}
             <button
               onClick={handleClose}
@@ -168,7 +168,7 @@ export default function Facilities() {
             )}
             
             {/* Image Container */}
-            <div className="relative w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
+            <div className="relative flex h-full w-full items-center justify-center" onClick={e => e.stopPropagation()}>
               <Image
                 src={selectedImage.original || selectedImage.src || ''}
                 alt={selectedImage.alt || selectedImage.caption || `사진 ${selectedImage.photoIndex}`}
@@ -189,10 +189,10 @@ export default function Facilities() {
                   'bg-gradient-to-t from-black/80 to-transparent',
                   'p-3 sm:p-4 text-white text-center rounded-b-lg'
                 )}>
-                  <p className="text-sm sm:text-base font-medium">
+                  <p className="text-sm font-medium sm:text-base">
                     {selectedImage.caption}
                   </p>
-                  <p className="text-xs sm:text-sm opacity-75 mt-1">
+                  <p className="mt-1 text-xs opacity-75 sm:text-sm">
                     {currentIndex + 1} / {allPhotos.length}
                   </p>
                 </div>
