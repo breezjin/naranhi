@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import AdminTopBar from '@/components/admin/AdminTopBar'
 import { ThemeProvider } from '@/contexts/ThemeContext'
@@ -11,9 +12,23 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const pathname = usePathname()
+  
+  // 로그인 페이지에서는 헤더와 사이드바를 숨김
+  const isLoginPage = pathname === '/admin/login'
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed)
+  }
+
+  if (isLoginPage) {
+    return (
+      <ThemeProvider defaultTheme="system">
+        <div className="min-h-screen bg-background">
+          {children}
+        </div>
+      </ThemeProvider>
+    )
   }
 
   return (

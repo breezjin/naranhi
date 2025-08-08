@@ -10,6 +10,7 @@ import '@/styles/globals.css';
 import Analytics from '@/components/layouts/Analytics';
 import { AOSInit } from '@/components/layouts/aos';
 import Footer from '@/components/layouts/Footer';
+import GlobalShortcuts from '@/components/layouts/GlobalShortcuts';
 import { TailwindIndicator } from '@/components/layouts/TailwindIndicator';
 import { ThemeProvider } from '@/components/layouts/ThemeProvider';
 import { ThemeSync } from '@/components/layouts/ThemeSync';
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Suspense>
               <ThemeSync />
             </Suspense>
+            <GlobalShortcuts />
             <section className="flex w-full flex-col">
               <SiteHeader />
               <section>{children}</section>

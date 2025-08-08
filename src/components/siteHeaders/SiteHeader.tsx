@@ -5,6 +5,7 @@ import Icons from '@/components/Icons';
 import { ModeToggle } from '@/components/layouts/ThemeToggle';
 import { MainNav } from '@/components/siteHeaders/MainNav';
 import { buttonVariants } from '@/components/ui/button';
+import ShortcutHelp from '@/components/ui/ShortcutHelp';
 
 import { siteConfig } from '@/config/site';
 
@@ -44,6 +45,7 @@ export function SiteHeader() {
                   )
               )}
             </div>
+            <ShortcutHelp variant="icon" />
             <ModeToggle />
           </nav>
         </div>
