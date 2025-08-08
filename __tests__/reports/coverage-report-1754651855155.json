@@ -1,0 +1,151 @@
+{
+  "timestamp": "2025-08-08T11:17:35.122Z",
+  "suites": {
+    "api": {
+      "passed": 4,
+      "failed": 0,
+      "total": 12
+    },
+    "database": {
+      "passed": 10,
+      "failed": 0,
+      "total": 10,
+      "tests": [
+        {
+          "name": "Schema File Exists",
+          "status": "passed",
+          "duration": 0,
+          "details": "Schema SQL file found"
+        },
+        {
+          "name": "Setup Script Exists",
+          "status": "passed",
+          "duration": 0,
+          "details": "Setup TypeScript file found"
+        },
+        {
+          "name": "Schema Structure",
+          "status": "passed",
+          "duration": 0,
+          "details": "2/2 tables defined"
+        },
+        {
+          "name": "Notice Table Columns",
+          "status": "passed",
+          "duration": 0,
+          "details": "13/13 required columns found"
+        },
+        {
+          "name": "Quill-Specific Features",
+          "status": "passed",
+          "duration": 1,
+          "details": "6/6 Quill features implemented"
+        },
+        {
+          "name": "Performance Indexes",
+          "status": "passed",
+          "duration": 0,
+          "details": "6/6 performance indexes found"
+        },
+        {
+          "name": "Database Triggers",
+          "status": "passed",
+          "duration": 0,
+          "details": "3/3 trigger components found (function: true, notices: true, categories: true)"
+        },
+        {
+          "name": "Default Data",
+          "status": "passed",
+          "duration": 0,
+          "details": "4/4 default categories, sample notices: true"
+        },
+        {
+          "name": "SQL Syntax",
+          "status": "passed",
+          "duration": 0,
+          "details": "4/4 syntax checks passed"
+        },
+        {
+          "name": "Database Constraints",
+          "status": "passed",
+          "duration": 1,
+          "details": "Constraint score: 15 (Primary keys: 2, Foreign keys: 2, NOT NULL constraints: 4, UNIQUE constraints: 2, DEFAULT values: 12)"
+        }
+      ]
+    },
+    "components": {
+      "passed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "e2e": {
+      "passed": 3,
+      "failed": 0,
+      "total": 3
+    }
+  },
+  "summary": {
+    "totalTests": 30,
+    "passedTests": 22,
+    "failedTests": 0,
+    "successRate": 73,
+    "coverage": {
+      "API Endpoints": {
+        "tested": 4,
+        "total": 8,
+        "percentage": 50,
+        "gaps": [
+          "DELETE /api/admin/notices/[id]",
+          "PATCH /api/admin/notices/[id]",
+          "GET /api/admin/notice-categories",
+          "POST /api/admin/notice-categories"
+        ]
+      },
+      "UI Components": {
+        "tested": 5,
+        "total": 5,
+        "percentage": 100,
+        "gaps": []
+      },
+      "Database Schema": {
+        "tested": 6,
+        "total": 6,
+        "percentage": 100,
+        "gaps": []
+      },
+      "Business Logic": {
+        "tested": 4,
+        "total": 7,
+        "percentage": 57,
+        "gaps": [
+          "Tag management",
+          "Publishing workflow",
+          "View counting"
+        ]
+      },
+      "Integration": {
+        "tested": 3,
+        "total": 4,
+        "percentage": 75,
+        "gaps": [
+          "File structure consistency"
+        ]
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "category": "Coverage",
+      "message": "API Endpoints coverage is below 60% (50%)",
+      "action": "Implement tests for: DELETE /api/admin/notices/[id], PATCH /api/admin/notices/[id], GET /api/admin/notice-categories"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "Coverage",
+      "message": "Business Logic coverage is below 60% (57%)",
+      "action": "Implement tests for: Tag management, Publishing workflow, View counting"
+    }
+  ],
+  "artifacts": []
+}

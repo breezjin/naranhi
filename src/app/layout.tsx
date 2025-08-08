@@ -19,7 +19,8 @@ import { defaultMetadata } from '@/lib/defaultMetadata';
 import { naranhiFont } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 
-const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&libraries=services,clusterer&autoload=false`;
+const KAKAO_APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY;
+const KAKAO_SDK_URL = KAKAO_APP_KEY ? `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_APP_KEY}&libraries=services,clusterer&autoload=false` : null;
 export const metadata: Metadata = defaultMetadata;
 
 interface RootLayoutProps {
@@ -30,15 +31,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="ko" suppressHydrationWarning>
-        <AOSInit />
-        <head />
+        <head>
+          <AOSInit />
+        </head>
         <body
           className={cn(
             'min-h-screen min-w-full bg-background antialiased',
             naranhiFont.className
           )}
         >
-          <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
+          {KAKAO_SDK_URL && (
+            <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
+          )}
           <Suspense>
             <Analytics />
           </Suspense>

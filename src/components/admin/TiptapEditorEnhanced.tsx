@@ -15,6 +15,10 @@ import HardBreak from '@tiptap/extension-hard-break'
 import TaskList from '@tiptap/extension-task-list'
 import TaskItem from '@tiptap/extension-task-item'
 import Image from '@tiptap/extension-image'
+import { Table } from '@tiptap/extension-table'
+import { TableRow } from '@tiptap/extension-table-row'
+import { TableCell } from '@tiptap/extension-table-cell'
+import { TableHeader } from '@tiptap/extension-table-header'
 import { common, createLowlight } from 'lowlight'
 import { Button } from '@/components/ui/button'
 import { 
@@ -36,7 +40,11 @@ import {
   AlignRight,
   Minus,
   CornerDownLeft,
-  ImageIcon
+  ImageIcon,
+  Table as TableIcon,
+  Plus,
+  Trash2,
+  MoreHorizontal
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ImageUploadDialog, ImageUploadResult } from './ImageUploadDialog'
@@ -176,6 +184,17 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
         inline: true,
         allowBase64: false,
       }),
+      Table.configure({
+        resizable: true,
+        handleWidth: 5,
+        cellMinWidth: 50,
+        View: null,
+        lastColumnResizable: true,
+        allowTableNodeSelection: true
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: getInitialContent(),
     editable: !readOnly,
@@ -214,6 +233,15 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
           '[&_.tiptap-task-item]:flex [&_.tiptap-task-item]:items-start [&_.tiptap-task-item]:gap-2 [&_.tiptap-task-item]:mb-1',
           // 이미지 스타일링
           '[&_.tiptap-image]:max-w-full [&_.tiptap-image]:h-auto [&_.tiptap-image]:rounded-md [&_.tiptap-image]:my-2',
+          // 테이블 스타일링
+          '[&_table]:border-collapse [&_table]:border [&_table]:border-gray-300 [&_table]:rounded-md [&_table]:my-4 [&_table]:min-w-full',
+          '[&_tr]:border-b [&_tr]:border-gray-200',
+          '[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-3 [&_th]:bg-gray-50 [&_th]:font-semibold [&_th]:text-left',
+          '[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2',
+          // 테이블 선택 및 컨트롤 스타일링
+          '[&_.selectedCell]:bg-blue-100',
+          '[&_.column-resize-handle]:bg-blue-500 [&_.column-resize-handle]:w-1',
+          '[&_table]:relative [&_table]:overflow-hidden',
           className
         ),
       },
@@ -458,6 +486,70 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
             </ToolbarButton>
           </div>
 
+          {/* Table Tools */}
+          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+            <ToolbarButton
+              onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+              title="표 삽입 (3x3)"
+              disabled={editor.isActive('table')}
+            >
+              <TableIcon className="h-4 w-4" />
+            </ToolbarButton>
+            {editor.isActive('table') && (
+              <>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().addRowBefore().run()}
+                  title="위에 행 추가"
+                >
+                  <Plus className="h-4 w-4" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().addRowAfter().run()}
+                  title="아래에 행 추가"
+                >
+                  <Plus className="h-4 w-4 rotate-180" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().addColumnBefore().run()}
+                  title="왼쪽에 열 추가"
+                >
+                  <Plus className="h-4 w-4 rotate-90" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().addColumnAfter().run()}
+                  title="오른쪽에 열 추가"
+                >
+                  <Plus className="h-4 w-4 -rotate-90" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().deleteRow().run()}
+                  title="행 삭제"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().deleteColumn().run()}
+                  title="열 삭제"
+                >
+                  <Trash2 className="h-4 w-4 rotate-90" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().deleteTable().run()}
+                  title="표 삭제"
+                >
+                  <Trash2 className="h-4 w-4 text-red-500" />
+                </ToolbarButton>
+                <ToolbarButton
+                  onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+                  title="헤더 행 토글"
+                  isActive={editor.isActive('table') && editor.getAttributes('table').withHeaderRow}
+                >
+                  <MoreHorizontal className="h-4 w-4" />
+                </ToolbarButton>
+              </>
+            )}
+          </div>
+
           {/* Special Elements */}
           <div className="flex gap-1">
             <ToolbarButton
@@ -503,6 +595,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
             {editor.isActive('bulletList') && ' | 목록'}
             {editor.isActive('orderedList') && ' | 번호 목록'}
             {editor.isActive('taskList') && ' | 체크리스트'}
+            {editor.isActive('table') && ' | 표 편집 중'}
           </div>
           <div className="text-xs opacity-60">
             Shift+Enter: 줄바꿈 | Tab: 들여쓰기

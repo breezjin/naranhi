@@ -1,11 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { cn } from '@/lib/utils';
-
-import photos from './photos';
 
 type Photo = {
   photoIndex: number;
@@ -17,8 +15,38 @@ type Photo = {
   alt?: string;
 };
 
+interface FacilityData {
+  [key: string]: Photo[]
+}
+
 export default function Facilities() {
-  const [selectedImage, setSelectedImage] = React.useState<Photo | null>(null);
+  const [facilityData, setFacilityData] = useState<FacilityData>({})
+  const [loading, setLoading] = useState(true)
+  const [selectedImage, setSelectedImage] = useState<Photo | null>(null);
+
+  useEffect(() => {
+    fetchFacilityData()
+  }, [])
+
+  const fetchFacilityData = async () => {
+    try {
+      setLoading(true)
+      
+      const response = await fetch('/api/facilities')
+      if (!response.ok) {
+        throw new Error('Failed to fetch facility data')
+      }
+      
+      const data = await response.json()
+      setFacilityData(data.data)
+    } catch (error) {
+      console.error('Error fetching facility data:', error)
+      // Fallback to empty object on error
+      setFacilityData({})
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleImageClick = (photo: Photo) => {
     setSelectedImage(photo);
@@ -28,7 +56,9 @@ export default function Facilities() {
     setSelectedImage(null);
   };
 
-  const allPhotos = [...photos.hospitalPhotos, ...photos.centerPhotos];
+  const hospitalPhotos = facilityData.hospital || []
+  const centerPhotos = facilityData.center || []
+  const allPhotos = [...hospitalPhotos, ...centerPhotos];
   const currentIndex = selectedImage ? allPhotos.findIndex(p => p.photoIndex === selectedImage.photoIndex) : -1;
   
   const handlePrevious = () => {
@@ -99,8 +129,8 @@ export default function Facilities() {
   return (
     <>
       <main className={cn('flex w-full flex-col lg:flex-row', 'min-h-[calc(100vh-65px)]')}>
-        <PhotoGrid photos={photos.hospitalPhotos} title="병원 시설" />
-        <PhotoGrid photos={photos.centerPhotos} title="센터 시설" />
+        <PhotoGrid photos={hospitalPhotos} title="병원 시설" />
+        <PhotoGrid photos={centerPhotos} title="센터 시설" />
         
         {allPhotos.length === 0 && (
           <div className='flex min-h-[calc(100vh-65px)] w-full items-center justify-center p-8'>

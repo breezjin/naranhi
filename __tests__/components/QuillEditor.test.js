@@ -416,21 +416,21 @@ function runIntegrationTests() {
     }
   }
 
-  // Test pages use QuillEditor
-  test('Notice create page imports QuillEditor', () => {
+  // Test pages use TiptapEditor (updated from QuillEditor)
+  test('Notice create page imports TiptapEditor', () => {
     const createPagePath = path.join(__dirname, '../../src/app/admin/notices/create/page.tsx')
     if (!fs.existsSync(createPagePath)) return false
     
     const content = fs.readFileSync(createPagePath, 'utf8')
-    return content.includes('QuillEditor') && content.includes('react-quill')
+    return content.includes('TiptapEditor') || content.includes('@tiptap/react')
   })
 
-  test('Notice edit page imports QuillEditor', () => {
+  test('Notice edit page imports TiptapEditor', () => {
     const editPagePath = path.join(__dirname, '../../src/app/admin/notices/[id]/edit/page.tsx')
     if (!fs.existsSync(editPagePath)) return false
     
     const content = fs.readFileSync(editPagePath, 'utf8')
-    return content.includes('QuillEditor') && content.includes('react-quill')
+    return content.includes('TiptapEditor') || content.includes('@tiptap/react')
   })
 
   // Test API routes handle Delta format

@@ -1,12 +1,64 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Staff from '@/components/layouts/Staff';
 import ArrowLink from '@/components/links/ArrowLink';
 import { buttonVariants } from '@/components/ui/button';
 import { Tabs } from '@/components/ui/tabs';
-
-import { medicalStaffs, treatmentStaffs } from '@/app/about-hospital/staffs';
 import { cn } from '@/lib/utils';
 
-export default function Home() {
+interface StaffMember {
+  id: string
+  name: string
+  position: string
+  specialty?: string
+  profile_image_url?: string
+  educations: string[]
+  certifications: string[]
+  experiences: string[]
+  display_order: number
+  category: {
+    name: string
+    display_name: string
+  }
+}
+
+interface StaffData {
+  [key: string]: StaffMember[]
+}
+
+export default function AboutHospitalPage() {
+  const [medicalStaffs, setMedicalStaffs] = useState<StaffMember[]>([])
+  const [treatmentStaffs, setTreatmentStaffs] = useState<StaffMember[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchStaffData()
+  }, [])
+
+  const fetchStaffData = async () => {
+    try {
+      setLoading(true)
+      
+      const response = await fetch('/api/staff')
+      if (!response.ok) {
+        throw new Error('Failed to fetch staff data')
+      }
+      
+      const data = await response.json()
+      setMedicalStaffs(data.data.medical || [])
+      setTreatmentStaffs(data.data.treatment || [])
+    } catch (error) {
+      console.error('Error fetching staff data:', error)
+      // Fallback to empty arrays on error
+      setMedicalStaffs([])
+      setTreatmentStaffs([])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+
   return (
     <main
       className={cn(
@@ -87,19 +139,18 @@ export default function Home() {
               value: 'medical-staff',
               content: (
                 <div className="space-y-2">
-                  {medicalStaffs &&
-                    medicalStaffs.map((staff, idx) => (
-                      <Staff
-                        key={`${staff.name}+${idx}`}
-                        profileImage={staff.profileImage}
-                        position={staff.position}
-                        name={staff.name}
-                        specialty={staff.specialty}
-                        educations={staff.educations}
-                        works={staff.works}
-                        experiences={staff.experiences}
-                      />
-                    ))}
+                  {medicalStaffs.map((staff, idx) => (
+                    <Staff
+                      key={`${staff.name}-${idx}`}
+                      profileImage={staff.profile_image_url}
+                      position={staff.position}
+                      name={staff.name}
+                      specialty={staff.specialty}
+                      educations={staff.educations}
+                      works={staff.certifications}
+                      experiences={staff.experiences}
+                    />
+                  ))}
                 </div>
               ),
             },
@@ -108,19 +159,18 @@ export default function Home() {
               value: 'treatment-staff',
               content: (
                 <div className="space-y-2">
-                  {treatmentStaffs &&
-                    treatmentStaffs.map((staff, idx) => (
-                      <Staff
-                        key={`${staff.name}+${idx}`}
-                        // profileImage={staff.profileImage}
-                        position={staff.position}
-                        name={staff.name}
-                        specialty={staff.specialty}
-                        educations={staff.educations}
-                        works={staff.works}
-                        experiences={staff.experiences}
-                      />
-                    ))}
+                  {treatmentStaffs.map((staff, idx) => (
+                    <Staff
+                      key={`${staff.name}-${idx}`}
+                      profileImage={staff.profile_image_url}
+                      position={staff.position}
+                      name={staff.name}
+                      specialty={staff.specialty}
+                      educations={staff.educations}
+                      works={staff.certifications}
+                      experiences={staff.experiences}
+                    />
+                  ))}
                 </div>
               ),
             },

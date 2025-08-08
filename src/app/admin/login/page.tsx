@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,6 +12,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 
 export default function AdminLoginPage() {
+  useDocumentTitle('나란히 관리자 로그인 - 나란히정신건강의학과의원')
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
