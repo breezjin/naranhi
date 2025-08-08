@@ -198,7 +198,7 @@ export default function NoticeDetailPage({ params }: NoticeDetailProps) {
                   <Badge 
                     key={index} 
                     variant="secondary" 
-                    className="text-xs px-2 py-0.5"
+                    className="px-2 py-0.5 text-xs"
                   >
                     #{tag}
                   </Badge>
@@ -206,7 +206,7 @@ export default function NoticeDetailPage({ params }: NoticeDetailProps) {
                 {noticeData.tags.length > 3 && (
                   <Badge 
                     variant="outline" 
-                    className="text-xs px-2 py-0.5"
+                    className="px-2 py-0.5 text-xs"
                   >
                     +{noticeData.tags.length - 3}
                   </Badge>

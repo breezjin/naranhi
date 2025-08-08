@@ -68,18 +68,18 @@ export function ShortcutHelp({ variant = 'icon', className }: ShortcutHelpProps)
           {shortcuts.map((shortcut, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+              className="flex items-center justify-between rounded-lg bg-muted/50 p-3"
             >
               <span className="text-sm text-muted-foreground">
                 {shortcut.description}
               </span>
-              <kbd className="inline-flex items-center px-2 py-1 text-xs font-mono font-semibold bg-background border border-border rounded">
+              <kbd className="inline-flex items-center rounded border border-border bg-background px-2 py-1 font-mono text-xs font-semibold">
                 {formatKey(shortcut.key, shortcut.modifiers)}
               </kbd>
             </div>
           ))}
           
-          <div className="pt-3 border-t border-border">
+          <div className="border-t border-border pt-3">
             <p className="text-xs text-muted-foreground">
               💡 <strong>팁:</strong> 입력 필드나 모달이 열려있을 때는 단축키가 비활성화됩니다.
             </p>

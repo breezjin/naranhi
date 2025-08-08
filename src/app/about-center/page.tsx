@@ -188,7 +188,7 @@ export default function AboutCenter() {
           <div className="mx-auto max-w-4xl text-center">
             <Badge
               variant="secondary"
-              className="mb-4 bg-naranhiGreen/10 text-naranhiGreen border-naranhiGreen/30 shadow-sm backdrop-blur-sm"
+              className="mb-4 border-naranhiGreen/30 bg-naranhiGreen/10 text-naranhiGreen shadow-sm backdrop-blur-sm"
               data-aos="fade-up"
             >
               나란히 상담센터
@@ -199,7 +199,8 @@ export default function AboutCenter() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              마음을 치유하고<br className="sm:hidden" />{' '}
+              마음을 치유하고
+              <br className="sm:hidden" />{' '}
               <span className="bg-gradient-to-r from-naranhiGreen to-naranhiYellow bg-clip-text text-transparent">
                 함께 성장
               </span>
@@ -211,9 +212,11 @@ export default function AboutCenter() {
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              개인의 어려움과 상황에 맞는<br className="sm:hidden" /> 전문적인 치료와 상담을 통해
+              개인의 어려움과 상황에 맞는
+              <br className="sm:hidden" /> 전문적인 치료와 상담을 통해
               <br />
-              건강한 정신적 성장을<br className="sm:hidden" /> 지원합니다.
+              건강한 정신적 성장을
+              <br className="sm:hidden" /> 지원합니다.
             </p>
           </div>
         </div>
@@ -234,7 +237,8 @@ export default function AboutCenter() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              원하는 프로그램을 선택하여<br className="sm:hidden" /> 자세한 내용을 확인해보세요
+              원하는 프로그램을 선택하여
+              <br className="sm:hidden" /> 자세한 내용을 확인해보세요
             </p>
           </div>
 
@@ -257,7 +261,7 @@ export default function AboutCenter() {
                             'border-transparent text-white shadow-md',
                             `bg-gradient-to-r ${program.color}`
                           )
-                        : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-50 hover:border-slate-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
+                        : 'border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -299,9 +303,11 @@ export default function AboutCenter() {
                   {activeProgram.title}
                 </h3>
 
-                <p 
+                <p
                   className="mx-auto max-w-2xl leading-relaxed text-white/90"
-                  dangerouslySetInnerHTML={{ __html: activeProgram.description }}
+                  dangerouslySetInnerHTML={{
+                    __html: activeProgram.description,
+                  }}
                 />
               </div>
 
@@ -309,36 +315,46 @@ export default function AboutCenter() {
               {activeProgram.quote && (
                 <div className="relative bg-gradient-to-r from-slate-50/50 via-white to-slate-50/50 dark:from-slate-800/50 dark:via-slate-700/50 dark:to-slate-800/50">
                   {/* Decorative border */}
-                  <div className={cn(
-                    "absolute left-6 top-0 bottom-0 w-1 opacity-30",
-                    `bg-gradient-to-b ${activeProgram.color}`
-                  )} />
-                  
+                  <div
+                    className={cn(
+                      'absolute bottom-0 left-6 top-0 w-1 opacity-30',
+                      `bg-gradient-to-b ${activeProgram.color}`
+                    )}
+                  />
+
                   <div className="px-8 py-6 lg:px-12 lg:py-8">
                     <div className="relative">
                       {/* Quote mark decoration */}
-                      <div className={cn(
-                        "absolute -left-2 -top-2 text-4xl opacity-30 font-serif",
-                        `bg-gradient-to-r ${activeProgram.color} bg-clip-text text-transparent`
-                      )}>
+                      <div
+                        className={cn(
+                          'absolute -left-2 -top-2 font-serif text-4xl opacity-30',
+                          `bg-gradient-to-r ${activeProgram.color} bg-clip-text text-transparent`
+                        )}
+                      >
                         &ldquo;
                       </div>
-                      
-                      <blockquote 
+
+                      <blockquote
                         className={cn(
-                          "text-base sm:text-lg italic leading-relaxed pl-6 font-medium break-keep",
-                          "text-slate-800 dark:text-slate-100"
+                          'break-keep pl-6 text-base font-medium italic leading-relaxed sm:text-lg',
+                          'text-slate-800 dark:text-slate-100'
                         )}
-                        dangerouslySetInnerHTML={{ __html: activeProgram.quote.replace(/^"|"$/g, '').replace(/\. /g, '.<br class="sm:hidden" /> ') }}
+                        dangerouslySetInnerHTML={{
+                          __html: activeProgram.quote
+                            .replace(/^"|"$/g, '')
+                            .replace(/\. /g, '.<br class="sm:hidden" /> '),
+                        }}
                       />
-                      
+
                       {activeProgram.quoteAuthor && (
                         <div className="mt-4 flex justify-end">
-                          <cite className={cn(
-                            "text-sm font-medium px-3 py-1 rounded-full",
-                            activeProgram.bgColor,
-                            activeProgram.textColor
-                          )}>
+                          <cite
+                            className={cn(
+                              'rounded-full px-3 py-1 text-sm font-medium',
+                              activeProgram.bgColor,
+                              activeProgram.textColor
+                            )}
+                          >
                             {activeProgram.quoteAuthor}
                           </cite>
                         </div>

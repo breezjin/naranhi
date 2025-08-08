@@ -141,7 +141,7 @@ export default function NoticeContentRenderer({
                     href={mark.attrs?.href} 
                     target={mark.attrs?.target}
                     rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 underline"
+                    className="text-primary underline hover:text-primary/80"
                     suppressHydrationWarning
                   >
                     {textElement}
@@ -150,7 +150,7 @@ export default function NoticeContentRenderer({
                 break
               case 'code':
                 textElement = (
-                  <code key={`code-${index}`} className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" suppressHydrationWarning>
+                  <code key={`code-${index}`} className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm" suppressHydrationWarning>
                     {textElement}
                   </code>
                 )
@@ -186,14 +186,14 @@ export default function NoticeContentRenderer({
 
       case 'bulletList':
         return (
-          <ul key={index} className="list-disc list-inside mb-4 space-y-2 ml-4" suppressHydrationWarning>
+          <ul key={index} className="mb-4 ml-4 list-inside list-disc space-y-2" suppressHydrationWarning>
             {node.content?.map((child, childIndex) => renderNode(child, childIndex))}
           </ul>
         )
 
       case 'orderedList':
         return (
-          <ol key={index} className="list-decimal list-inside mb-4 space-y-2 ml-4" suppressHydrationWarning>
+          <ol key={index} className="mb-4 ml-4 list-inside list-decimal space-y-2" suppressHydrationWarning>
             {node.content?.map((child, childIndex) => renderNode(child, childIndex))}
           </ol>
         )
@@ -221,7 +221,7 @@ export default function NoticeContentRenderer({
 
       case 'blockquote':
         return (
-          <div key={index} className="border-l-4 border-primary pl-4 py-2 my-4 bg-muted/30 rounded-r-lg" suppressHydrationWarning>
+          <div key={index} className="my-4 rounded-r-lg border-l-4 border-primary bg-muted/30 py-2 pl-4" suppressHydrationWarning>
             {node.content?.map((child, childIndex) => {
               // blockquote를 div로 대체하여 안전한 렌더링
               return (
@@ -241,8 +241,8 @@ export default function NoticeContentRenderer({
 
       case 'codeBlock':
         return (
-          <pre key={index} className="bg-muted p-4 rounded-lg overflow-x-auto my-4" suppressHydrationWarning>
-            <code className="text-sm font-mono" suppressHydrationWarning>
+          <pre key={index} className="my-4 overflow-x-auto rounded-lg bg-muted p-4" suppressHydrationWarning>
+            <code className="font-mono text-sm" suppressHydrationWarning>
               {node.content?.map((child, childIndex) => renderNode(child, childIndex))}
             </code>
           </pre>
@@ -257,7 +257,7 @@ export default function NoticeContentRenderer({
 
         return (
           <div key={`img-${index}`} className="my-8" suppressHydrationWarning>
-            <div className="relative rounded-lg shadow-md bg-muted overflow-hidden">
+            <div className="relative overflow-hidden rounded-lg bg-muted shadow-md">
               <SafeImage
                 src={src}
                 alt={alt || title || '공지사항 이미지'}
@@ -277,7 +277,7 @@ export default function NoticeContentRenderer({
       case 'table':
         return (
           <div key={index} className="my-6 overflow-x-auto" suppressHydrationWarning>
-            <table className="min-w-full border-collapse border border-muted rounded-lg">
+            <table className="min-w-full border-collapse rounded-lg border border-muted">
               <tbody suppressHydrationWarning>
                 {node.content?.map((child, childIndex) => renderNode(child, childIndex))}
               </tbody>

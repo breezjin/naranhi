@@ -138,7 +138,7 @@ export default function DragDropStaffList({
             {...provided.droppableProps}
             ref={provided.innerRef}
             className={`grid grid-cols-1 gap-6 lg:grid-cols-2 ${
-              snapshot.isDraggingOver ? 'bg-muted/20 rounded-lg p-2' : ''
+              snapshot.isDraggingOver ? 'rounded-lg bg-muted/20 p-2' : ''
             }`}
           >
             {filteredStaff.map((staff, index) => (
@@ -181,7 +181,7 @@ function StaffCard({ staff, onDeleteStaff, isDragging, dragHandleProps }: StaffC
     <Card 
       className={`transition-all duration-200 ${
         isDragging 
-          ? 'shadow-lg scale-105 rotate-2 bg-accent border-primary' 
+          ? 'rotate-2 scale-105 border-primary bg-accent shadow-lg' 
           : 'hover:shadow-md'
       }`}
     >
@@ -190,7 +190,7 @@ function StaffCard({ staff, onDeleteStaff, isDragging, dragHandleProps }: StaffC
           {/* Drag Handle */}
           <div
             {...dragHandleProps}
-            className="shrink-0 cursor-grab active:cursor-grabbing p-2 -ml-2 -mt-2 hover:bg-muted rounded-md"
+            className="-ml-2 -mt-2 shrink-0 cursor-grab rounded-md p-2 hover:bg-muted active:cursor-grabbing"
             title="드래그해서 순서 변경"
           >
             <GripVertical className="h-5 w-5 text-muted-foreground" />

@@ -251,12 +251,12 @@ export function ImageUploadDialog({
           {/* 파일 선택 영역 */}
           {!selectedFile && (
             <div
-              className="rounded-lg border-2 border-dashed border-gray-300 p-8 text-center transition-colors hover:border-gray-400 cursor-pointer"
+              className="cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-8 text-center transition-colors hover:border-gray-400"
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onClick={() => fileInputRef.current?.click()}
             >
-              <ImageIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+              <ImageIcon className="mx-auto mb-4 h-12 w-12 text-gray-400" />
               <div className="space-y-2">
                 <p className="text-lg font-medium text-gray-900">
                   이미지를 선택하거나 드래그하세요
@@ -282,13 +282,13 @@ export function ImageUploadDialog({
                 <img
                   src={imagePreview}
                   alt="미리보기"
-                  className="w-full max-h-64 object-contain rounded-lg border"
+                  className="max-h-64 w-full rounded-lg border object-contain"
                 />
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="absolute top-2 right-2"
+                  className="absolute right-2 top-2"
                   onClick={() => {
                     setSelectedFile(null)
                     setImagePreview(null)
@@ -298,7 +298,7 @@ export function ImageUploadDialog({
                 </Button>
               </div>
               
-              <div className="text-sm text-gray-600 space-y-1">
+              <div className="space-y-1 text-sm text-gray-600">
                 <p><strong>파일명:</strong> {selectedFile.name}</p>
                 <p><strong>파일 크기:</strong> {formatFileSize(selectedFile.size)}</p>
                 <p><strong>파일 타입:</strong> {selectedFile.type}</p>

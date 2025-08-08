@@ -309,8 +309,8 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
         className={cn('border border-input rounded-md p-4 animate-pulse', className)}
         style={{ height }}
       >
-        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
-        <div className="h-4 bg-gray-200 rounded w-1/2" />
+        <div className="mb-2 h-4 w-3/4 rounded bg-gray-200" />
+        <div className="h-4 w-1/2 rounded bg-gray-200" />
       </div>
     )
   }
@@ -353,9 +353,9 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
     <div className="space-y-2">
       {/* Enhanced Toolbar */}
       {!readOnly && (
-        <div className="flex flex-wrap gap-1 p-2 border border-input rounded-md bg-muted/30">
+        <div className="flex flex-wrap gap-1 rounded-md border border-input bg-muted/30 p-2">
           {/* Text Formatting */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleBold().run()}
               isActive={editor.isActive('bold')}
@@ -387,7 +387,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
           </div>
 
           {/* Code */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleCode().run()}
               isActive={editor.isActive('code')}
@@ -405,7 +405,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
           </div>
 
           {/* Headings */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
               isActive={editor.isActive('heading', { level: 1 })}
@@ -430,7 +430,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
           </div>
 
           {/* Enhanced Lists */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleBulletList().run()}
               isActive={editor.isActive('bulletList')}
@@ -462,7 +462,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
           </div>
 
           {/* Alignment and Other */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().setTextAlign('left').run()}
               isActive={editor.isActive({ textAlign: 'left' })}
@@ -487,7 +487,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
           </div>
 
           {/* Table Tools */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
               title="표 삽입 (3x3)"
@@ -576,7 +576,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
 
       {/* Editor */}
       <div 
-        className="relative border border-input rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
+        className="relative rounded-md border border-input focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
         style={{ height }}
       >
         <EditorContent 
@@ -588,7 +588,7 @@ export const TiptapEditorEnhanced = forwardRef<TiptapEditorRef, TiptapEditorProp
 
       {/* Enhanced Status Bar */}
       {!readOnly && (
-        <div className="flex justify-between items-center text-xs text-muted-foreground">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
           <div>
             {editor.getText().length}자
             {editor.isActive('codeBlock') && ' | 코드 블록'}

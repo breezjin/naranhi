@@ -18,9 +18,7 @@ import { Badge } from '@/components/ui/badge'
 import { 
   ArrowLeft,
   Save,
-  Eye,
   Send,
-  Plus,
   X,
   Loader2,
   Calendar
@@ -417,7 +415,7 @@ export default function EditNoticePage() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                   <Label htmlFor="category">카테고리 *</Label>
                   <Select value={selectedCategoryId} onValueChange={setSelectedCategoryId}>

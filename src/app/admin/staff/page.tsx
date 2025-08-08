@@ -269,7 +269,7 @@ export default function StaffManagementPage() {
             </div>
             
             {isDragDropMode && (
-              <div className="rounded-lg bg-blue-50 dark:bg-blue-950/20 p-3">
+              <div className="rounded-lg bg-blue-50 p-3 dark:bg-blue-950/20">
                 <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
                   <ArrowUpDown className="h-4 w-4" />
                   <span className="text-sm font-medium">

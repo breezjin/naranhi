@@ -159,8 +159,8 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
         className={cn('border border-input rounded-md p-4 animate-pulse', className)}
         style={{ height }}
       >
-        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
-        <div className="h-4 bg-gray-200 rounded w-1/2" />
+        <div className="mb-2 h-4 w-3/4 rounded bg-gray-200" />
+        <div className="h-4 w-1/2 rounded bg-gray-200" />
       </div>
     )
   }
@@ -187,9 +187,9 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
     <div className="space-y-2">
       {/* Toolbar */}
       {!readOnly && (
-        <div className="flex flex-wrap gap-1 p-2 border border-input rounded-md bg-muted/30">
+        <div className="flex flex-wrap gap-1 rounded-md border border-input bg-muted/30 p-2">
           {/* Text Formatting */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleBold().run()}
               isActive={editor.isActive('bold')}
@@ -228,7 +228,7 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
           </div>
 
           {/* Headings */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
               isActive={editor.isActive('heading', { level: 1 })}
@@ -253,7 +253,7 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
           </div>
 
           {/* Lists */}
-          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+          <div className="mr-2 flex gap-1 border-r border-border pr-2">
             <ToolbarButton
               onClick={() => editor.chain().focus().toggleBulletList().run()}
               isActive={editor.isActive('bulletList')}
@@ -306,7 +306,7 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
 
       {/* Editor */}
       <div 
-        className="relative border border-input rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
+        className="relative rounded-md border border-input focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
         style={{ height }}
       >
         <EditorContent 
@@ -318,7 +318,7 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
 
       {/* Character count for Korean text */}
       {!readOnly && (
-        <div className="text-xs text-muted-foreground text-right">
+        <div className="text-right text-xs text-muted-foreground">
           {editor.storage.characterCount?.characters() || editor.getText().length}자
         </div>
       )}

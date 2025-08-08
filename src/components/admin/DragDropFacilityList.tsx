@@ -162,7 +162,7 @@ export default function DragDropFacilityList({
             {...provided.droppableProps}
             ref={provided.innerRef}
             className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${
-              snapshot.isDraggingOver ? 'bg-muted/20 rounded-lg p-2' : ''
+              snapshot.isDraggingOver ? 'rounded-lg bg-muted/20 p-2' : ''
             }`}
           >
             {filteredPhotos.map((photo, index) => (
@@ -216,7 +216,7 @@ function FacilityPhotoCard({
     <Card 
       className={`overflow-hidden transition-all duration-200 ${
         isDragging 
-          ? 'shadow-lg scale-105 rotate-2 bg-accent border-primary z-10' 
+          ? 'z-10 rotate-2 scale-105 border-primary bg-accent shadow-lg' 
           : 'hover:shadow-md'
       }`}
     >
@@ -225,7 +225,7 @@ function FacilityPhotoCard({
         {dragHandleProps && (
           <div
             {...dragHandleProps}
-            className="absolute left-2 top-2 z-10 cursor-grab active:cursor-grabbing p-2 bg-black/50 hover:bg-black/70 rounded-md transition-colors"
+            className="absolute left-2 top-2 z-10 cursor-grab rounded-md bg-black/50 p-2 transition-colors hover:bg-black/70 active:cursor-grabbing"
             title="드래그해서 순서 변경"
           >
             <GripVertical className="h-4 w-4 text-white" />
@@ -270,10 +270,10 @@ function FacilityPhotoCard({
               <div>{photo.width} × {photo.height}px</div>
             )}
             <div>{formatFileSize(photo.file_size)}</div>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <span>순서: {photo.display_order}</span>
               {isDragging && (
-                <span className="text-primary font-medium">드래그 중</span>
+                <span className="font-medium text-primary">드래그 중</span>
               )}
             </div>
           </div>
@@ -292,7 +292,7 @@ function FacilityPhotoCard({
               size="sm"
               variant="outline"
               onClick={() => onDeletePhoto(photo)}
-              className="gap-1 text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="gap-1 text-red-600 hover:bg-red-50 hover:text-red-700"
             >
               <Trash2 className="h-3 w-3" />
               삭제

@@ -33,8 +33,8 @@ const TiptapEditorCore = dynamic(
       if (error) {
         console.error('Tiptap 에디터 로드 실패:', error)
         return (
-          <div className="border border-destructive rounded-md p-4">
-            <p className="text-destructive text-sm">
+          <div className="rounded-md border border-destructive p-4">
+            <p className="text-sm text-destructive">
               에디터를 불러오는 중 오류가 발생했습니다. 페이지를 새로고침해주세요.
             </p>
           </div>
@@ -44,12 +44,12 @@ const TiptapEditorCore = dynamic(
       return (
         <div 
           data-testid="editor-loading" 
-          className="border border-input rounded-md p-4 animate-pulse"
+          className="animate-pulse rounded-md border border-input p-4"
         >
-          <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
-          <div className="h-4 bg-gray-200 rounded w-1/2 mb-4" />
-          <div className="h-32 bg-gray-100 rounded" />
-          <p className="text-sm text-gray-500 mt-2">에디터 로딩 중...</p>
+          <div className="mb-2 h-4 w-3/4 rounded bg-gray-200" />
+          <div className="mb-4 h-4 w-1/2 rounded bg-gray-200" />
+          <div className="h-32 rounded bg-gray-100" />
+          <p className="mt-2 text-sm text-gray-500">에디터 로딩 중...</p>
         </div>
       )
     }
