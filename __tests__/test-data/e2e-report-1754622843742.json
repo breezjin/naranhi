@@ -1,0 +1,57 @@
+{
+  "timestamp": "2025-08-08T03:14:03.742Z",
+  "summary": {
+    "total": 7,
+    "passed": 5,
+    "failed": 2,
+    "successRate": 71
+  },
+  "tests": [
+    {
+      "name": "Server Connectivity",
+      "status": "failed",
+      "duration": 6,
+      "error": "Server not running or not accessible"
+    },
+    {
+      "name": "Page Accessibility",
+      "status": "passed",
+      "duration": 2,
+      "details": "0 accessible pages, 0 protected pages"
+    },
+    {
+      "name": "API Endpoints",
+      "status": "failed",
+      "duration": 1
+    },
+    {
+      "name": "File Structure",
+      "status": "passed",
+      "duration": 0,
+      "details": "7/7 files exist"
+    },
+    {
+      "name": "Dependencies",
+      "status": "passed",
+      "duration": 0,
+      "details": "3/3 dependencies installed"
+    },
+    {
+      "name": "Notice Data Validation",
+      "status": "passed",
+      "duration": 0,
+      "details": "5/5 validations passed"
+    },
+    {
+      "name": "Delta Format Handling",
+      "status": "passed",
+      "duration": 1,
+      "details": "Plain text: 17 chars, HTML: 47 chars"
+    }
+  ],
+  "environment": {
+    "baseUrl": "http://localhost:3000",
+    "nodeVersion": "v23.4.0",
+    "platform": "darwin"
+  }
+}

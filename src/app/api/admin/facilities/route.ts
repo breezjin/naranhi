@@ -5,7 +5,8 @@ import { cookies } from 'next/headers'
 // GET /api/admin/facilities - Fetch all facility photos
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const cookieStore = await cookies()
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
 
@@ -46,7 +47,8 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/facilities - Create new facility photo
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const cookieStore = await cookies()
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     const body = await request.json()
 
     // Validate required fields

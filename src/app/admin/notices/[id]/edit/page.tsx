@@ -27,8 +27,8 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { useToast } from '@/components/ui/use-toast'
 import { logError } from '@/utils/logger'
-import QuillEditor, { QuillEditorRef } from '@/components/admin/QuillEditor'
-import { QuillDelta, QuillEditor as QuillEditorType, QuillSource, QuillChangeHandler } from '@/types/quill'
+import TiptapEditor, { TiptapEditorRef } from '@/components/admin/TiptapEditorClient'
+import { convertQuillDeltaToTiptap } from '@/utils/editorConverter'
 
 type NoticeCategory = {
   id: string
@@ -85,7 +85,7 @@ export default function EditNoticePage() {
   const router = useRouter()
   const params = useParams()
   const { toast } = useToast()
-  const quillRef = useRef<QuillEditorRef>(null)
+  const editorRef = useRef<TiptapEditorRef>(null)
   const noticeId = params.id as string
 
   // Extract fetch functions to prevent webpack-internal errors from nested async functions
@@ -145,7 +145,25 @@ export default function EditNoticePage() {
         const fetchedNotice = noticeResult.data
         setNotice(fetchedNotice)
         setTitle(fetchedNotice.title)
-        setContent(fetchedNotice.content)
+        
+        // Convert Quill Delta to Tiptap JSON if necessary
+        let convertedContent = fetchedNotice.content
+        if (typeof fetchedNotice.content === 'string') {
+          try {
+            const parsedContent = JSON.parse(fetchedNotice.content)
+            // Check if it's Quill Delta format (has 'ops' property)
+            if (parsedContent && parsedContent.ops) {
+              convertedContent = convertQuillDeltaToTiptap(parsedContent)
+            } else {
+              convertedContent = parsedContent
+            }
+          } catch (error) {
+            console.warn('Failed to parse content, using as-is:', error)
+            convertedContent = fetchedNotice.content
+          }
+        }
+        setContent(JSON.stringify(convertedContent))
+        
         setSelectedCategoryId(fetchedNotice.category_id)
         setStatus(fetchedNotice.status)
         setMetaTitle(fetchedNotice.meta_title || '')
@@ -177,7 +195,7 @@ export default function EditNoticePage() {
     }
   }, [noticeId, fetchData])
 
-  const handleContentChange = (content: any, delta: any, source: any, editor: any) => {
+  const handleContentChange = (content: any) => {
     setContent(JSON.stringify(content))
   }
 
@@ -202,7 +220,7 @@ export default function EditNoticePage() {
       return
     }
 
-    if (!content || content.trim() === '' || content === '{"ops":[{"insert":"\\n"}]}') {
+    if (!content || content.trim() === '' || content === '{"type":"doc","content":[{"type":"paragraph","content":[]}]}') {
       toast({
         title: '입력 오류',
         description: '내용을 입력해주세요.',
@@ -333,7 +351,7 @@ export default function EditNoticePage() {
                   <h1 className="text-2xl font-bold text-gray-900">공지사항 수정</h1>
                   {getStatusBadge(status)}
                 </div>
-                <p className="text-gray-600">Quill 에디터로 리치 텍스트 공지사항을 수정합니다</p>
+                <p className="text-gray-600">Tiptap 에디터로 리치 텍스트 공지사항을 수정합니다</p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -451,13 +469,13 @@ export default function EditNoticePage() {
               <CardTitle>내용 *</CardTitle>
             </CardHeader>
             <CardContent>
-              <QuillEditor
-                ref={quillRef}
+              <TiptapEditor
+                ref={editorRef}
                 value={content}
                 onChange={handleContentChange}
                 placeholder="공지사항 내용을 입력하세요..."
                 height="400px"
-                key={`quill-${noticeId}`}
+                key={`tiptap-${noticeId}`}
               />
             </CardContent>
           </Card>

@@ -6,7 +6,8 @@ import { logError } from '@/utils/logger'
 // GET /api/admin/notice-categories - Fetch all categories
 export async function GET() {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const cookieStore = await cookies()
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
     // First check if table exists
     const { data: testData, error: testError } = await supabase
@@ -74,7 +75,8 @@ export async function GET() {
 // POST /api/admin/notice-categories - Create new category
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const cookieStore = await cookies()
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     const body = await request.json()
 
     // Validate required fields

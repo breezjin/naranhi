@@ -1,0 +1,99 @@
+# Page snapshot
+
+```yaml
+- link "naranhi-logo":
+  - /url: /
+  - img "naranhi-logo"
+- button "Menu"
+- img
+- heading "나란히" [level=2]
+- paragraph: 관리자 시스템
+- button:
+  - img
+- navigation:
+  - text: 빠른 작업
+  - button "공지작성":
+    - img
+    - text: 공지작성
+  - button "직원추가":
+    - img
+    - text: 직원추가
+  - text: 주요 기능
+  - link "대시보드 전체 현황 및 통계":
+    - /url: /admin/dashboard
+    - img
+    - text: 대시보드 전체 현황 및 통계
+  - link "직원 관리 직원 정보 및 프로필 관리 00":
+    - /url: /admin/staff
+    - img
+    - text: 직원 관리 직원 정보 및 프로필 관리 00
+  - link "시설 관리 시설 사진 및 정보 관리 00":
+    - /url: /admin/facilities
+    - img
+    - text: 시설 관리 시설 사진 및 정보 관리 00
+  - link "공지사항 공지사항 작성 및 관리":
+    - /url: /admin/notices
+    - img
+    - text: 공지사항 공지사항 작성 및 관리
+  - text: 고급 기능
+  - link "분석 리포트 방문자 및 사용 통계":
+    - /url: /admin/analytics
+    - img
+    - text: 분석 리포트 방문자 및 사용 통계
+  - link "예약 관리 상담 예약 및 스케줄":
+    - /url: /admin/bookings
+    - img
+    - text: 예약 관리 상담 예약 및 스케줄
+  - link "사용자 피드백 리뷰 및 문의 관리":
+    - /url: /admin/feedback
+    - img
+    - text: 사용자 피드백 리뷰 및 문의 관리
+  - text: 시스템
+  - link "시스템 설정 사이트 설정 및 구성":
+    - /url: /admin/settings
+    - img
+    - text: 시스템 설정 사이트 설정 및 구성
+  - link "사용자 관리 관리자 계정 관리":
+    - /url: /admin/users
+    - img
+    - text: 사용자 관리 관리자 계정 관리
+  - link "데이터베이스 데이터 백업 및 관리":
+    - /url: /admin/database
+    - img
+    - text: 데이터베이스 데이터 백업 및 관리
+- button "사이트 보기":
+  - img
+  - text: 사이트 보기
+- button "로그아웃":
+  - img
+  - text: 로그아웃
+- button:
+  - img
+- button:
+  - img
+- button "2":
+  - img
+  - text: "2"
+- button:
+  - img
+- button "A"
+- main:
+  - heading "나란히 관리자" [level=3]
+  - paragraph: 관리자 계정으로 로그인하세요
+  - text: 이메일
+  - textbox "이메일"
+  - text: 비밀번호
+  - textbox "비밀번호"
+  - button "로그인"
+  - button "관리자 계정 생성"
+  - paragraph: 개발 중인 관리자 시스템입니다.
+  - paragraph: 실제 Supabase 프로젝트 설정이 필요합니다.
+- text: 서비스이용약관 | 개인정보이용방침 상호 나란히정신건강의학과 대표 김채리 사업자등록번호 656-95-01851 전화번호
+- link "02) 6484-8110":
+  - /url: tel:0264848110
+- text: 상호 나란히심리발달센터 대표 김채영 사업자등록번호 157-31-01236 전화번호
+- link "02) 6484-8111":
+  - /url: tel:0264848111
+- text: 주소 서울특별시 동작구 현충로 75, 3층 (흑석동, 원불교100년기념관 및 역사문화기념관 2-1호) Since 2023, Copyright ©2025 Naranhi Mental Health Clinic. All Right Reserved. xs
+- alert
+```

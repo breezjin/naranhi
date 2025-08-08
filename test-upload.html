@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 업로드 테스트</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .upload-area { border: 2px dashed #ccc; padding: 20px; text-align: center; margin: 20px 0; }
+        .log { background: #f0f0f0; padding: 10px; margin: 10px 0; border-left: 3px solid #007cba; }
+        .error { border-left-color: #ff6b6b; background: #ffe0e0; }
+        .success { border-left-color: #51cf66; background: #e0ffe0; }
+    </style>
+</head>
+<body>
+    <h1>이미지 업로드 API 테스트</h1>
+    
+    <div class="upload-area">
+        <input type="file" id="imageFile" accept="image/*">
+        <br><br>
+        <button onclick="testUpload()">업로드 테스트</button>
+    </div>
+    
+    <div id="logs"></div>
+    
+    <script>
+        function log(message, type = 'log') {
+            const logsDiv = document.getElementById('logs');
+            const logDiv = document.createElement('div');
+            logDiv.className = `log ${type}`;
+            logDiv.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            logsDiv.appendChild(logDiv);
+            console.log(message);
+        }
+        
+        async function testUpload() {
+            const fileInput = document.getElementById('imageFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                log('파일을 선택해주세요.', 'error');
+                return;
+            }
+            
+            log('업로드 시작: ' + file.name);
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('bucket', 'editor-images');
+                
+                log('API 요청 전송 중...');
+                
+                const response = await fetch('/api/admin/upload-image', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                log('응답 상태: ' + response.status + ' ' + response.statusText);
+                
+                const responseText = await response.text();
+                log('응답 텍스트: ' + responseText);
+                
+                if (response.ok) {
+                    const data = JSON.parse(responseText);
+                    log('업로드 성공!', 'success');
+                    log('결과: ' + JSON.stringify(data, null, 2), 'success');
+                    
+                    // 이미지 미리보기 표시
+                    if (data.data && data.data.url) {
+                        const img = document.createElement('img');
+                        img.src = data.data.url;
+                        img.style.maxWidth = '300px';
+                        img.style.marginTop = '10px';
+                        document.body.appendChild(img);
+                    }
+                } else {
+                    log('업로드 실패: ' + responseText, 'error');
+                }
+            } catch (error) {
+                log('에러 발생: ' + error.message, 'error');
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

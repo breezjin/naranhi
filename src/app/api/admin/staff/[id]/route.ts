@@ -8,8 +8,9 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const cookieStore = await cookies()
     const { id } = await params
-    const supabase = createRouteHandlerClient({ cookies })
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
     const { data, error } = await supabase
       .from('staff_members')
@@ -44,8 +45,9 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const cookieStore = await cookies()
     const { id } = await params
-    const supabase = createRouteHandlerClient({ cookies })
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     const body = await request.json()
 
     // Validate required fields
@@ -100,8 +102,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const cookieStore = await cookies()
     const { id } = await params
-    const supabase = createRouteHandlerClient({ cookies })
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
     // Check if staff member exists
     const { data: existingStaff, error: fetchError } = await supabase

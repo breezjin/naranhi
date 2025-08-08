@@ -27,8 +27,7 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { useToast } from '@/components/ui/use-toast'
 import { logError } from '@/utils/logger'
-import QuillEditor, { QuillEditorRef } from '@/components/admin/QuillEditor'
-import { QuillDelta, QuillEditor as QuillEditorType, QuillSource, QuillChangeHandler } from '@/types/quill'
+import TiptapEditor, { TiptapEditorRef } from '@/components/admin/TiptapEditorClient'
 
 type NoticeCategory = {
   id: string
@@ -53,7 +52,7 @@ export default function CreateNoticePage() {
   
   const router = useRouter()
   const { toast } = useToast()
-  const quillRef = useRef<QuillEditorRef>(null)
+  const editorRef = useRef<TiptapEditorRef>(null)
 
   // Move fetchCategories before useEffect to prevent hoisting issues
   const fetchCategories = useCallback(async () => {
@@ -104,7 +103,7 @@ export default function CreateNoticePage() {
     fetchCategories()
   }, [fetchCategories])
 
-  const handleContentChange = (content: any, delta: any, source: any, editor: any) => {
+  const handleContentChange = (content: any) => {
     setContent(JSON.stringify(content))
   }
 
@@ -129,7 +128,7 @@ export default function CreateNoticePage() {
       return
     }
 
-    if (!content || content.trim() === '' || content === '{"ops":[{"insert":"\\n"}]}') {
+    if (!content || content.trim() === '' || content === '{"type":"doc","content":[{"type":"paragraph","content":[]}]}') {
       toast({
         title: '입력 오류',
         description: '내용을 입력해주세요.',
@@ -235,7 +234,7 @@ export default function CreateNoticePage() {
               </Button>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">공지사항 작성</h1>
-                <p className="text-gray-600">Quill 에디터로 리치 텍스트 공지사항을 작성합니다</p>
+                <p className="text-gray-600">Tiptap 에디터로 리치 텍스트 공지사항을 작성합니다</p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -330,8 +329,8 @@ export default function CreateNoticePage() {
               <CardTitle>내용 *</CardTitle>
             </CardHeader>
             <CardContent>
-              <QuillEditor
-                ref={quillRef}
+              <TiptapEditor
+                ref={editorRef}
                 value={content}
                 onChange={handleContentChange}
                 placeholder="공지사항 내용을 입력하세요..."

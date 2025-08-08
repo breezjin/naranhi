@@ -1,0 +1,331 @@
+'use client'
+
+import { forwardRef, useImperativeHandle, useEffect, useState } from 'react'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Placeholder from '@tiptap/extension-placeholder'
+import { TextStyle } from '@tiptap/extension-text-style'
+import { Color } from '@tiptap/extension-color'
+import TextAlign from '@tiptap/extension-text-align'
+import Underline from '@tiptap/extension-underline'
+import Link from '@tiptap/extension-link'
+import { Button } from '@/components/ui/button'
+import { 
+  Bold, 
+  Italic, 
+  Underline as UnderlineIcon, 
+  Strikethrough,
+  Code,
+  List,
+  ListOrdered,
+  Quote,
+  Heading1,
+  Heading2,
+  Heading3,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Link as LinkIcon
+} from 'lucide-react'
+import { cn } from '@/lib/utils'
+
+export interface TiptapEditorRef {
+  getContent: () => any
+  setContent: (content: any) => void
+  getHTML: () => string
+  getJSON: () => any
+  getText: () => string
+  focus: () => void
+  blur: () => void
+  isEmpty: () => boolean
+}
+
+interface TiptapEditorProps {
+  value?: string | object
+  onChange?: (content: any) => void
+  placeholder?: string
+  height?: string
+  readOnly?: boolean
+  className?: string
+}
+
+// 한글 텍스트 정규화 함수
+const normalizeKoreanText = (text: string): string => {
+  return text
+    .replace(/[，]/g, ',')  // 전각 쉼표 → 반각 쉼표
+    .replace(/[。]/g, '.')  // 전각 마침표 → 반각 마침표
+    .replace(/[：]/g, ':')  // 전각 콜론 → 반각 콜론
+    .replace(/[；]/g, ';')  // 전각 세미콜론 → 반각 세미콜론
+    .replace(/[！]/g, '!')  // 전각 느낌표 → 반각 느낌표
+    .replace(/[？]/g, '?')  // 전각 물음표 → 반각 물음표
+    .normalize('NFC')       // Unicode 정규화 (조합형)
+}
+
+const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(({
+  value,
+  onChange,
+  placeholder = '내용을 입력하세요...',
+  height = '300px',
+  readOnly = false,
+  className
+}, ref) => {
+  const [isMounted, setIsMounted] = useState(false)
+  
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false,
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false,
+        },
+      }),
+      Placeholder.configure({
+        placeholder,
+        emptyEditorClass: 'is-editor-empty',
+      }),
+      TextStyle,
+      Color,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Underline,
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          class: 'text-blue-600 underline cursor-pointer',
+        },
+      }),
+    ],
+    content: value || '',
+    editable: !readOnly,
+    immediatelyRender: false,
+    shouldRerenderOnTransaction: false,
+    onUpdate: ({ editor }) => {
+      if (onChange) {
+        const json = editor.getJSON()
+        // 한글 텍스트 정규화 적용
+        const normalizedContent = {
+          ...json,
+          content: json.content?.map((node: any) => ({
+            ...node,
+            content: node.content?.map((textNode: any) => ({
+              ...textNode,
+              text: textNode.text ? normalizeKoreanText(textNode.text) : textNode.text
+            }))
+          }))
+        }
+        onChange(normalizedContent)
+      }
+    },
+    editorProps: {
+      attributes: {
+        class: cn(
+          'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+          'min-h-[200px] p-4 border border-input rounded-md',
+          '[font-family:Nanum_Gothic,Malgun_Gothic,sans-serif]',
+          className
+        ),
+      },
+    },
+  }, [value, readOnly, placeholder])
+
+  useImperativeHandle(ref, () => ({
+    getContent: () => editor?.getJSON() || null,
+    setContent: (content: any) => {
+      if (editor && content) {
+        editor.commands.setContent(content)
+      }
+    },
+    getHTML: () => editor?.getHTML() || '',
+    getJSON: () => editor?.getJSON() || null,
+    getText: () => editor?.getText() || '',
+    focus: () => editor?.commands.focus(),
+    blur: () => editor?.commands.blur(),
+    isEmpty: () => editor?.isEmpty || true,
+  }), [editor])
+
+  // SSR/CSR 안정성을 위한 마운트 체크
+  if (!isMounted || !editor) {
+    return (
+      <div 
+        className={cn('border border-input rounded-md p-4 animate-pulse', className)}
+        style={{ height }}
+      >
+        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+        <div className="h-4 bg-gray-200 rounded w-1/2" />
+      </div>
+    )
+  }
+
+  const ToolbarButton = ({ onClick, isActive, children, title }: {
+    onClick: () => void
+    isActive?: boolean
+    children: React.ReactNode
+    title: string
+  }) => (
+    <Button
+      type="button"
+      variant={isActive ? "default" : "ghost"}
+      size="sm"
+      onClick={onClick}
+      title={title}
+      className="h-8 w-8 p-0"
+    >
+      {children}
+    </Button>
+  )
+
+  return (
+    <div className="space-y-2">
+      {/* Toolbar */}
+      {!readOnly && (
+        <div className="flex flex-wrap gap-1 p-2 border border-input rounded-md bg-muted/30">
+          {/* Text Formatting */}
+          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              isActive={editor.isActive('bold')}
+              title="굵게 (Ctrl+B)"
+            >
+              <Bold className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              isActive={editor.isActive('italic')}
+              title="기울임 (Ctrl+I)"
+            >
+              <Italic className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleUnderline().run()}
+              isActive={editor.isActive('underline')}
+              title="밑줄 (Ctrl+U)"
+            >
+              <UnderlineIcon className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+              isActive={editor.isActive('strike')}
+              title="취소선"
+            >
+              <Strikethrough className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleCode().run()}
+              isActive={editor.isActive('code')}
+              title="인라인 코드"
+            >
+              <Code className="h-4 w-4" />
+            </ToolbarButton>
+          </div>
+
+          {/* Headings */}
+          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+              isActive={editor.isActive('heading', { level: 1 })}
+              title="제목 1"
+            >
+              <Heading1 className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+              isActive={editor.isActive('heading', { level: 2 })}
+              title="제목 2"
+            >
+              <Heading2 className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+              isActive={editor.isActive('heading', { level: 3 })}
+              title="제목 3"
+            >
+              <Heading3 className="h-4 w-4" />
+            </ToolbarButton>
+          </div>
+
+          {/* Lists */}
+          <div className="flex gap-1 border-r border-border pr-2 mr-2">
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              isActive={editor.isActive('bulletList')}
+              title="글머리 기호 목록"
+            >
+              <List className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              isActive={editor.isActive('orderedList')}
+              title="번호 목록"
+            >
+              <ListOrdered className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleBlockquote().run()}
+              isActive={editor.isActive('blockquote')}
+              title="인용문"
+            >
+              <Quote className="h-4 w-4" />
+            </ToolbarButton>
+          </div>
+
+          {/* Alignment */}
+          <div className="flex gap-1">
+            <ToolbarButton
+              onClick={() => editor.chain().focus().setTextAlign('left').run()}
+              isActive={editor.isActive({ textAlign: 'left' })}
+              title="왼쪽 정렬"
+            >
+              <AlignLeft className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().setTextAlign('center').run()}
+              isActive={editor.isActive({ textAlign: 'center' })}
+              title="가운데 정렬"
+            >
+              <AlignCenter className="h-4 w-4" />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().setTextAlign('right').run()}
+              isActive={editor.isActive({ textAlign: 'right' })}
+              title="오른쪽 정렬"
+            >
+              <AlignRight className="h-4 w-4" />
+            </ToolbarButton>
+          </div>
+        </div>
+      )}
+
+      {/* Editor */}
+      <div 
+        className="relative border border-input rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
+        style={{ height }}
+      >
+        <EditorContent 
+          editor={editor} 
+          className="h-full overflow-y-auto"
+        />
+        
+      </div>
+
+      {/* Character count for Korean text */}
+      {!readOnly && (
+        <div className="text-xs text-muted-foreground text-right">
+          {editor.storage.characterCount?.characters() || editor.getText().length}자
+        </div>
+      )}
+    </div>
+  )
+})
+
+TiptapEditor.displayName = 'TiptapEditor'
+
+export default TiptapEditor

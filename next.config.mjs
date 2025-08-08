@@ -47,8 +47,17 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'zdthxekwgqcsqryszavw.supabase.co',
+      },
     ],
   },
+  // React 19 및 Next.js 15 호환성 개선
+  experimental: {
+    optimizePackageImports: ['@tiptap/react', '@tiptap/starter-kit'],
+  },
+  // 개발 환경 최적화 - buildActivity 제거됨 (deprecated)
 };
 
 export default nextConfig;

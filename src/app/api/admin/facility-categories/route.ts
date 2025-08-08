@@ -5,7 +5,8 @@ import { cookies } from 'next/headers'
 // GET /api/admin/facility-categories - Fetch all facility categories
 export async function GET() {
   try {
-    const supabase = createRouteHandlerClient({ cookies })
+    const cookieStore = await cookies()
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
 
     const { data, error } = await supabase
       .from('facility_categories')

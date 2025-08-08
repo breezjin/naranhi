@@ -1,0 +1,303 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { 
+  Users, 
+  FileText, 
+  Image, 
+  Building2, 
+  Plus,
+  Eye,
+  Calendar,
+  TrendingUp
+} from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import type { Metadata } from 'next'
+
+// Metadata for SEO
+export const metadata: Metadata = {
+  title: 'Admin Dashboard - 나란히정신건강의학과의원',
+  description: '관리자 대시보드 - 통계 및 빠른 작업'
+}
+
+interface DashboardStats {
+  notices: number
+  staff: number
+  facilities: number
+  totalViews: number
+}
+
+export default function AdminDashboardPage() {
+  const router = useRouter()
+  const [stats, setStats] = useState<DashboardStats>({
+    notices: 0,
+    staff: 0,
+    facilities: 0,
+    totalViews: 0
+  })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // 실제 통계 데이터를 가져오는 API 호출
+        // 현재는 모의 데이터 사용
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        
+        setStats({
+          notices: 12,
+          staff: 8,
+          facilities: 15,
+          totalViews: 1247
+        })
+      } catch (error) {
+        console.error('Failed to fetch dashboard stats:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStats()
+  }, [])
+
+  const quickActions = [
+    {
+      title: '공지사항 작성',
+      description: '새 공지사항을 작성합니다',
+      icon: FileText,
+      href: '/admin/notices/create',
+      color: 'bg-blue-500'
+    },
+    {
+      title: '직원 추가',
+      description: '새 직원 정보를 추가합니다',
+      icon: Users,
+      href: '/admin/staff/new',
+      color: 'bg-green-500'
+    },
+    {
+      title: '시설 관리',
+      description: '시설 사진을 관리합니다',
+      icon: Building2,
+      href: '/admin/facilities',
+      color: 'bg-purple-500'
+    }
+  ]
+
+  const statsCards = [
+    {
+      title: '전체 공지사항',
+      value: stats.notices,
+      description: '발행된 공지사항',
+      icon: FileText,
+      trend: '+2개 이번 주'
+    },
+    {
+      title: '등록된 직원',
+      value: stats.staff,
+      description: '현재 등록된 직원 수',
+      icon: Users,
+      trend: '변경 없음'
+    },
+    {
+      title: '시설 사진',
+      value: stats.facilities,
+      description: '업로드된 시설 사진',
+      icon: Image,
+      trend: '+3개 이번 주'
+    },
+    {
+      title: '총 조회수',
+      value: stats.totalViews.toLocaleString(),
+      description: '누적 페이지 조회수',
+      icon: TrendingUp,
+      trend: '+156 이번 주'
+    }
+  ]
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
+          <p>대시보드를 불러오는 중...</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">대시보드</h1>
+          <p className="text-gray-600">전체 현황 및 통계</p>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <Calendar className="h-4 w-4" />
+          {new Date().toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">빠른 작업</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {quickActions.map((action) => (
+            <Card 
+              key={action.title} 
+              className="cursor-pointer transition-shadow hover:shadow-md"
+              onClick={() => router.push(action.href)}
+            >
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-3">
+                  <div className={`rounded-lg p-2 text-white ${action.color}`}>
+                    <action.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base">{action.title}</CardTitle>
+                    <CardDescription className="text-sm">
+                      {action.description}
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Statistics */}
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">주요 기능</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {statsCards.map((stat) => (
+            <Card key={stat.title}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">
+                  {stat.title}
+                </CardTitle>
+                <stat.icon className="h-4 w-4 text-gray-400" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                <p className="text-xs text-gray-500 mt-1">
+                  {stat.description}
+                </p>
+                <p className="text-xs text-green-600 mt-2">
+                  {stat.trend}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Recent Activity */}
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">관리 메뉴</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                공지사항 관리
+              </CardTitle>
+              <CardDescription>
+                공지사항을 작성, 수정, 삭제할 수 있습니다
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => router.push('/admin/notices')}
+                >
+                  <Eye className="h-4 w-4 mr-1" />
+                  목록 보기
+                </Button>
+                <Button 
+                  size="sm"
+                  onClick={() => router.push('/admin/notices/create')}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  새 공지 작성
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="h-5 w-5" />
+                직원 관리
+              </CardTitle>
+              <CardDescription>
+                직원 정보 및 프로필을 관리합니다
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => router.push('/admin/staff')}
+                >
+                  <Eye className="h-4 w-4 mr-1" />
+                  직원 목록
+                </Button>
+                <Button 
+                  size="sm"
+                  onClick={() => router.push('/admin/staff/new')}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  직원 추가
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Building2 className="h-5 w-5" />
+                시설 관리
+              </CardTitle>
+              <CardDescription>
+                시설 사진 및 정보를 관리합니다
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => router.push('/admin/facilities')}
+                >
+                  <Eye className="h-4 w-4 mr-1" />
+                  시설 보기
+                </Button>
+                <Button 
+                  size="sm"
+                  onClick={() => router.push('/admin/facilities/upload')}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  사진 업로드
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    </div>
+  )
+}
