@@ -384,3 +384,6 @@ notice_date field disabled until database migration is complete
  GET /api/admin/notices 200 in 67ms
  GET /api/admin/notice-categories 200 in 118ms
  GET /api/admin/notices 200 in 536ms
+ ✓ Compiled in 1152ms (2748 modules)
+ ✓ Compiled /api/admin/notices in 146ms (1334 modules)
+ GET /api/admin/notices 200 in 515ms

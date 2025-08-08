@@ -83,7 +83,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
       title: '공지사항',
       href: '/admin/notices',
       icon: Bell,
-      badge: stats.draftNotices > 0 ? stats.draftNotices : undefined,
+      badge: stats.totalNotices,
       description: '공지사항 작성 및 관리'
     }
   ]
