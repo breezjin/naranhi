@@ -12,19 +12,32 @@ export default function Home() {
     >
       <div className="flex flex-col" data-aos="fade-zoom-in">
         <p className="flex flex-wrap">
-          이곳에서 우리 마음속의 온도는 과연 몇 도쯤 되는 것일까? 생각해 보았다.
+          이곳에서 우리 마음속의 온도는
+          <br className="sm:hidden" /> 과연 몇 도쯤 되는 것일까?
+          <br className="sm:hidden" /> 생각해 보았다.
+        </p>
+        <p>
+          <br className="sm:hidden" />
         </p>
         <p className="flex flex-wrap">
-          너무 뜨거워서 다른 사람이 부담스러워하지도 않고
+          너무 뜨거워서
+          <br className="sm:hidden" /> 다른 사람이 부담스러워하지도 않고
         </p>
         <p className="flex flex-wrap">
-          너무 차가워서 다른 사람이 상처받지도 않는 온도는
+          너무 차가워서
+          <br className="sm:hidden" /> 다른 사람이 상처받지도 않는 온도는
         </p>
         <p className="flex flex-wrap">
-          &quot;따뜻한&quot;이라는 온도란 생각이 든다.
+          &quot;따뜻한&quot;이라는 온도란
+          <br className="sm:hidden" /> 생각이 든다.
+        </p>
+        <p>
+          <br className="sm:hidden" />
         </p>
         <p className="flex flex-wrap">
-          보이지 않아도 마음으로 느껴지고, 마음에서 마음으로 전해질 수 있는
+          보이지 않아도 마음으로 느껴지고,
+          <br className="sm:hidden" /> 마음에서 마음으로 전해질 수 있는
+          <br className="sm:hidden" />
           따뜻함이기에
         </p>
         <p className="flex flex-wrap">사람들은 마음을 나누는 것 같다.</p>
