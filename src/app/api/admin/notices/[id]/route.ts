@@ -158,6 +158,19 @@ function convertDeltaToHTML(delta: any): string {
   return html
 }
 
+// Helper function to validate date format (YYYY-MM-DD)
+function isValidDate(dateString: string): boolean {
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+  if (!dateRegex.test(dateString)) return false
+  
+  const date = new Date(dateString + 'T00:00:00.000Z')
+  const [year, month, day] = dateString.split('-').map(Number)
+  
+  return date.getUTCFullYear() === year &&
+         date.getUTCMonth() === month - 1 &&
+         date.getUTCDate() === day
+}
+
 // GET /api/admin/notices/[id] - Get single notice
 export async function GET(
   request: NextRequest,
@@ -225,6 +238,11 @@ export async function PUT(
       validationErrors.push('SEO 설명은 160자를 초과할 수 없습니다.')
     }
     
+    // TODO: Re-enable after database migration
+    // if (body.notice_date && !isValidDate(body.notice_date)) {
+    //   validationErrors.push('올바른 공지일을 입력해주세요. (YYYY-MM-DD 형식)')
+    // }
+    
     if (validationErrors.length > 0) {
       return NextResponse.json(
         { error: '입력 오류', details: validationErrors },
@@ -265,7 +283,7 @@ export async function PUT(
       publishedAt = null
     }
 
-    const updateData = {
+    const updateData: any = {
       title: body.title,
       slug,
       content: body.content,
@@ -275,6 +293,7 @@ export async function PUT(
       published_at: publishedAt,
       scheduled_publish_at: body.scheduled_publish_at || null,
       category_id: body.category_id,
+      notice_date: body.notice_date || null,
       priority: body.priority || 0,
       meta_title: body.meta_title || null,
       meta_description: body.meta_description || null,

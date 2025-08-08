@@ -22,7 +22,8 @@ import {
   Send,
   Plus,
   X,
-  Loader2
+  Loader2,
+  Calendar
 } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { useToast } from '@/components/ui/use-toast'
@@ -56,6 +57,7 @@ type Notice = {
   meta_description: string | null
   featured_image_url?: string | null
   tags: string[]
+  notice_date?: string | null
   author_id?: string | null
   created_at?: string
   updated_at?: string
@@ -78,6 +80,7 @@ export default function EditNoticePage() {
   const [metaDescription, setMetaDescription] = useState('')
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState('')
+  const [noticeDate, setNoticeDate] = useState('')
   const [loading, setLoading] = useState(false)
   const [initialLoading, setInitialLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -169,6 +172,7 @@ export default function EditNoticePage() {
         setMetaTitle(fetchedNotice.meta_title || '')
         setMetaDescription(fetchedNotice.meta_description || '')
         setTags(fetchedNotice.tags || [])
+        setNoticeDate(fetchedNotice.notice_date || new Date().toISOString().split('T')[0])
       } else {
         setError(noticeResult.error || '공지사항을 불러올 수 없습니다.')
         return // Critical error - can't proceed without notice data
@@ -246,6 +250,7 @@ export default function EditNoticePage() {
         content,
         category_id: selectedCategoryId,
         status: submitStatus,
+        notice_date: noticeDate,
         meta_title: metaTitle || null,
         meta_description: metaDescription || null,
         tags
@@ -412,39 +417,58 @@ export default function EditNoticePage() {
                 />
               </div>
 
-              <div>
-                <Label htmlFor="category">카테고리 *</Label>
-                <Select value={selectedCategoryId} onValueChange={setSelectedCategoryId}>
-                  <SelectTrigger className="mt-1">
-                    <SelectValue placeholder="카테고리를 선택하세요" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        <div className="flex items-center gap-2">
-                          <div 
-                            className="h-3 w-3 rounded-full" 
-                            style={{ backgroundColor: category.color }}
-                          />
-                          {category.display_name}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {getSelectedCategory() && (
-                  <div className="mt-2">
-                    <Badge 
-                      variant="outline"
-                      style={{ 
-                        backgroundColor: `${getSelectedCategory()?.color}20`, 
-                        borderColor: getSelectedCategory()?.color 
-                      }}
-                    >
-                      {getSelectedCategory()?.display_name}
-                    </Badge>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="category">카테고리 *</Label>
+                  <Select value={selectedCategoryId} onValueChange={setSelectedCategoryId}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="카테고리를 선택하세요" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          <div className="flex items-center gap-2">
+                            <div 
+                              className="h-3 w-3 rounded-full" 
+                              style={{ backgroundColor: category.color }}
+                            />
+                            {category.display_name}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {getSelectedCategory() && (
+                    <div className="mt-2">
+                      <Badge 
+                        variant="outline"
+                        style={{ 
+                          backgroundColor: `${getSelectedCategory()?.color}20`, 
+                          borderColor: getSelectedCategory()?.color 
+                        }}
+                      >
+                        {getSelectedCategory()?.display_name}
+                      </Badge>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="notice_date">공지일 *</Label>
+                  <div className="relative mt-1">
+                    <Input
+                      id="notice_date"
+                      type="date"
+                      value={noticeDate}
+                      onChange={(e) => setNoticeDate(e.target.value)}
+                      className="pl-10"
+                    />
+                    <Calendar className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   </div>
-                )}
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    공지사항이 표시될 공식 공지일을 설정하세요
+                  </p>
+                </div>
               </div>
 
               <div>

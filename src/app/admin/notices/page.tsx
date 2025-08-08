@@ -57,6 +57,7 @@ interface Notice {
   meta_description: string | null;
   featured_image_url: string | null;
   tags: string[];
+  notice_date: string | null;
   author_id: string | null;
   created_at: string;
   updated_at: string;
@@ -89,6 +90,7 @@ export default function NoticesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const [sortBy, setSortBy] = useState<'notice_date' | 'created_at' | 'published_at'>('notice_date');
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
@@ -249,7 +251,7 @@ export default function NoticesPage() {
 
   useEffect(() => {
     filterNotices();
-  }, [notices, debouncedSearchTerm, selectedCategory, selectedStatus]);
+  }, [notices, debouncedSearchTerm, selectedCategory, selectedStatus, sortBy]);
 
   // Enhanced filtering with performance optimization
   const filterNotices = useCallback(() => {
@@ -288,8 +290,28 @@ export default function NoticesPage() {
       filtered = filtered.filter((notice) => notice.status === selectedStatus);
     }
 
+    // Sort by selected criteria
+    filtered = filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'notice_date':
+          // Handle notice_date sorting with fallbacks
+          const dateA = a.notice_date || a.published_at || a.created_at;
+          const dateB = b.notice_date || b.published_at || b.created_at;
+          return new Date(dateB).getTime() - new Date(dateA).getTime();
+        
+        case 'published_at':
+          const pubA = a.published_at || a.created_at;
+          const pubB = b.published_at || b.created_at;
+          return new Date(pubB).getTime() - new Date(pubA).getTime();
+        
+        case 'created_at':
+        default:
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
+    });
+
     setFilteredNotices(filtered);
-  }, [notices, debouncedSearchTerm, selectedCategory, selectedStatus]);
+  }, [notices, debouncedSearchTerm, selectedCategory, selectedStatus, sortBy]);
 
   // Memoized filtered notices for performance
   const memoizedFilteredNotices = useMemo(() => {
@@ -422,6 +444,16 @@ export default function NoticesPage() {
             <SelectItem value="archived">보관됨</SelectItem>
           </SelectContent>
         </Select>
+        <Select value={sortBy} onValueChange={(value: 'notice_date' | 'created_at' | 'published_at') => setSortBy(value)}>
+          <SelectTrigger className="w-full sm:w-48">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="notice_date">공지일순</SelectItem>
+            <SelectItem value="published_at">발행일순</SelectItem>
+            <SelectItem value="created_at">작성일순</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Stats */}
@@ -444,6 +476,14 @@ export default function NoticesPage() {
                 : '보관됨'}
           </span>
         )}
+        <span>
+          정렬:{' '}
+          {sortBy === 'notice_date'
+            ? '공지일순'
+            : sortBy === 'published_at'
+              ? '발행일순'
+              : '작성일순'}
+        </span>
       </div>
 
       {/* Notices List */}
@@ -472,6 +512,7 @@ export default function NoticesPage() {
               <CardContent className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
+                    {/* Header with title and badges */}
                     <div className="mb-2 flex items-center gap-3">
                       <h3 className="text-lg font-semibold text-foreground">
                         {notice.title}
@@ -488,6 +529,57 @@ export default function NoticesPage() {
                       </Badge>
                     </div>
 
+                    {/* Comprehensive Date Information - All Dates Shown Separately */}
+                    <div className="mb-3 space-y-1">
+                      {/* Notice Date - Primary */}
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-primary" />
+                        <div className="flex items-center gap-4">
+                          <span className="text-sm font-medium text-primary">
+                            공지일: {notice.notice_date ? formatDate(notice.notice_date) : '미설정'}
+                          </span>
+                          {!notice.notice_date && (
+                            <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] text-amber-800 dark:bg-amber-900/30 dark:text-amber-200">
+                              설정 필요
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Additional Date Information */}
+                      <div className="ml-6 flex flex-wrap items-center gap-4 text-xs">
+                        {/* Published Date */}
+                        {notice.published_at && (
+                          <div className="flex items-center gap-1 text-green-700 dark:text-green-300">
+                            <span className="h-1.5 w-1.5 rounded-full bg-green-600 dark:bg-green-400"></span>
+                            <span>발행일: {formatDate(notice.published_at)}</span>
+                          </div>
+                        )}
+                        
+                        {/* Created Date */}
+                        <div className="flex items-center gap-1 text-slate-600 dark:text-slate-400">
+                          <span className="h-1.5 w-1.5 rounded-full bg-slate-500 dark:bg-slate-400"></span>
+                          <span>작성일: {formatDate(notice.created_at)}</span>
+                        </div>
+
+                        {/* Date Status Indicators */}
+                        {notice.notice_date && notice.published_at && notice.created_at && (
+                          <>
+                            {formatDate(notice.notice_date) === formatDate(notice.published_at) && (
+                              <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[9px] text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
+                                공지일=발행일
+                              </span>
+                            )}
+                            {formatDate(notice.notice_date) === formatDate(notice.created_at) && (
+                              <span className="rounded bg-purple-100 px-1.5 py-0.5 text-[9px] text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">
+                                공지일=작성일
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+
                     <p className="mb-3 line-clamp-2 text-sm text-muted-foreground">
                       {notice.plain_text.substring(0, 150)}
                       {notice.plain_text.length > 150 && '...'}
@@ -495,21 +587,15 @@ export default function NoticesPage() {
 
                     <div className="flex items-center gap-4 text-xs text-muted-foreground/70">
                       <div className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {notice.status === 'published' && notice.published_at
-                          ? `발행: ${formatDate(notice.published_at)}`
-                          : `작성: ${formatDate(notice.created_at)}`}
-                      </div>
-                      <div className="flex items-center gap-1">
                         <Eye className="h-3 w-3" />
-                        {notice.view_count}회
+                        {notice.view_count}회 조회
                       </div>
                       {notice.tags.length > 0 && (
                         <div className="flex items-center gap-1">
                           <Tag className="h-3 w-3" />
                           {notice.tags.slice(0, 3).join(', ')}
                           {notice.tags.length > 3 &&
-                            ` +${notice.tags.length - 3}`}
+                            ` +${notice.tags.length - 3}개`}
                         </div>
                       )}
                     </div>

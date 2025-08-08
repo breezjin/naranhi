@@ -29,6 +29,7 @@
     "test:playwright-debug": "npx playwright test --debug"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^18.0.1",
     "@lottiefiles/lottie-player": "^2.0.4",
     "@notionhq/client": "^2.2.14",
     "@radix-ui/react-accordion": "^1.2.11",

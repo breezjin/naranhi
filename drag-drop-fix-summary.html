@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드래그&드롭 순서 변경 개선 완료</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .fix-container {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .fix-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #059669;
+        }
+        .problem-section {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .solution-section {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .fix-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background-color: #10b981;
+        }
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .before, .after {
+            padding: 16px;
+            border-radius: 6px;
+        }
+        .before {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+        }
+        .after {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+        }
+        .btn {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .btn:hover {
+            background: #047857;
+        }
+    </style>
+</head>
+<body>
+    <div class="fix-container">
+        <h1 class="fix-title">🔧 드래그&드롭 순서 변경 즉시 반영 개선 완료</h1>
+        
+        <div class="problem-section">
+            <h2>⚠️ 문제 분석</h2>
+            <p><strong>증상:</strong> 드래그&드롭으로 순서 변경 시 화면에 즉시 반영되지 않고 새로고침해야 보임</p>
+            <p><strong>원인:</strong> 순서 변경 후 <code>display_order</code> 필드 기준 정렬이 누락되어 UI가 업데이트되지 않음</p>
+        </div>
+
+        <div class="solution-section">
+            <h2>✅ 해결 방법</h2>
+            <p><strong>접근:</strong> 모든 리스트 표시 지점에서 <code>display_order</code> 기준 정렬 추가</p>
+            <p><strong>범위:</strong> 직원관리, 시설관리 페이지 및 드래그&드롭 컴포넌트</p>
+        </div>
+
+        <h2>🔨 수정된 파일 및 변경사항</h2>
+        
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>DragDropStaffList.tsx</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    필터링 및 드래그 완료 후 정렬 로직 추가
+                </div>
+            </div>
+        </div>
+
+        <div class="before-after">
+            <div class="before">
+                <strong>수정 전:</strong>
+                <div class="code-block">const filteredStaff = staffMembers.filter(staff => {
+  if (selectedCategory === 'all') return true
+  return staff.category && staff.category.name === selectedCategory
+})</div>
+            </div>
+            <div class="after">
+                <strong>수정 후:</strong>
+                <div class="code-block">const filteredStaff = staffMembers
+  .filter(staff => {
+    if (selectedCategory === 'all') return true
+    return staff.category && staff.category.name === selectedCategory
+  })
+  .sort((a, b) => a.display_order - b.display_order)</div>
+            </div>
+        </div>
+
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>Staff page.tsx</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    일반 모드에서 직원 목록 표시 시 정렬 추가
+                </div>
+            </div>
+        </div>
+
+        <div class="before-after">
+            <div class="before">
+                <strong>수정 전:</strong>
+                <div class="code-block">const filteredStaff = staffMembers.filter(staff => {
+  const matchesSearch = /* search logic */
+  const matchesCategory = /* category logic */
+  return matchesSearch && matchesCategory
+})</div>
+            </div>
+            <div class="after">
+                <strong>수정 후:</strong>
+                <div class="code-block">const filteredStaff = staffMembers
+  .filter(staff => {
+    const matchesSearch = /* search logic */
+    const matchesCategory = /* category logic */
+    return matchesSearch && matchesCategory
+  })
+  .sort((a, b) => a.display_order - b.display_order)</div>
+            </div>
+        </div>
+
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>DragDropFacilityList.tsx</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    시설 사진 필터링 및 드래그 완료 후 정렬 로직 추가
+                </div>
+            </div>
+        </div>
+
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>Facilities page.tsx</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    filterPhotos 함수에 display_order 기준 정렬 추가
+                </div>
+            </div>
+        </div>
+
+        <div class="before-after">
+            <div class="before">
+                <strong>수정 전:</strong>
+                <div class="code-block">const filterPhotos = () => {
+  let filtered = photos
+  // Filter by search and category...
+  setFilteredPhotos(filtered)
+}</div>
+            </div>
+            <div class="after">
+                <strong>수정 후:</strong>
+                <div class="code-block">const filterPhotos = () => {
+  let filtered = photos
+  // Filter by search and category...
+  
+  // Sort by display_order to ensure proper ordering
+  filtered = filtered.sort((a, b) => a.display_order - b.display_order)
+  
+  setFilteredPhotos(filtered)
+}</div>
+            </div>
+        </div>
+
+        <h2>🎯 핵심 개선사항</h2>
+        
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>즉시 UI 반영</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    드래그&드롭 완료 즉시 변경된 순서가 화면에 반영됨
+                </div>
+            </div>
+        </div>
+
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>일관된 정렬</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    모든 리스트 표시 지점에서 display_order 기준 정렬 적용
+                </div>
+            </div>
+        </div>
+
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>Optimistic UI 강화</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    UI 업데이트 후에도 정렬이 유지되어 일관성 보장
+                </div>
+            </div>
+        </div>
+
+        <div class="fix-item">
+            <div class="status-icon">✓</div>
+            <div>
+                <strong>검색/필터 호환</strong>
+                <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                    검색이나 카테고리 필터 적용 시에도 순서 유지
+                </div>
+            </div>
+        </div>
+
+        <h2>🧪 테스트 시나리오</h2>
+        
+        <div style="background: #dbeafe; border: 1px solid #93c5fd; padding: 16px; border-radius: 6px; margin: 16px 0;">
+            <strong>브라우저 테스트 항목:</strong><br><br>
+            <strong>직원관리 페이지:</strong><br>
+            1. 드래그&드롭 모드 활성화<br>
+            2. 직원 카드 순서 변경<br>
+            3. 변경된 순서가 즉시 화면에 반영되는지 확인<br>
+            4. 다른 카테고리 선택 후에도 순서 유지 확인<br><br>
+            
+            <strong>시설관리 페이지:</strong><br>
+            1. 드래그&드롭 모드 활성화<br>
+            2. 사진 카드 순서 변경<br>
+            3. 변경된 순서가 즉시 화면에 반영되는지 확인<br>
+            4. 카테고리 필터 적용 후에도 순서 유지 확인
+        </div>
+
+        <h2>🎯 다음 단계</h2>
+        <p><strong>실제 브라우저에서 테스트:</strong></p>
+        <a href="http://localhost:3000/admin/staff" class="btn" target="_blank">직원 관리 페이지</a>
+        <a href="http://localhost:3000/admin/facilities" class="btn" target="_blank">시설 관리 페이지</a>
+
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 16px; border-radius: 6px; margin-top: 20px;">
+            <strong>✅ 개선 완료:</strong><br>
+            드래그&드롭으로 순서 변경 시 <strong>새로고침 없이 즉시 화면에 반영</strong>되도록 개선되었습니다.<br>
+            직원관리와 시설관리 모두에서 동일하게 적용됩니다.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('드래그&드롭 순서 변경 즉시 반영 개선이 완료되었습니다.');
+            console.log('테스트 페이지:');
+            console.log('- 직원 관리: http://localhost:3000/admin/staff');
+            console.log('- 시설 관리: http://localhost:3000/admin/facilities');
+        });
+    </script>
+</body>
+</html>

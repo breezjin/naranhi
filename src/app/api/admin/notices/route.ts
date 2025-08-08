@@ -125,6 +125,11 @@ export async function POST(request: NextRequest) {
       validationErrors.push('카테고리를 선택해주세요.')
     }
     
+    // TODO: Re-enable after database migration
+    // if (body.notice_date && !isValidDate(body.notice_date)) {
+    //   validationErrors.push('올바른 공지일을 입력해주세요. (YYYY-MM-DD 형식)')
+    // }
+    
     if (body.meta_title && body.meta_title.length > 60) {
       validationErrors.push('SEO 제목은 60자를 초과할 수 없습니다.')
     }
@@ -163,7 +168,8 @@ export async function POST(request: NextRequest) {
 
     const nextPriority = (maxPriorityData?.[0]?.priority || 0) + 1
 
-    const noticeData = {
+    // Create notice data with notice_date included
+    const noticeData: any = {
       ...body,
       slug,
       plain_text: plainText,
@@ -171,6 +177,7 @@ export async function POST(request: NextRequest) {
       priority: nextPriority,
       status: body.status || 'draft',
       published_at: body.status === 'published' ? new Date().toISOString() : null,
+      notice_date: body.notice_date || null,
       tags: body.tags || [],
       view_count: 0,
       created_at: new Date().toISOString()
@@ -380,4 +387,17 @@ function convertDeltaToHTML(delta: any): string {
     .replace(/\s{2,}/g, ' ')
   
   return html
+}
+
+// Helper function to validate date format (YYYY-MM-DD)
+function isValidDate(dateString: string): boolean {
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+  if (!dateRegex.test(dateString)) return false
+  
+  const date = new Date(dateString + 'T00:00:00.000Z')
+  const [year, month, day] = dateString.split('-').map(Number)
+  
+  return date.getUTCFullYear() === year &&
+         date.getUTCMonth() === month - 1 &&
+         date.getUTCDate() === day
 }

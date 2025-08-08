@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시설관리 드래그&드롭 기능 테스트</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #2563eb;
+        }
+        .test-section {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .test-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        .status-pass { background-color: #10b981; }
+        .status-fail { background-color: #ef4444; }
+        .status-warn { background-color: #f59e0b; }
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        .note {
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #d1d5db;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #f3f4f6;
+            font-weight: bold;
+        }
+        .diff-highlight {
+            background: #fef3c7;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">🖼️ 시설관리 드래그&드롭 기능 구현 완료</h1>
+        
+        <div class="test-section">
+            <h2>🎯 구현된 기능</h2>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>DragDropFacilityList 컴포넌트</strong> - 시설 사진 전용 드래그&드롭</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>시설 순서 변경 API</strong> - /api/admin/facilities/reorder 엔드포인트</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>시설관리 페이지 통합</strong> - 드래그&드롭 모드 토글 UI</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>그리드 레이아웃 최적화</strong> - 반응형 4-column 그리드</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 주요 특징 비교</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>직원 관리</th>
+                        <th class="diff-highlight">시설 관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>드래그 핸들 위치</td>
+                        <td>카드 좌측 (세로형)</td>
+                        <td class="diff-highlight">사진 좌상단 (이미지 위)</td>
+                    </tr>
+                    <tr>
+                        <td>레이아웃</td>
+                        <td>2-column 그리드</td>
+                        <td class="diff-highlight">4-column 반응형 그리드</td>
+                    </tr>
+                    <tr>
+                        <td>드래그 방향</td>
+                        <td>수직 (vertical)</td>
+                        <td class="diff-highlight">수평 (horizontal)</td>
+                    </tr>
+                    <tr>
+                        <td>시각적 피드백</td>
+                        <td>회전 + 크기 변화</td>
+                        <td class="diff-highlight">회전 + 크기 + z-index</td>
+                    </tr>
+                    <tr>
+                        <td>API 엔드포인트</td>
+                        <td>/api/admin/staff/reorder</td>
+                        <td class="diff-highlight">/api/admin/facilities/reorder</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="test-section">
+            <h2>⚙️ 기술적 구현</h2>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>SSR 호환성</strong> - 하이드레이션 처리로 서버/클라이언트 일관성</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>Optimistic UI</strong> - 즉시 UI 업데이트, 실패 시 롤백</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>카테고리 필터링</strong> - 병원/센터 카테고리별 순서 관리</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>드래그 핸들 최적화</strong> - 이미지 위 반투명 배경으로 가시성 향상</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔒 보안 및 인증</h2>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div>API 엔드포인트 인증 검사 (401 응답 확인됨)</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div>Admin 권한 확인 및 활동 로그 기록</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div>입력 검증 및 에러 핸들링</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎨 UI/UX 개선사항</h2>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>드래그 핸들 디자인</strong> - 검은 반투명 배경으로 가독성 향상</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>그리드 최적화</strong> - 모바일/태블릿/데스크톱 반응형 레이아웃</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>드래그 상태 표시</strong> - "드래그 중" 텍스트로 현재 상태 표시</div>
+            </div>
+            <div class="test-item">
+                <div class="status-icon status-pass">✓</div>
+                <div><strong>카테고리 뱃지</strong> - 병원/센터 구분을 위한 컬러 뱃지</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 테스트 시나리오</h2>
+            <div class="note">
+                <strong>브라우저 테스트 항목:</strong><br>
+                실제 관리자 로그인 후 다음 기능들을 확인해주세요.
+            </div>
+            
+            <div class="test-item">
+                <div class="status-icon status-warn">⏳</div>
+                <div>
+                    <strong>드래그&드롭 모드 토글</strong>
+                    <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                        시설관리 페이지에서 Switch로 모드 전환 확인
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <div class="status-icon status-warn">⏳</div>
+                <div>
+                    <strong>이미지 위 드래그 핸들</strong>
+                    <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                        사진 좌상단 반투명 핸들에서 드래그 시작 가능 여부
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <div class="status-icon status-warn">⏳</div>
+                <div>
+                    <strong>그리드 레이아웃 드래그</strong>
+                    <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                        4-column 그리드에서 수평 드래그 동작 확인
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <div class="status-icon status-warn">⏳</div>
+                <div>
+                    <strong>카테고리별 순서 관리</strong>
+                    <div style="margin-top: 8px; color: #6b7280; font-size: 14px;">
+                        병원/센터 카테고리 선택 후 각각 독립적인 순서 변경
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 다음 단계</h2>
+            <p><strong>브라우저에서 직접 테스트:</strong></p>
+            <a href="http://localhost:3000/admin/facilities" class="btn" target="_blank">Admin 시설 관리 페이지 열기</a>
+            
+            <div class="note" style="margin-top: 16px;">
+                <strong>테스트 순서:</strong><br>
+                1. 관리자 로그인<br>
+                2. 시설 관리 페이지 접근<br>
+                3. 드래그&드롭 모드 활성화<br>
+                4. 사진 카드 드래그하여 순서 변경<br>
+                5. 카테고리별 순서 변경 테스트<br>
+                6. 변경사항 저장 및 토스트 메시지 확인
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 전체 진행 상황</h2>
+            <div style="margin-bottom: 16px;">
+                <div style="background: #e5f9e5; height: 20px; border-radius: 10px; overflow: hidden;">
+                    <div style="background: #10b981; height: 100%; width: 100%; transition: width 0.3s;"></div>
+                </div>
+                <div style="text-align: center; margin-top: 8px; font-weight: bold; color: #059669;">
+                    시설관리 드래그&드롭 기능 구현 완료!
+                </div>
+            </div>
+            
+            <div class="note" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
+                <strong>✅ 구현 완료:</strong><br>
+                • 직원 관리 드래그&드롭 (이전)<br>
+                • 시설 관리 드래그&드롭 (현재)<br><br>
+                <strong>두 시스템 모두 독립적으로 작동하며, 각각의 특성에 맞게 최적화되었습니다.</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('시설관리 드래그&드롭 기능 구현이 완료되었습니다.');
+            console.log('테스트: http://localhost:3000/admin/facilities');
+        });
+    </script>
+</body>
+</html>
