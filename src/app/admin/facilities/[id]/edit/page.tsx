@@ -209,7 +209,7 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
           <p>사진 정보를 불러오는 중...</p>
         </div>
       </div>
@@ -237,9 +237,9 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="px-6 py-4">
           <div className="flex items-center gap-4">
             <Button
@@ -250,8 +250,8 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
               <ArrowLeft className="h-4 w-4" />
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">시설 사진 수정</h1>
-              <p className="text-gray-600">&quot;{photo.title}&quot; 정보를 수정합니다</p>
+              <h1 className="text-2xl font-bold text-foreground">시설 사진 수정</h1>
+              <p className="text-muted-foreground">&quot;{photo.title}&quot; 정보를 수정합니다</p>
             </div>
           </div>
         </div>
@@ -268,7 +268,7 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+                  <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
                     <Image
                       src={photo.thumbnail_url || photo.image_url}
                       alt={photo.alt_text}
@@ -281,7 +281,7 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
                     />
                   </div>
                   
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-muted-foreground">
                     <div className="grid grid-cols-2 gap-4">
                       {photo.width && photo.height && (
                         <div>
@@ -330,7 +330,7 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
                       placeholder="예: 대기실 전경"
                     />
                     {formErrors.title && (
-                      <p className="text-sm text-red-600">{formErrors.title}</p>
+                      <p className="text-sm text-destructive">{formErrors.title}</p>
                     )}
                   </div>
 
@@ -352,7 +352,7 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
                       </SelectContent>
                     </Select>
                     {formErrors.category_id && (
-                      <p className="text-sm text-red-600">{formErrors.category_id}</p>
+                      <p className="text-sm text-destructive">{formErrors.category_id}</p>
                     )}
                   </div>
 
@@ -365,7 +365,7 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
                       placeholder="시각 장애인을 위한 이미지 설명"
                     />
                     {formErrors.alt_text && (
-                      <p className="text-sm text-red-600">{formErrors.alt_text}</p>
+                      <p className="text-sm text-destructive">{formErrors.alt_text}</p>
                     )}
                   </div>
 
@@ -389,11 +389,11 @@ export default function EditFacilityPage({ params }: { params: Promise<{ id: str
                       onChange={(e) => setFormData(prev => ({ ...prev, display_order: parseInt(e.target.value) || 0 }))}
                       placeholder="0"
                     />
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground/70">
                       숫자가 작을수록 먼저 표시됩니다.
                     </p>
                     {formErrors.display_order && (
-                      <p className="text-sm text-red-600">{formErrors.display_order}</p>
+                      <p className="text-sm text-destructive">{formErrors.display_order}</p>
                     )}
                   </div>
 

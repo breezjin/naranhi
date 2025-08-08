@@ -246,11 +246,11 @@ export default function StaffManagementPage() {
                     <img
                       src={staff.profile_image_url}
                       alt={staff.name}
-                      className="h-16 w-16 rounded-full border-2 border-gray-200 object-cover"
+                      className="h-16 w-16 rounded-full border-2 border-border object-cover"
                     />
                   ) : (
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200">
-                      <User className="h-8 w-8 text-gray-400" />
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+                      <User className="h-8 w-8 text-muted-foreground" />
                     </div>
                   )}
                 </div>
@@ -262,7 +262,7 @@ export default function StaffManagementPage() {
                       <h3 className="text-lg font-semibold">{staff.name}</h3>
                       <p className="text-sm text-muted-foreground">{staff.position}</p>
                       {staff.specialty && (
-                        <p className="mt-1 text-sm text-blue-600">{staff.specialty}</p>
+                        <p className="mt-1 text-sm text-primary">{staff.specialty}</p>
                       )}
                     </div>
                     <Badge variant={staff.category?.name === 'medical' ? 'default' : 'secondary'}>

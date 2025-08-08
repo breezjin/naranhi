@@ -14,18 +14,11 @@ import {
   Building2,
   Bell,
   FileText,
-  Settings,
   LogOut,
   ChevronLeft,
   ChevronRight,
   Home,
-  Calendar,
-  BarChart3,
-  UserCheck,
-  Image,
-  MessageSquare,
   Shield,
-  Database,
   Zap
 } from 'lucide-react'
 
@@ -96,49 +89,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
     }
   ]
 
-  // Advanced features (Phase 3)
-  const advancedItems: NavItem[] = [
-    {
-      title: '분석 리포트',
-      href: '/admin/analytics',
-      icon: BarChart3,
-      description: '방문자 및 사용 통계'
-    },
-    {
-      title: '예약 관리',
-      href: '/admin/bookings',
-      icon: Calendar,
-      description: '상담 예약 및 스케줄'
-    },
-    {
-      title: '사용자 피드백',
-      href: '/admin/feedback',
-      icon: MessageSquare,
-      description: '리뷰 및 문의 관리'
-    }
-  ]
 
-  // System and settings
-  const systemItems: NavItem[] = [
-    {
-      title: '시스템 설정',
-      href: '/admin/settings',
-      icon: Settings,
-      description: '사이트 설정 및 구성'
-    },
-    {
-      title: '사용자 관리',
-      href: '/admin/users',
-      icon: UserCheck,
-      description: '관리자 계정 관리'
-    },
-    {
-      title: '데이터베이스',
-      href: '/admin/database',
-      icon: Database,
-      description: '데이터 백업 및 관리'
-    }
-  ]
 
   useEffect(() => {
     const initializeUser = async () => {
@@ -222,10 +173,10 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
         <div
           className={cn(
             'group flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-200',
-            'hover:bg-blue-50 hover:text-blue-700',
+            'hover:bg-accent hover:text-accent-foreground',
             isActive 
-              ? 'bg-blue-100 text-blue-700 shadow-sm border-r-2 border-blue-500' 
-              : 'text-gray-700 hover:text-gray-900',
+              ? 'bg-accent text-accent-foreground shadow-sm border-r-2 border-primary' 
+              : 'text-foreground/80 hover:text-foreground',
             level > 0 && 'ml-4 text-sm'
           )}
           style={{ paddingLeft: `${12 + (level * 16)}px` }}
@@ -233,7 +184,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
           <IconComponent 
             className={cn(
               'h-5 w-5 transition-colors',
-              isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-blue-600'
+              isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'
             )} 
           />
           
@@ -242,7 +193,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
               <div className="flex-1">
                 <div className="font-medium">{item.title}</div>
                 {item.description && (
-                  <div className="mt-0.5 text-xs text-gray-500">
+                  <div className="mt-0.5 text-xs text-muted-foreground">
                     {item.description}
                   </div>
                 )}
@@ -279,7 +230,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] bg-white border-r border-gray-200 transition-all duration-300 shadow-lg',
+          'fixed left-0 top-16 z-30 h-[calc(100vh-4rem)] bg-background border-r border-border transition-all duration-300 shadow-lg',
           isCollapsed ? 'w-16' : 'w-64',
           // Mobile: slide in/out, Desktop: always visible with width adjustment
           'lg:translate-x-0',
@@ -287,15 +238,15 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 p-4">
+        <div className="flex items-center justify-between border-b border-border p-4">
           {!isCollapsed && (
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
                 <Zap className="h-4 w-4 text-white" />
               </div>
               <div>
-                <h2 className="font-bold text-gray-900">나란히</h2>
-                <p className="text-xs text-gray-500">관리자 시스템</p>
+                <h2 className="font-bold text-foreground">나란히</h2>
+                <p className="text-xs text-muted-foreground">관리자 시스템</p>
               </div>
             </div>
           )}
@@ -320,7 +271,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
             {/* Quick Actions */}
             {!isCollapsed && (
               <div className="mb-4">
-                <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   빠른 작업
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -348,7 +299,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
 
             {/* Main Navigation */}
             {!isCollapsed && (
-              <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
+              <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 주요 기능
               </div>
             )}
@@ -359,43 +310,14 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
               ))}
             </div>
 
-            <Separator className="my-4" />
-
-            {/* Advanced Features */}
-            {!isCollapsed && (
-              <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
-                고급 기능
-              </div>
-            )}
-            
-            <div className="space-y-1">
-              {advancedItems.map((item) => (
-                <NavItemComponent key={item.href} item={item} />
-              ))}
-            </div>
-
-            <Separator className="my-4" />
-
-            {/* System & Settings */}
-            {!isCollapsed && (
-              <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
-                시스템
-              </div>
-            )}
-            
-            <div className="space-y-1">
-              {systemItems.map((item) => (
-                <NavItemComponent key={item.href} item={item} />
-              ))}
-            </div>
           </nav>
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 p-4">
+        <div className="border-t border-border p-4">
           {/* User Info */}
           {adminUser && !isCollapsed && (
-            <div className="mb-3 rounded-lg bg-gray-50 p-3">
+            <div className="mb-3 rounded-lg bg-muted/50 p-3">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600">
                   <span className="text-sm font-medium text-white">
@@ -403,10 +325,10 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
                   </span>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-gray-900">
+                  <p className="truncate text-sm font-medium text-foreground">
                     {adminUser.name}
                   </p>
-                  <p className="truncate text-xs text-gray-500">
+                  <p className="truncate text-xs text-muted-foreground">
                     {adminUser.role}
                     {adminUser.is_super_admin && (
                       <Shield className="ml-1 inline h-3 w-3" />
@@ -432,7 +354,7 @@ export default function AdminSidebar({ collapsed = false, onToggle }: AdminSideb
             <Button
               variant="outline"
               size="sm" 
-              className="w-full justify-start text-red-600 hover:bg-red-50 hover:text-red-700"
+              className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
               onClick={handleSignOut}
             >
               <LogOut className="mr-2 h-4 w-4" />

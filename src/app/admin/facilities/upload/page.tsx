@@ -207,9 +207,9 @@ export default function UploadFacilityPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="px-6 py-4">
           <div className="flex items-center gap-4">
             <Button
@@ -220,8 +220,8 @@ export default function UploadFacilityPage() {
               <ArrowLeft className="h-4 w-4" />
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">시설 사진 업로드</h1>
-              <p className="text-gray-600">새로운 시설 사진을 업로드합니다</p>
+              <h1 className="text-2xl font-bold text-foreground">시설 사진 업로드</h1>
+              <p className="text-muted-foreground">새로운 시설 사진을 업로드합니다</p>
             </div>
           </div>
         </div>
@@ -245,7 +245,7 @@ export default function UploadFacilityPage() {
                 {/* Image Upload */}
                 <div className="space-y-2">
                   <Label>사진 파일 *</Label>
-                  <div className="rounded-lg border-2 border-dashed border-gray-300 p-8 text-center transition-colors hover:border-gray-400">
+                  <div className="rounded-lg border-2 border-dashed border-border p-8 text-center transition-colors hover:border-muted-foreground">
                     {imagePreview ? (
                       <div className="space-y-4">
                         <div className="relative mx-auto w-full max-w-md">
@@ -268,12 +268,12 @@ export default function UploadFacilityPage() {
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
+                        <ImageIcon className="mx-auto h-12 w-12 text-muted-foreground" />
                         <div>
-                          <p className="text-lg font-medium text-gray-900">
+                          <p className="text-lg font-medium text-foreground">
                             사진을 업로드하세요
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-muted-foreground">
                             JPG, PNG, WebP 파일 (최대 10MB)
                           </p>
                         </div>
@@ -287,7 +287,7 @@ export default function UploadFacilityPage() {
                     )}
                   </div>
                   {formErrors.image && (
-                    <p className="text-sm text-red-600">{formErrors.image}</p>
+                    <p className="text-sm text-destructive">{formErrors.image}</p>
                   )}
                 </div>
 
@@ -302,7 +302,7 @@ export default function UploadFacilityPage() {
                       placeholder="예: 대기실 전경"
                     />
                     {formErrors.title && (
-                      <p className="text-sm text-red-600">{formErrors.title}</p>
+                      <p className="text-sm text-destructive">{formErrors.title}</p>
                     )}
                   </div>
 
@@ -324,7 +324,7 @@ export default function UploadFacilityPage() {
                       </SelectContent>
                     </Select>
                     {formErrors.category_id && (
-                      <p className="text-sm text-red-600">{formErrors.category_id}</p>
+                      <p className="text-sm text-destructive">{formErrors.category_id}</p>
                     )}
                   </div>
                 </div>
@@ -338,7 +338,7 @@ export default function UploadFacilityPage() {
                     placeholder="시각 장애인을 위한 이미지 설명"
                   />
                   {formErrors.alt_text && (
-                    <p className="text-sm text-red-600">{formErrors.alt_text}</p>
+                    <p className="text-sm text-destructive">{formErrors.alt_text}</p>
                   )}
                 </div>
 
@@ -362,11 +362,11 @@ export default function UploadFacilityPage() {
                     onChange={(e) => setFormData(prev => ({ ...prev, display_order: parseInt(e.target.value) || 0 }))}
                     placeholder="0"
                   />
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-muted-foreground/70">
                     숫자가 작을수록 먼저 표시됩니다.
                   </p>
                   {formErrors.display_order && (
-                    <p className="text-sm text-red-600">{formErrors.display_order}</p>
+                    <p className="text-sm text-destructive">{formErrors.display_order}</p>
                   )}
                 </div>
 

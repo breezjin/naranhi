@@ -12,6 +12,7 @@ import { AOSInit } from '@/components/layouts/aos';
 import Footer from '@/components/layouts/Footer';
 import { TailwindIndicator } from '@/components/layouts/TailwindIndicator';
 import { ThemeProvider } from '@/components/layouts/ThemeProvider';
+import { ThemeSync } from '@/components/layouts/ThemeSync';
 import { SiteHeader } from '@/components/siteHeaders/SiteHeader';
 
 import { defaultMetadata } from '@/lib/defaultMetadata';
@@ -42,6 +43,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Analytics />
           </Suspense>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Suspense>
+              <ThemeSync />
+            </Suspense>
             <section className="flex w-full flex-col">
               <SiteHeader />
               <section>{children}</section>

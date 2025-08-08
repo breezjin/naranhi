@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -15,25 +13,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { 
-  Search,
-  Bell,
-  Settings,
   User,
   Menu,
   Home,
-  Shield,
-  Clock,
-  AlertCircle
+  Shield
 } from 'lucide-react'
-
-interface Notification {
-  id: string
-  title: string
-  message: string
-  type: 'info' | 'warning' | 'error' | 'success'
-  created_at: string
-  read: boolean
-}
+import { useTheme } from '@/contexts/ThemeContext'
 
 interface AdminUser {
   id: string
@@ -50,16 +35,12 @@ interface AdminTopBarProps {
 
 export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null)
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [unreadCount, setUnreadCount] = useState(0)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [showSearch, setShowSearch] = useState(false)
   const pathname = usePathname()
   const supabase = createClient()
+  const { actualTheme } = useTheme()
 
   useEffect(() => {
     initializeUser()
-    loadNotifications()
   }, [])
 
   const initializeUser = async () => {
@@ -90,47 +71,6 @@ export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
     }
   }
 
-  const loadNotifications = async () => {
-    // Mock notifications for now - replace with actual Supabase query when notifications table is implemented
-    const mockNotifications: Notification[] = [
-      {
-        id: '1',
-        title: '새로운 공지사항 작성됨',
-        message: '관리자가 새로운 공지사항을 작성했습니다.',
-        type: 'info',
-        created_at: new Date().toISOString(),
-        read: false
-      },
-      {
-        id: '2',
-        title: '시스템 백업 완료',
-        message: '일일 백업이 성공적으로 완료되었습니다.',
-        type: 'success',
-        created_at: new Date(Date.now() - 3600000).toISOString(),
-        read: false
-      },
-      {
-        id: '3',
-        title: '주의: 높은 트래픽 감지',
-        message: '현재 사이트 트래픽이 평소보다 높습니다.',
-        type: 'warning',
-        created_at: new Date(Date.now() - 7200000).toISOString(),
-        read: true
-      }
-    ]
-
-    setNotifications(mockNotifications)
-    setUnreadCount(mockNotifications.filter(n => !n.read).length)
-  }
-
-  const markNotificationAsRead = async (notificationId: string) => {
-    setNotifications(prev => 
-      prev.map(n => 
-        n.id === notificationId ? { ...n, read: true } : n
-      )
-    )
-    setUnreadCount(prev => Math.max(0, prev - 1))
-  }
 
   const getPageTitle = () => {
     const pathSegments = pathname.split('/').filter(Boolean)
@@ -154,32 +94,15 @@ export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
     return pageMap[currentPage] || '관리자'
   }
 
-  const getNotificationIcon = (type: string) => {
-    switch (type) {
-      case 'warning':
-        return <AlertCircle className="h-4 w-4 text-orange-500" />
-      case 'error':
-        return <AlertCircle className="h-4 w-4 text-red-500" />
-      case 'success':
-        return <Shield className="h-4 w-4 text-green-500" />
-      default:
-        return <Bell className="h-4 w-4 text-blue-500" />
-    }
+  const handleSiteVisit = () => {
+    // 현재 테마를 URL 파라미터로 전달하여 새 탭에서 사이트 열기
+    const siteUrl = `/?theme=${actualTheme}`
+    window.open(siteUrl, '_blank')
   }
 
-  const formatTimeAgo = (dateString: string) => {
-    const now = new Date()
-    const date = new Date(dateString)
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60))
-
-    if (diffInMinutes < 1) return '방금 전'
-    if (diffInMinutes < 60) return `${diffInMinutes}분 전`
-    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}시간 전`
-    return `${Math.floor(diffInMinutes / 1440)}일 전`
-  }
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
+    <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-border bg-background px-6">
       {/* Left Section */}
       <div className="flex items-center gap-4">
         {/* Mobile Menu Toggle */}
@@ -194,10 +117,10 @@ export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
 
         {/* Page Title & Breadcrumb */}
         <div className="hidden sm:block">
-          <h1 className="text-lg font-semibold text-gray-900">
+          <h1 className="text-lg font-semibold text-foreground">
             {getPageTitle()}
           </h1>
-          <div className="flex items-center gap-1 text-xs text-gray-500">
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Home className="h-3 w-3" />
             <span>관리자</span>
             <span>→</span>
@@ -206,128 +129,11 @@ export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
         </div>
       </div>
 
-      {/* Center Section - Search */}
-      <div className="mx-4 max-w-md flex-1">
-        {showSearch ? (
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-            <Input
-              placeholder="페이지, 직원, 공지사항 검색..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onBlur={() => {
-                if (!searchQuery) setShowSearch(false)
-              }}
-              className="pl-9 pr-4"
-              autoFocus
-            />
-          </div>
-        ) : (
-          <Button
-            variant="ghost"
-            onClick={() => setShowSearch(true)}
-            className="hidden w-full justify-start text-gray-500 hover:text-gray-700 sm:flex"
-          >
-            <Search className="mr-2 h-4 w-4" />
-            검색...
-          </Button>
-        )}
-      </div>
+      {/* Center Section - Empty */}
+      <div className="mx-4 flex-1"></div>
 
       {/* Right Section */}
       <div className="flex items-center gap-2">
-        {/* Mobile Search */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setShowSearch(true)}
-          className="sm:hidden"
-        >
-          <Search className="h-4 w-4" />
-        </Button>
-
-        {/* Notifications */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-4 w-4" />
-              {unreadCount > 0 && (
-                <Badge 
-                  variant="destructive" 
-                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center p-0 text-xs"
-                >
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </Badge>
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80">
-            <DropdownMenuLabel className="flex items-center justify-between">
-              알림
-              {unreadCount > 0 && (
-                <Badge variant="secondary" className="ml-2">
-                  {unreadCount}개
-                </Badge>
-              )}
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            
-            {notifications.length === 0 ? (
-              <div className="p-4 text-center text-sm text-gray-500">
-                새로운 알림이 없습니다
-              </div>
-            ) : (
-              <div className="max-h-64 overflow-y-auto">
-                {notifications.slice(0, 5).map((notification) => (
-                  <DropdownMenuItem
-                    key={notification.id}
-                    className="flex cursor-pointer items-start gap-3 p-3"
-                    onClick={() => markNotificationAsRead(notification.id)}
-                  >
-                    <div className="mt-0.5 shrink-0">
-                      {getNotificationIcon(notification.type)}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <p className={`truncate text-sm font-medium ${
-                          !notification.read ? 'text-gray-900' : 'text-gray-600'
-                        }`}>
-                          {notification.title}
-                        </p>
-                        {!notification.read && (
-                          <div className="h-2 w-2 shrink-0 rounded-full bg-blue-500"></div>
-                        )}
-                      </div>
-                      <p className="mt-1 line-clamp-2 text-xs text-gray-500">
-                        {notification.message}
-                      </p>
-                      <div className="mt-1 flex items-center gap-1">
-                        <Clock className="h-3 w-3 text-gray-400" />
-                        <span className="text-xs text-gray-400">
-                          {formatTimeAgo(notification.created_at)}
-                        </span>
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                ))}
-              </div>
-            )}
-            
-            {notifications.length > 5 && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-center text-sm text-blue-600 hover:text-blue-700">
-                  모든 알림 보기
-                </DropdownMenuItem>
-              </>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* Settings */}
-        <Button variant="ghost" size="icon">
-          <Settings className="h-4 w-4" />
-        </Button>
 
         {/* User Menu */}
         <DropdownMenu>
@@ -347,10 +153,10 @@ export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
                 )}
               </div>
               <div className="hidden text-left sm:block">
-                <div className="text-sm font-medium text-gray-900">
+                <div className="text-sm font-medium text-foreground">
                   {adminUser?.name || '관리자'}
                 </div>
-                <div className="flex items-center gap-1 text-xs text-gray-500">
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
                   {adminUser?.role}
                   {adminUser?.is_super_admin && (
                     <Shield className="h-3 w-3" />
@@ -375,12 +181,8 @@ export default function AdminTopBar({ onToggleSidebar }: AdminTopBarProps) {
               <User className="mr-2 h-4 w-4" />
               <span>프로필 설정</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>계정 설정</span>
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSiteVisit}>
               <Home className="mr-2 h-4 w-4" />
               <span>사이트 보기</span>
             </DropdownMenuItem>

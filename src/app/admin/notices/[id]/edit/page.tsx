@@ -333,9 +333,9 @@ export default function EditNoticePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-gray-200 bg-white">
+      <header className="sticky top-0 z-40 border-b border-border bg-background">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -348,10 +348,10 @@ export default function EditNoticePage() {
               </Button>
               <div>
                 <div className="flex items-center gap-3">
-                  <h1 className="text-2xl font-bold text-gray-900">공지사항 수정</h1>
+                  <h1 className="text-2xl font-bold text-foreground">공지사항 수정</h1>
                   {getStatusBadge(status)}
                 </div>
-                <p className="text-gray-600">Tiptap 에디터로 리치 텍스트 공지사항을 수정합니다</p>
+                <p className="text-muted-foreground">Tiptap 에디터로 리치 텍스트 공지사항을 수정합니다</p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -503,7 +503,7 @@ export default function EditNoticePage() {
                     <Badge key={index} variant="secondary" className="gap-1">
                       {tag}
                       <X 
-                        className="h-3 w-3 cursor-pointer hover:text-red-500" 
+                        className="h-3 w-3 cursor-pointer hover:text-destructive" 
                         onClick={() => removeTag(tag)}
                       />
                     </Badge>
@@ -529,7 +529,7 @@ export default function EditNoticePage() {
                   className="mt-1"
                   maxLength={60}
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {metaTitle.length}/60자
                 </p>
               </div>
@@ -545,7 +545,7 @@ export default function EditNoticePage() {
                   maxLength={160}
                   rows={3}
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {metaDescription.length}/160자
                 </p>
               </div>

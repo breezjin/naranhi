@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
@@ -123,7 +124,8 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <ThemeProvider defaultTheme="system">
+      <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">나란히 관리자</CardTitle>
@@ -186,12 +188,13 @@ export default function AdminLoginPage() {
               </Button>
             </div>
           </form>
-          <div className="mt-6 text-center text-sm text-gray-600">
+          <div className="mt-6 text-center text-sm text-muted-foreground">
             <p>개발 중인 관리자 시스템입니다.</p>
             <p>실제 Supabase 프로젝트 설정이 필요합니다.</p>
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </ThemeProvider>
   )
 }

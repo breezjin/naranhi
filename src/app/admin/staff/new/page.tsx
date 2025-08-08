@@ -38,10 +38,6 @@ export default function NewStaffPage() {
   const router = useRouter()
   const supabase = createClientComponentClient()
 
-  useEffect(() => {
-    fetchCategories()
-  }, [])
-
   const fetchCategories = async () => {
     try {
       const { data, error } = await supabase
@@ -49,17 +45,32 @@ export default function NewStaffPage() {
         .select('*')
         .order('display_order', { ascending: true })
 
-      if (error) throw error
+      if (error) {
+        // 카테고리 테이블이 없으면 기본값 사용
+        if (error.code === '42P01' || error.message.includes('does not exist')) {
+          console.warn('staff_categories table does not exist, using default categories')
+          setCategories([
+            { id: '1', name: 'medical', display_name: '의료진' },
+            { id: '2', name: 'therapeutic', display_name: '치료진' }
+          ])
+          return
+        }
+        throw error
+      }
       setCategories(data || [])
     } catch (error) {
       console.error('Error fetching categories:', error)
-      toast({
-        title: "오류 발생",
-        description: "카테고리 데이터를 불러오는데 실패했습니다.",
-        variant: "destructive",
-      })
+      // 폴백으로 기본 카테고리 설정
+      setCategories([
+        { id: '1', name: 'medical', display_name: '의료진' },
+        { id: '2', name: 'therapeutic', display_name: '치료진' }
+      ])
     }
   }
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
 
   const handleInputChange = (field: string, value: string | number) => {
     setFormData(prev => ({
@@ -190,11 +201,11 @@ export default function NewStaffPage() {
                     <img
                       src={imagePreview}
                       alt="프로필 미리보기"
-                      className="h-20 w-20 rounded-full border-2 border-gray-200 object-cover"
+                      className="h-20 w-20 rounded-full border-2 border-border object-cover"
                     />
                   ) : (
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-200">
-                      <User className="h-10 w-10 text-gray-400" />
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+                      <User className="h-10 w-10 text-muted-foreground" />
                     </div>
                   )}
                 </div>

@@ -178,7 +178,7 @@ export default function FacilitiesPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
           <p>시설 사진을 불러오는 중...</p>
         </div>
       </div>
@@ -196,9 +196,9 @@ export default function FacilitiesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white">
+      <header className="border-b border-border bg-background">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -210,8 +210,8 @@ export default function FacilitiesPage() {
                 <ArrowLeft className="h-4 w-4" />
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">시설 사진 관리</h1>
-                <p className="text-gray-600">병원과 센터 사진을 관리합니다</p>
+                <h1 className="text-2xl font-bold text-foreground">시설 사진 관리</h1>
+                <p className="text-muted-foreground">병원과 센터 사진을 관리합니다</p>
               </div>
             </div>
             <Button onClick={() => router.push('/admin/facilities/upload')}>
@@ -227,7 +227,7 @@ export default function FacilitiesPage() {
         {/* Search and Filter */}
         <div className="mb-6 flex flex-col gap-4 sm:flex-row">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="사진 제목, 설명으로 검색..."
               className="pl-10"
@@ -251,7 +251,7 @@ export default function FacilitiesPage() {
         </div>
 
         {/* Stats */}
-        <div className="mb-6 flex gap-4 text-sm text-gray-600">
+        <div className="mb-6 flex gap-4 text-sm text-muted-foreground">
           <span>전체: {photos.length}개</span>
           <span>검색 결과: {filteredPhotos.length}개</span>
           {selectedCategory !== 'all' && (
@@ -264,11 +264,11 @@ export default function FacilitiesPage() {
         {/* Photos Grid */}
         {filteredPhotos.length === 0 ? (
           <div className="py-12 text-center">
-            <ImageIcon className="mx-auto mb-4 h-12 w-12 text-gray-400" />
-            <h3 className="mb-2 text-lg font-medium text-gray-900">
+            <ImageIcon className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+            <h3 className="mb-2 text-lg font-medium text-foreground">
               사진이 없습니다
             </h3>
-            <p className="mb-4 text-gray-600">
+            <p className="mb-4 text-muted-foreground">
               {searchTerm || selectedCategory !== 'all' 
                 ? '검색 조건에 맞는 사진이 없습니다.' 
                 : '첫 번째 사진을 업로드해보세요.'}
@@ -302,17 +302,17 @@ export default function FacilitiesPage() {
                 <CardContent className="p-4">
                   <div className="space-y-2">
                     <div>
-                      <h3 className="line-clamp-2 font-medium text-gray-900">
+                      <h3 className="line-clamp-2 font-medium text-foreground">
                         {photo.title}
                       </h3>
                       {photo.caption && (
-                        <p className="mt-1 line-clamp-2 text-sm text-gray-600">
+                        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
                           {photo.caption}
                         </p>
                       )}
                     </div>
                     
-                    <div className="space-y-1 text-xs text-gray-500">
+                    <div className="space-y-1 text-xs text-muted-foreground/70">
                       {photo.width && photo.height && (
                         <div>{photo.width} × {photo.height}px</div>
                       )}
@@ -335,7 +335,7 @@ export default function FacilitiesPage() {
                         variant="outline"
                         onClick={() => handleDelete(photo)}
                         disabled={deleteLoading === photo.id}
-                        className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                        className="text-destructive hover:bg-destructive/10 hover:text-destructive"
                       >
                         {deleteLoading === photo.id ? (
                           <div className="h-3 w-3 animate-spin rounded-full border-b border-current" />

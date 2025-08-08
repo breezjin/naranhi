@@ -151,7 +151,7 @@ export default function AdminDashboardPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
           <p>로딩 중...</p>
         </div>
       </div>
@@ -171,11 +171,11 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="rounded-lg border bg-white p-6">
-        <h2 className="mb-2 text-xl font-semibold text-gray-900">
+      <div className="rounded-lg border bg-card p-6">
+        <h2 className="mb-2 text-xl font-semibold text-card-foreground">
           {adminUser?.name}님, 환영합니다!
         </h2>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           나란히 관리자 시스템에서 사이트를 효율적으로 관리하세요.
         </p>
       </div>
@@ -183,41 +183,41 @@ export default function AdminDashboardPage() {
         <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">총 직원</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">총 직원</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalStaff || 0}</div>
-              <p className="text-xs text-gray-600">의료진 + 치료진</p>
+              <p className="text-xs text-muted-foreground">의료진 + 치료진</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">시설 사진</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">시설 사진</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalFacilities || 0}</div>
-              <p className="text-xs text-gray-600">병원 + 센터</p>
+              <p className="text-xs text-muted-foreground">병원 + 센터</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">총 공지사항</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">총 공지사항</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalNotices || 0}</div>
-              <p className="text-xs text-gray-600">작성된 공지사항</p>
+              <p className="text-xs text-muted-foreground">작성된 공지사항</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">게시된 공지</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">게시된 공지</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.publishedNotices || 0}</div>
-              <p className="text-xs text-gray-600">공개된 공지사항</p>
+              <p className="text-xs text-muted-foreground">공개된 공지사항</p>
             </CardContent>
           </Card>
         </div>

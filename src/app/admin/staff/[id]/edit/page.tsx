@@ -266,11 +266,11 @@ export default function EditStaffPage({ params }: { params: Promise<{ id: string
                     <img
                       src={imagePreview}
                       alt="프로필 미리보기"
-                      className="h-20 w-20 rounded-full border-2 border-gray-200 object-cover"
+                      className="h-20 w-20 rounded-full border-2 border-border object-cover"
                     />
                   ) : (
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-200">
-                      <User className="h-10 w-10 text-gray-400" />
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+                      <User className="h-10 w-10 text-muted-foreground" />
                     </div>
                   )}
                 </div>

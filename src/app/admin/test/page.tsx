@@ -79,11 +79,11 @@ export default function AdminTestPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-background p-8">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">나란히 Admin 시스템 테스트</h1>
-          <p className="text-gray-600">Supabase 연결과 데이터베이스 상태를 확인합니다.</p>
+          <h1 className="mb-2 text-3xl font-bold text-foreground">나란히 Admin 시스템 테스트</h1>
+          <p className="text-muted-foreground">Supabase 연결과 데이터베이스 상태를 확인합니다.</p>
         </div>
 
         <div className="grid gap-6">
@@ -98,7 +98,7 @@ export default function AdminTestPage() {
                 <div className="flex items-center space-x-2">
                   {connectionStatus === 'testing' && (
                     <>
-                      <div className="h-4 w-4 animate-spin rounded-full border-b-2 border-blue-600"></div>
+                      <div className="h-4 w-4 animate-spin rounded-full border-b-2 border-primary"></div>
                       <span>테스트 중...</span>
                     </>
                   )}
@@ -110,7 +110,7 @@ export default function AdminTestPage() {
                   )}
                   {connectionStatus === 'error' && (
                     <>
-                      <div className="h-4 w-4 rounded-full bg-red-500"></div>
+                      <div className="h-4 w-4 rounded-full bg-destructive"></div>
                       <span>연결 실패</span>
                     </>
                   )}
@@ -120,7 +120,7 @@ export default function AdminTestPage() {
                 </Button>
               </div>
               
-              <div className="rounded-lg bg-gray-100 p-4">
+              <div className="rounded-lg bg-muted p-4">
                 <pre className="whitespace-pre-wrap text-sm">{dbStatus}</pre>
               </div>
             </CardContent>
@@ -136,13 +136,13 @@ export default function AdminTestPage() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span>NEXT_PUBLIC_SUPABASE_URL</span>
-                  <span className={process.env.NEXT_PUBLIC_SUPABASE_URL ? 'text-green-600' : 'text-red-600'}>
+                  <span className={process.env.NEXT_PUBLIC_SUPABASE_URL ? 'text-green-600' : 'text-destructive'}>
                     {process.env.NEXT_PUBLIC_SUPABASE_URL ? '✅ 설정됨' : '❌ 미설정'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>NEXT_PUBLIC_SUPABASE_ANON_KEY</span>
-                  <span className={process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'text-green-600' : 'text-red-600'}>
+                  <span className={process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'text-green-600' : 'text-destructive'}>
                     {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? '✅ 설정됨' : '❌ 미설정'}
                   </span>
                 </div>
@@ -169,8 +169,8 @@ export default function AdminTestPage() {
               <div className="space-y-4">
                 <div>
                   <h3 className="mb-2 font-semibold">1. Supabase 프로젝트 생성</h3>
-                  <p className="mb-2 text-sm text-gray-600">
-                    <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                       https://supabase.com
                     </a>에서 새 프로젝트를 생성하세요.
                   </p>
@@ -178,8 +178,8 @@ export default function AdminTestPage() {
 
                 <div>
                   <h3 className="mb-2 font-semibold">2. 환경 변수 설정</h3>
-                  <p className="mb-2 text-sm text-gray-600">.env 파일에 다음 값들을 설정하세요:</p>
-                  <div className="rounded bg-gray-100 p-3 font-mono text-sm">
+                  <p className="mb-2 text-sm text-muted-foreground">.env 파일에 다음 값들을 설정하세요:</p>
+                  <div className="rounded bg-muted p-3 font-mono text-sm">
                     NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co<br />
                     NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key<br />
                     SUPABASE_SERVICE_ROLE_KEY=your-service-key
@@ -188,16 +188,16 @@ export default function AdminTestPage() {
 
                 <div>
                   <h3 className="mb-2 font-semibold">3. 데이터베이스 설정</h3>
-                  <p className="mb-2 text-sm text-gray-600">터미널에서 다음 명령을 실행하세요:</p>
-                  <div className="rounded bg-gray-100 p-3 font-mono text-sm">
+                  <p className="mb-2 text-sm text-muted-foreground">터미널에서 다음 명령을 실행하세요:</p>
+                  <div className="rounded bg-muted p-3 font-mono text-sm">
                     yarn db:setup
                   </div>
                 </div>
 
                 <div>
                   <h3 className="mb-2 font-semibold">4. 관리자 계정 생성</h3>
-                  <p className="mb-2 text-sm text-gray-600">
-                    <a href="/admin/login" className="text-blue-600 hover:underline">
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    <a href="/admin/login" className="text-primary hover:underline">
                       로그인 페이지
                     </a>에서 관리자 계정을 생성하세요.
                   </p>
