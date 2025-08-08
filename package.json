@@ -24,7 +24,7 @@
     "test:function-hoisting": "node scripts/test-function-hoisting-fixes.js",
     "test:webpack-internal": "node scripts/test-webpack-internal-errors.js",
     "test:api-staff": "node __tests__/api/staff-api.test.js",
-    "test:api-facilities": "node __tests__/api/facilities-api.test.js", 
+    "test:api-facilities": "node __tests__/api/facilities-api.test.js",
     "test:all": "yarn run test:coverage && yarn run test:layout && yarn run test:staff && yarn run test:staff-edit && yarn run test:quill && yarn run test:notices-stability && yarn run test:function-hoisting && yarn run test:webpack-internal && yarn run test:api-staff && yarn run test:api-facilities",
     "test:playwright": "npx playwright test",
     "test:playwright-headed": "npx playwright test --headed",
