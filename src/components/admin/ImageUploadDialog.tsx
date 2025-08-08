@@ -199,7 +199,7 @@ export function ImageUploadDialog({
         }
       } catch (parseError) {
         console.error('성공 응답 데이터 파싱 실패:', parseError)
-        throw new Error(`서버 응답을 파싱할 수 없습니다: ${parseError.message}`)
+        throw new Error(`서버 응답을 파싱할 수 없습니다: ${parseError instanceof Error ? parseError.message : '알 수 없는 오류'}`)
       }
       
       const { data } = responseData
