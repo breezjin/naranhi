@@ -442,3 +442,12 @@ Failed to parse cookie string: SyntaxError: Unexpected token 'b', "base64-eyJ"..
  GET /api/admin/notice-categories 200 in 70ms
 (node:99176) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
+ ✓ Compiled in 356ms (800 modules)
+ ✓ Compiled in 129ms (800 modules)
+ ✓ Compiled in 184ms (800 modules)
+ ✓ Compiled in 202ms (800 modules)
+ ✓ Compiled in 372ms (1816 modules)
+ ✓ Compiled in 116ms (800 modules)
+ ✓ Compiled in 127ms (800 modules)
+ ✓ Compiled in 160ms (800 modules)
+ ✓ Compiled in 130ms (800 modules)

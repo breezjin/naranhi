@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase/server'
 
 // GET /api/admin/staff/[id] - Fetch single staff member
 export async function GET(
@@ -8,9 +7,8 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const cookieStore = await cookies()
     const { id } = await params
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
 
     const { data, error } = await supabase
       .from('staff_members')
@@ -45,9 +43,8 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const cookieStore = await cookies()
     const { id } = await params
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
     const body = await request.json()
 
     // Validate required fields
@@ -102,9 +99,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const cookieStore = await cookies()
     const { id } = await params
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
 
     // Check if staff member exists
     const { data: existingStaff, error: fetchError } = await supabase

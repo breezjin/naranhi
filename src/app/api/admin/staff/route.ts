@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase/server'
 
 // GET /api/admin/staff - Fetch all staff members
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
     
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
@@ -53,8 +51,7 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/staff - Create new staff member
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
     const body = await request.json()
 
     // Validate required fields

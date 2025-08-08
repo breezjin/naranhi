@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase/server'
 import { logError } from '@/utils/logger'
 
 // GET /api/admin/notices - Fetch all notices
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
     const status = searchParams.get('status')
@@ -107,8 +105,7 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/notices - Create new notice
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
     const body = await request.json()
 
     // Enhanced validation with detailed error messages

@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createAdminClient } from '@/lib/supabase/server'
 import { logError } from '@/utils/logger'
 
 // GET /api/admin/notice-categories - Fetch all categories
 export async function GET() {
   try {
-    const cookieStore = await cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
 
     // First check if table exists
     const { data: testData, error: testError } = await supabase
@@ -75,8 +73,7 @@ export async function GET() {
 // POST /api/admin/notice-categories - Create new category
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+    const supabase = createAdminClient()
     const body = await request.json()
 
     // Validate required fields
