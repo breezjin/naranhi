@@ -23,7 +23,7 @@ const therapyPrograms = [
     subtitle: '그늘의 나무도 때가 오면 꽃이 핀다',
     quote: '"그늘의 나무도 때가 오면 꽃이 핀다."',
     description:
-      '전반적인 의사소통에 어려움을 겪는 아동이 의사소통을 원활하게 할 수 있도록 돕는 치료프로그램입니다.',
+      '전반적인 의사소통에 어려움을 겪는 아동이<br class="md:hidden" /> 의사소통을 원활하게 할 수 있도록<br class="md:hidden" /> 돕는 치료프로그램입니다.',
     icon: MessageCircle,
     color: 'from-blue-400 to-blue-500',
     bgColor: 'bg-blue-50 dark:bg-blue-950/20',
@@ -53,7 +53,7 @@ const therapyPrograms = [
     quote: '"새는 날아다니고, 물고기는 헤엄치며, 아동은 놀이를 한다."',
     quoteAuthor: 'Garry Landreth',
     description:
-      '아동에게 가장 친숙한 활동인 놀이를 통해 정서적 문제를 해결하고 성장과 발달을 촉진시키기 위해 활용되는 상담치료기법입니다.',
+      '아동에게 가장 친숙한 활동인 놀이를 통해<br class="md:hidden" /> 정서적 문제를 해결하고<br class="md:hidden" /> 성장과 발달을 촉진시키기 위해<br class="md:hidden" /> 활용되는 상담치료기법입니다.',
     icon: Heart,
     color: 'from-pink-400 to-rose-500',
     bgColor: 'bg-pink-50 dark:bg-pink-950/20',
@@ -82,7 +82,7 @@ const therapyPrograms = [
     quote: '"방법을 가르치지 말고 방향을 가리켜라."',
     quoteAuthor: 'Dave Burgess',
     description:
-      '아동의 지적 수준과 주의력 등 학습에 저해를 주는 인지적 요인들을 인지학습치료적 접근으로 아동의 인지 발달을 촉진시키는 치료입니다.',
+      '아동의 지적 수준과 주의력 등<br class="md:hidden" /> 학습에 저해를 주는 인지적 요인들을<br class="md:hidden" /> 인지학습치료적 접근으로<br class="md:hidden" /> 아동의 인지 발달을 촉진시키는 치료입니다.',
     icon: Brain,
     color: 'from-purple-400 to-indigo-500',
     bgColor: 'bg-purple-50 dark:bg-purple-950/20',
@@ -104,7 +104,7 @@ const therapyPrograms = [
       '"내 속엔 여러가지 앤이 들어있나봐. 가끔씩은 난 왜 이렇게 골치 아픈 존재인가 하는 생각이 들기도 해. 내가 한결 같은 앤이라면 훨씬 더 편하겠지만 재미는 지금의 절반밖에 되지 않을거야."',
     quoteAuthor: '빨강머리 앤',
     description:
-      '청소년기 가치관과 정체성을 세워나가며 신체적, 정신적 급격한 성장 과정의 어려움을 상담을 통해 함께 겪어나가고 성장의 기회로 삼는 것을 목표로 합니다.',
+      '청소년기 가치관과 정체성을 세워나가며<br class="md:hidden" /> 신체적, 정신적 급격한 성장 과정의<br class="md:hidden" /> 어려움을 상담을 통해 함께 겪어나가고<br class="md:hidden" /> 성장의 기회로 삼는 것을 목표로 합니다.',
     icon: Users,
     color: 'from-green-400 to-emerald-500',
     bgColor: 'bg-green-50 dark:bg-green-950/20',
@@ -130,7 +130,7 @@ const therapyPrograms = [
       '"다들 평생을 뭘 가져 보겠다고 고생 고생을 하면서 \"나는 어떤 인간이다\" 라는 걸 위해서 아등바등 사는데 뭘 갖는 건지도 모르겠고, 어떻게 원하는 걸 갖는다고 해도 나를 안전하게 만들어 준다고 생각했던 것들에, 나라고 생각했던 것들에 금이 가기 시작하면 못견디고 무너지고..."',
     quoteAuthor: '나의 아저씨',
     description:
-      '현대 사회 성인의 수많은 역할과 책임 속 갈등과 스트레스, 어려움을 상담을 통해 나누고 자기 돌봄과 성장의 기회가 되는 것을 목표로 삼습니다.',
+      '현대 사회 성인의 수많은 역할과 책임 속<br class="md:hidden" /> 갈등과 스트레스, 어려움을<br class="md:hidden" /> 상담을 통해 나누고<br class="md:hidden" /> 자기 돌봄과 성장의 기회가 되는 것을<br class="md:hidden" /> 목표로 삼습니다.',
     icon: User,
     color: 'from-orange-400 to-amber-500',
     bgColor: 'bg-orange-50 dark:bg-orange-950/20',
@@ -143,7 +143,7 @@ const therapyPrograms = [
     title: '검사 프로그램',
     subtitle: '개인 맞춤형 평가와 검사',
     description:
-      '각 개인의 어려움과 상황에 맞는 다양한 평가 및 검사를 진행합니다.',
+      '각 개인의 어려움과 상황에 맞는<br class="md:hidden" /> 다양한 평가 및 검사를 진행합니다.',
     icon: ClipboardCheck,
     color: 'from-teal-400 to-cyan-500',
     bgColor: 'bg-teal-50 dark:bg-teal-950/20',
@@ -199,7 +199,7 @@ export default function AboutCenter() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              마음을 치유하고{' '}
+              마음을 치유하고<br className="sm:hidden" />{' '}
               <span className="bg-gradient-to-r from-naranhiGreen to-naranhiYellow bg-clip-text text-transparent">
                 함께 성장
               </span>
@@ -211,9 +211,9 @@ export default function AboutCenter() {
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              개인의 어려움과 상황에 맞는 전문적인 치료와 상담을 통해
+              개인의 어려움과 상황에 맞는<br className="sm:hidden" /> 전문적인 치료와 상담을 통해
               <br />
-              건강한 정신적 성장을 지원합니다.
+              건강한 정신적 성장을<br className="sm:hidden" /> 지원합니다.
             </p>
           </div>
         </div>
@@ -234,7 +234,7 @@ export default function AboutCenter() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              원하는 프로그램을 선택하여 자세한 내용을 확인해보세요
+              원하는 프로그램을 선택하여<br className="sm:hidden" /> 자세한 내용을 확인해보세요
             </p>
           </div>
 
@@ -299,9 +299,10 @@ export default function AboutCenter() {
                   {activeProgram.title}
                 </h3>
 
-                <p className="mx-auto max-w-2xl leading-relaxed text-white/90">
-                  {activeProgram.description}
-                </p>
+                <p 
+                  className="mx-auto max-w-2xl leading-relaxed text-white/90"
+                  dangerouslySetInnerHTML={{ __html: activeProgram.description }}
+                />
               </div>
 
               {/* Quote Section - Distinctive Area */}
@@ -323,12 +324,13 @@ export default function AboutCenter() {
                         &ldquo;
                       </div>
                       
-                      <blockquote className={cn(
-                        "text-lg italic leading-relaxed pl-6 font-medium",
-                        "text-slate-800 dark:text-slate-100"
-                      )}>
-                        {activeProgram.quote.replace(/^"|"$/g, '')}
-                      </blockquote>
+                      <blockquote 
+                        className={cn(
+                          "text-base sm:text-lg italic leading-relaxed pl-6 font-medium break-keep",
+                          "text-slate-800 dark:text-slate-100"
+                        )}
+                        dangerouslySetInnerHTML={{ __html: activeProgram.quote.replace(/^"|"$/g, '').replace(/\. /g, '.<br class="sm:hidden" /> ') }}
+                      />
                       
                       {activeProgram.quoteAuthor && (
                         <div className="mt-4 flex justify-end">
