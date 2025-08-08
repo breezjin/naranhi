@@ -20,10 +20,22 @@ export default function AdminDashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isSupabaseConfigured, setIsSupabaseConfigured] = useState(false)
   const router = useRouter()
   const supabase = createClient()
 
   useEffect(() => {
+    // Supabase 환경변수 확인
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    setIsSupabaseConfigured(!!url && !!key)
+
+    if (!url || !key) {
+      setLoading(false)
+      return
+    }
+
+    
     const checkAuth = async () => {
       try {
         const { data: { user }, error } = await supabase.auth.getUser()
@@ -89,7 +101,7 @@ export default function AdminDashboardPage() {
     }
 
     checkAuth()
-  }, [router])
+  }, [router, supabase])
 
   const handleLogout = async () => {
     try {
@@ -99,6 +111,40 @@ export default function AdminDashboardPage() {
       console.error('Logout error:', error)
       setError('로그아웃 중 오류가 발생했습니다.')
     }
+  }
+
+  // Supabase가 설정되지 않은 경우
+  if (!isSupabaseConfigured) {
+    return (
+      <div className="space-y-6">
+        <div className="rounded-lg border bg-white p-6">
+          <h2 className="mb-2 text-xl font-semibold text-gray-900">
+            관리자 대시보드
+          </h2>
+          <p className="text-gray-600">
+            Supabase 환경변수가 설정되지 않았습니다.
+          </p>
+        </div>
+        
+        <Alert>
+          <AlertDescription>
+            🚧 <strong>개발 중인 시스템입니다.</strong> 
+            실제 사용을 위해서는 Supabase 프로젝트를 설정하고 환경변수를 업데이트해주세요.
+            <br />
+            <br />
+            <strong>다음 단계:</strong>
+            <br />
+            1. Supabase 프로젝트 생성 및 API 키 설정
+            <br />
+            2. 환경변수 설정: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
+            <br />
+            3. 데이터베이스 스키마 생성: <code>yarn db:setup</code>
+            <br />
+            4. 기존 데이터 마이그레이션
+          </AlertDescription>
+        </Alert>
+      </div>
+    )
   }
 
   if (loading) {
