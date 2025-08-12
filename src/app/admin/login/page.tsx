@@ -183,7 +183,7 @@ export default function AdminLoginPage() {
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? '로그인 중...' : '로그인'}
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 variant="outline"
                 className="w-full"
@@ -191,13 +191,9 @@ export default function AdminLoginPage() {
                 disabled={loading}
               >
                 {loading ? '계정 생성 중...' : '관리자 계정 생성'}
-              </Button>
+              </Button> */}
             </div>
           </form>
-          <div className="mt-6 text-center text-sm text-muted-foreground">
-            <p>개발 중인 관리자 시스템입니다.</p>
-            <p>실제 Supabase 프로젝트 설정이 필요합니다.</p>
-          </div>
         </CardContent>
       </Card>
     </div>
