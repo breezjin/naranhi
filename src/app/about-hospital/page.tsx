@@ -23,9 +23,6 @@ interface StaffMember {
   }
 }
 
-interface StaffData {
-  [key: string]: StaffMember[]
-}
 
 export default function AboutHospitalPage() {
   const [medicalStaffs, setMedicalStaffs] = useState<StaffMember[]>([])
@@ -59,7 +56,7 @@ export default function AboutHospitalPage() {
         name: staff.name,
         position: staff.position,
         specialty: staff.specialty,
-        profile_image_url: staff.profileImage,
+        profile_image_url: (staff as any).profileImage || null,
         educations: staff.educations,
         certifications: staff.works,
         experiences: staff.experiences,
@@ -74,8 +71,8 @@ export default function AboutHospitalPage() {
         id: `static-treatment-${idx}`,
         name: staff.name,
         position: staff.position,
-        specialty: staff.specialty,
-        profile_image_url: staff.profileImage,
+        specialty: staff.specialty || undefined,
+        profile_image_url: (staff as any).profileImage || null,
         educations: staff.educations,
         certifications: staff.works,
         experiences: staff.experiences,
