@@ -45,14 +45,49 @@ export default function AboutHospitalPage() {
         throw new Error('Failed to fetch staff data')
       }
       
-      const data = await response.json()
-      setMedicalStaffs(data.data.medical || [])
-      setTreatmentStaffs(data.data.treatment || [])
+      const result = await response.json()
+      setMedicalStaffs(result.data.medical || [])
+      setTreatmentStaffs(result.data.treatment || [])
     } catch (error) {
       console.error('Error fetching staff data:', error)
-      // Fallback to empty arrays on error
-      setMedicalStaffs([])
-      setTreatmentStaffs([])
+      // Fallback to static data
+      const { medicalStaffs: fallbackMedical, treatmentStaffs: fallbackTreatment } = await import('./staffs')
+      
+      // Convert static data to match database format
+      const convertedMedical = fallbackMedical.map((staff, idx) => ({
+        id: `static-medical-${idx}`,
+        name: staff.name,
+        position: staff.position,
+        specialty: staff.specialty,
+        profile_image_url: staff.profileImage,
+        educations: staff.educations,
+        certifications: staff.works,
+        experiences: staff.experiences,
+        display_order: idx,
+        category: {
+          name: 'medical',
+          display_name: '의료진'
+        }
+      }))
+      
+      const convertedTreatment = fallbackTreatment.map((staff, idx) => ({
+        id: `static-treatment-${idx}`,
+        name: staff.name,
+        position: staff.position,
+        specialty: staff.specialty,
+        profile_image_url: staff.profileImage,
+        educations: staff.educations,
+        certifications: staff.works,
+        experiences: staff.experiences,
+        display_order: idx,
+        category: {
+          name: 'therapeutic',
+          display_name: '치료진'
+        }
+      }))
+      
+      setMedicalStaffs(convertedMedical)
+      setTreatmentStaffs(convertedTreatment)
     } finally {
       setLoading(false)
     }
@@ -132,53 +167,74 @@ export default function AboutHospitalPage() {
         </div>
       </div>
       <div className="w-3/5 max-lg:w-full">
-        <Tabs
-          tabs={[
-            {
-              title: '의료진 안내',
-              value: 'medical-staff',
-              content: (
-                <div className="space-y-2">
-                  {medicalStaffs.map((staff, idx) => (
-                    <Staff
-                      key={`${staff.name}-${idx}`}
-                      profileImage={staff.profile_image_url}
-                      position={staff.position}
-                      name={staff.name}
-                      specialty={staff.specialty}
-                      educations={staff.educations}
-                      works={staff.certifications}
-                      experiences={staff.experiences}
-                    />
-                  ))}
-                </div>
-              ),
-            },
-            {
-              title: '치료진 안내',
-              value: 'treatment-staff',
-              content: (
-                <div className="space-y-2">
-                  {treatmentStaffs.map((staff, idx) => (
-                    <Staff
-                      key={`${staff.name}-${idx}`}
-                      profileImage={staff.profile_image_url}
-                      position={staff.position}
-                      name={staff.name}
-                      specialty={staff.specialty}
-                      educations={staff.educations}
-                      works={staff.certifications}
-                      experiences={staff.experiences}
-                    />
-                  ))}
-                </div>
-              ),
-            },
-          ]}
-          defaultValue="medical-staff"
-          className="w-full"
-          data-aos="fade-zoom-in"
-        />
+        {loading ? (
+          <div className="flex h-96 items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-naranhiGreen border-t-transparent"></div>
+              <p className="text-gray-500">직원 정보를 불러오는 중...</p>
+            </div>
+          </div>
+        ) : (
+          <Tabs
+            tabs={[
+              {
+                title: '의료진 안내',
+                value: 'medical-staff',
+                content: (
+                  <div className="space-y-2">
+                    {medicalStaffs.length > 0 ? (
+                      medicalStaffs.map((staff, idx) => (
+                        <Staff
+                          key={`${staff.name}-${idx}`}
+                          profileImage={staff.profile_image_url}
+                          position={staff.position}
+                          name={staff.name}
+                          specialty={staff.specialty}
+                          educations={staff.educations}
+                          works={staff.certifications}
+                          experiences={staff.experiences}
+                        />
+                      ))
+                    ) : (
+                      <div className="flex h-32 items-center justify-center text-gray-500">
+                        등록된 의료진이 없습니다.
+                      </div>
+                    )}
+                  </div>
+                ),
+              },
+              {
+                title: '치료진 안내',
+                value: 'treatment-staff',
+                content: (
+                  <div className="space-y-2">
+                    {treatmentStaffs.length > 0 ? (
+                      treatmentStaffs.map((staff, idx) => (
+                        <Staff
+                          key={`${staff.name}-${idx}`}
+                          profileImage={staff.profile_image_url}
+                          position={staff.position}
+                          name={staff.name}
+                          specialty={staff.specialty}
+                          educations={staff.educations}
+                          works={staff.certifications}
+                          experiences={staff.experiences}
+                        />
+                      ))
+                    ) : (
+                      <div className="flex h-32 items-center justify-center text-gray-500">
+                        등록된 치료진이 없습니다.
+                      </div>
+                    )}
+                  </div>
+                ),
+              },
+            ]}
+            defaultValue="medical-staff"
+            className="w-full"
+            data-aos="fade-zoom-in"
+          />
+        )}
       </div>
     </main>
   );

@@ -46,21 +46,37 @@ export default function NewStaffPage() {
         .order('display_order', { ascending: true })
 
       if (error) {
-        // 카테고리 테이블이 없으면 기본값 사용
-        if (error.code === '42P01' || error.message.includes('does not exist')) {
-          console.warn('staff_categories table does not exist, using default categories')
-          setCategories([
-            { id: '1', name: 'medical', display_name: '의료진' },
-            { id: '2', name: 'therapeutic', display_name: '치료진' }
-          ])
-          return
-        }
+        console.error('Error fetching categories from Supabase:', error)
         throw error
       }
-      setCategories(data || [])
-    } catch (error) {
-      console.error('Error fetching categories:', error)
-      // 폴백으로 기본 카테고리 설정
+
+      if (data && data.length > 0) {
+        // 데이터베이스에서 성공적으로 가져온 경우 id를 문자열로 변환
+        const formattedData = data.map(category => ({
+          ...category,
+          id: category.id.toString()
+        }))
+        setCategories(formattedData)
+        console.log('✅ Categories loaded from database:', formattedData)
+      } else {
+        // 데이터가 없는 경우 기본값 사용
+        console.warn('No categories found in database, using defaults')
+        setCategories([
+          { id: '1', name: 'medical', display_name: '의료진' },
+          { id: '2', name: 'therapeutic', display_name: '치료진' }
+        ])
+      }
+    } catch (error: any) {
+      console.error('Failed to fetch categories:', error)
+      
+      // 에러 타입에 따른 적절한 폴백 처리
+      if (error?.code === '42P01' || error?.message?.includes('does not exist')) {
+        console.warn('staff_categories table does not exist, using default categories')
+      } else if (error?.message?.includes('connection')) {
+        console.warn('Database connection issue, using default categories')
+      }
+      
+      // 모든 경우에 기본 카테고리 설정
       setCategories([
         { id: '1', name: 'medical', display_name: '의료진' },
         { id: '2', name: 'therapeutic', display_name: '치료진' }
@@ -121,13 +137,42 @@ export default function NewStaffPage() {
     }
   }
 
+  // 데이터 검증 함수
+  const validateFormData = () => {
+    const errors: string[] = []
+    
+    if (!formData.name.trim()) {
+      errors.push('이름을 입력해주세요.')
+    } else if (formData.name.length > 100) {
+      errors.push('이름은 100자 이하로 입력해주세요.')
+    }
+    
+    if (!formData.position.trim()) {
+      errors.push('직책을 입력해주세요.')
+    } else if (formData.position.length > 100) {
+      errors.push('직책은 100자 이하로 입력해주세요.')
+    }
+    
+    if (!formData.category_id) {
+      errors.push('카테고리를 선택해주세요.')
+    }
+    
+    if (formData.specialty && formData.specialty.length > 200) {
+      errors.push('전문분야는 200자 이하로 입력해주세요.')
+    }
+    
+    return errors
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!formData.name || !formData.position || !formData.category_id) {
+    // 폼 데이터 검증
+    const validationErrors = validateFormData()
+    if (validationErrors.length > 0) {
       toast({
         title: "입력 오류",
-        description: "필수 항목을 모두 입력해주세요.",
+        description: validationErrors[0],
         variant: "destructive",
       })
       return
@@ -136,13 +181,17 @@ export default function NewStaffPage() {
     setLoading(true)
 
     try {
-      // Filter out empty strings from arrays
+      // 데이터 정제 및 타입 변환
       const cleanedData = {
-        ...formData,
+        name: formData.name.trim(),
+        position: formData.position.trim(),
+        category_id: parseInt(formData.category_id),
+        specialty: formData.specialty?.trim() || null,
+        profile_image_url: formData.profile_image_url || null,
         educations: formData.educations.filter(item => item.trim() !== ''),
         certifications: formData.certifications.filter(item => item.trim() !== ''),
         experiences: formData.experiences.filter(item => item.trim() !== ''),
-        specialty: formData.specialty || null
+        display_order: formData.display_order
       }
 
       const { error } = await supabase
@@ -152,16 +201,36 @@ export default function NewStaffPage() {
       if (error) throw error
 
       toast({
-        title: "직원 추가 완료",
-        description: `${formData.name} 직원이 성공적으로 추가되었습니다.`,
+        title: "✅ 직원 추가 완료",
+        description: `${cleanedData.name} 직원이 성공적으로 추가되었습니다.`,
+        variant: "default",
       })
 
       router.push('/admin/staff')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating staff:', error)
+      
+      // 구체적인 에러 메시지 처리
+      let errorMessage = "직원 추가 중 오류가 발생했습니다."
+      let errorTitle = "추가 실패"
+      
+      if (error?.code === '23503') {
+        errorTitle = "카테고리 오류"
+        errorMessage = "선택한 카테고리가 유효하지 않습니다. 다시 선택해주세요."
+      } else if (error?.code === '23505') {
+        errorTitle = "중복 데이터"
+        errorMessage = "이미 존재하는 직원 정보입니다."
+      } else if (error?.message?.includes('connection')) {
+        errorTitle = "연결 오류"
+        errorMessage = "데이터베이스 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요."
+      } else if (error?.code === '22P02') {
+        errorTitle = "데이터 형식 오류"
+        errorMessage = "입력된 데이터 형식이 올바르지 않습니다. 모든 필드를 다시 확인해주세요."
+      }
+      
       toast({
-        title: "추가 실패",
-        description: "직원 추가 중 오류가 발생했습니다.",
+        title: errorTitle,
+        description: errorMessage,
         variant: "destructive",
       })
     } finally {

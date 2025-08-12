@@ -23,7 +23,6 @@ export async function GET(request: NextRequest) {
         display_order,
         category:staff_categories(name, display_name)
       `)
-      .eq('is_active', true)
       .order('display_order', { ascending: true })
 
     // Filter by category if specified
@@ -41,15 +40,19 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Group staff by category
-    const groupedStaff = data.reduce((acc: any, staff: any) => {
-      const categoryName = staff.category.name
-      if (!acc[categoryName]) {
-        acc[categoryName] = []
+    // Group staff by category with frontend-compatible keys
+    const groupedStaff: any = {
+      medical: [],
+      treatment: []
+    }
+
+    data.forEach((staff: any) => {
+      if (staff.category.name === 'medical') {
+        groupedStaff.medical.push(staff)
+      } else if (staff.category.name === 'therapeutic') {
+        groupedStaff.treatment.push(staff)
       }
-      acc[categoryName].push(staff)
-      return acc
-    }, {})
+    })
 
     return NextResponse.json({ 
       data: groupedStaff,
