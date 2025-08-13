@@ -165,14 +165,37 @@ export default function UploadFacilityPage() {
     try {
       setLoading(true)
 
-      // In a real implementation, you would upload the image to Supabase Storage here
-      // For now, we'll use a placeholder URL
-      const imageUrl = '/placeholder-facility.jpg'
+      // 1. 이미지를 Supabase Storage에 업로드
+      let imageUrl = ''
+      let thumbnailUrl = ''
+      
+      if (imageFile) {
+        const uploadFormData = new FormData()
+        uploadFormData.append('file', imageFile)
+        uploadFormData.append('bucket', 'facility-images')
+        uploadFormData.append('maxSize', (10 * 1024 * 1024).toString()) // 10MB
+        
+        const uploadResponse = await fetch('/api/admin/upload-image', {
+          method: 'POST',
+          body: uploadFormData
+        })
+        
+        if (!uploadResponse.ok) {
+          const errorData = await uploadResponse.json()
+          throw new Error(errorData.error || '이미지 업로드에 실패했습니다.')
+        }
+        
+        const uploadResult = await uploadResponse.json()
+        imageUrl = uploadResult.data.url
+        thumbnailUrl = uploadResult.data.url // 현재는 같은 URL 사용, 향후 썸네일 별도 생성 가능
+        
+        console.log('이미지 업로드 성공:', uploadResult.data)
+      }
       
       const facilityData = {
         ...formData,
         image_url: imageUrl,
-        thumbnail_url: imageUrl // In real implementation, create optimized thumbnail
+        thumbnail_url: thumbnailUrl
       }
 
       const response = await fetch('/api/admin/facilities', {
