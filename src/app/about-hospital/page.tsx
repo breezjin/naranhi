@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Staff from '@/components/layouts/Staff';
 import ArrowLink from '@/components/links/ArrowLink';
 import { buttonVariants } from '@/components/ui/button';
@@ -8,48 +8,50 @@ import { Tabs } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
 interface StaffMember {
-  id: string
-  name: string
-  position: string
-  specialty?: string
-  profile_image_url?: string
-  educations: string[]
-  certifications: string[]
-  experiences: string[]
-  display_order: number
+  id: string;
+  name: string;
+  position: string;
+  specialty?: string;
+  profile_image_url?: string;
+  educations: string[];
+  certifications: string[];
+  experiences: string[];
+  display_order: number;
   category: {
-    name: string
-    display_name: string
-  }
+    name: string;
+    display_name: string;
+  };
 }
 
-
 export default function AboutHospitalPage() {
-  const [medicalStaffs, setMedicalStaffs] = useState<StaffMember[]>([])
-  const [treatmentStaffs, setTreatmentStaffs] = useState<StaffMember[]>([])
-  const [loading, setLoading] = useState(true)
+  const [medicalStaffs, setMedicalStaffs] = useState<StaffMember[]>([]);
+  const [treatmentStaffs, setTreatmentStaffs] = useState<StaffMember[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchStaffData()
-  }, [])
+    fetchStaffData();
+  }, []);
 
   const fetchStaffData = async () => {
     try {
-      setLoading(true)
-      
-      const response = await fetch('/api/staff')
+      setLoading(true);
+
+      const response = await fetch('/api/staff');
       if (!response.ok) {
-        throw new Error('Failed to fetch staff data')
+        throw new Error('Failed to fetch staff data');
       }
-      
-      const result = await response.json()
-      setMedicalStaffs(result.data.medical || [])
-      setTreatmentStaffs(result.data.treatment || [])
+
+      const result = await response.json();
+      setMedicalStaffs(result.data.medical || []);
+      setTreatmentStaffs(result.data.treatment || []);
     } catch (error) {
-      console.error('Error fetching staff data:', error)
+      console.error('Error fetching staff data:', error);
       // Fallback to static data
-      const { medicalStaffs: fallbackMedical, treatmentStaffs: fallbackTreatment } = await import('./staffs')
-      
+      const {
+        medicalStaffs: fallbackMedical,
+        treatmentStaffs: fallbackTreatment,
+      } = await import('./staffs');
+
       // Convert static data to match database format
       const convertedMedical = fallbackMedical.map((staff, idx) => ({
         id: `static-medical-${idx}`,
@@ -63,10 +65,10 @@ export default function AboutHospitalPage() {
         display_order: idx,
         category: {
           name: 'medical',
-          display_name: '의료진'
-        }
-      }))
-      
+          display_name: '의료진',
+        },
+      }));
+
       const convertedTreatment = fallbackTreatment.map((staff, idx) => ({
         id: `static-treatment-${idx}`,
         name: staff.name,
@@ -79,17 +81,16 @@ export default function AboutHospitalPage() {
         display_order: idx,
         category: {
           name: 'therapeutic',
-          display_name: '치료진'
-        }
-      }))
-      
-      setMedicalStaffs(convertedMedical)
-      setTreatmentStaffs(convertedTreatment)
-    } finally {
-      setLoading(false)
-    }
-  }
+          display_name: '치료진',
+        },
+      }));
 
+      setMedicalStaffs(convertedMedical);
+      setTreatmentStaffs(convertedTreatment);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main
@@ -168,7 +169,11 @@ export default function AboutHospitalPage() {
           <div className="flex h-96 items-center justify-center">
             <div className="flex flex-col items-center gap-4">
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-naranhiGreen border-t-transparent"></div>
-              <p className="text-gray-500">직원 정보를 불러오는 중...</p>
+              <p className="text-center text-gray-500">
+                당신과 나란히할 운영진들
+                <br />
+                불러오는 중...
+              </p>
             </div>
           </div>
         ) : (
