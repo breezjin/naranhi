@@ -198,12 +198,20 @@ export default function EditStaffPage({ params }: { params: Promise<{ id: string
         specialty: formData.specialty || null
       }
 
-      const { error } = await supabase
-        .from('staff_members')
-        .update(cleanedData)
-        .eq('id', resolvedParams.id)
+      // Use API route instead of direct Supabase call to bypass RLS
+      const response = await fetch(`/api/admin/staff/${resolvedParams.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cleanedData),
+      })
 
-      if (error) throw error
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to update staff')
+      }
 
       toast({
         title: "수정 완료",
@@ -215,7 +223,7 @@ export default function EditStaffPage({ params }: { params: Promise<{ id: string
       console.error('Error updating staff:', error)
       toast({
         title: "수정 실패",
-        description: "직원 정보 수정 중 오류가 발생했습니다.",
+        description: error instanceof Error ? error.message : "직원 정보 수정 중 오류가 발생했습니다.",
         variant: "destructive",
       })
     } finally {

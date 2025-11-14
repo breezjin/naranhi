@@ -194,11 +194,20 @@ export default function NewStaffPage() {
         display_order: formData.display_order
       }
 
-      const { error } = await supabase
-        .from('staff_members')
-        .insert([cleanedData])
+      // Use API route instead of direct Supabase call to bypass RLS
+      const response = await fetch('/api/admin/staff', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cleanedData),
+      })
 
-      if (error) throw error
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to create staff')
+      }
 
       toast({
         title: "✅ 직원 추가 완료",
@@ -209,25 +218,24 @@ export default function NewStaffPage() {
       router.push('/admin/staff')
     } catch (error: any) {
       console.error('Error creating staff:', error)
-      
+
       // 구체적인 에러 메시지 처리
       let errorMessage = "직원 추가 중 오류가 발생했습니다."
       let errorTitle = "추가 실패"
-      
-      if (error?.code === '23503') {
+
+      if (error?.message?.includes('카테고리')) {
         errorTitle = "카테고리 오류"
         errorMessage = "선택한 카테고리가 유효하지 않습니다. 다시 선택해주세요."
-      } else if (error?.code === '23505') {
+      } else if (error?.message?.includes('duplicate')) {
         errorTitle = "중복 데이터"
         errorMessage = "이미 존재하는 직원 정보입니다."
       } else if (error?.message?.includes('connection')) {
         errorTitle = "연결 오류"
         errorMessage = "데이터베이스 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요."
-      } else if (error?.code === '22P02') {
-        errorTitle = "데이터 형식 오류"
-        errorMessage = "입력된 데이터 형식이 올바르지 않습니다. 모든 필드를 다시 확인해주세요."
+      } else {
+        errorMessage = error?.message || errorMessage
       }
-      
+
       toast({
         title: errorTitle,
         description: errorMessage,

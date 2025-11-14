@@ -116,12 +116,15 @@ export default function StaffManagementPage() {
     if (!confirm(`${name} 직원을 삭제하시겠습니까?`)) return
 
     try {
-      const { error } = await supabase
-        .from('staff_members')
-        .delete()
-        .eq('id', id)
+      // Use API route instead of direct Supabase call to bypass RLS
+      const response = await fetch(`/api/admin/staff/${id}`, {
+        method: 'DELETE',
+      })
 
-      if (error) throw error
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Delete failed')
+      }
 
       setStaffMembers(prev => prev.filter(staff => staff.id !== id))
       toast({
@@ -132,7 +135,7 @@ export default function StaffManagementPage() {
       console.error('Error deleting staff:', error)
       toast({
         title: "삭제 실패",
-        description: "직원 삭제 중 오류가 발생했습니다.",
+        description: error instanceof Error ? error.message : "직원 삭제 중 오류가 발생했습니다.",
         variant: "destructive",
       })
     }
